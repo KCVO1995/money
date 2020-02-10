@@ -1,8 +1,5 @@
 <template>
- <div>
-  Statistics
-  <Nav/>
- </div>
+   <Layout>I am statistics</Layout>
 </template>
 
 <script lang='ts'>
@@ -11,6 +8,4 @@
   };
 </script>
 
-<style lang='scss' scoped>
 
-</style>
