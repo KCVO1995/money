@@ -3,9 +3,11 @@ import App from './App.vue';
 import './registerServiceWorker';
 import router from './router'; // js的潜规则，如果路径是个目录，自动找里面的index
 import store from './store';
+import Nav from '@/components/Nav.vue';
 
 Vue.config.productionTip = false;
 
+Vue.component('Nav', Nav)
 new Vue({
   router, // 引入路由
   store,

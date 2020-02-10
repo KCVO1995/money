@@ -1,10 +1,13 @@
 <template>
- <div>I am Labels</div>
+  <div>
+    I am Labels
+    <Nav/>
+  </div>
 </template>
 
 <script lang='ts'>
   export default {
-    name: "Labels"
+    name: 'Labels',
   };
 </script>
 
