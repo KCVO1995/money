@@ -1,20 +1,18 @@
 <template>
-  <div>
-    <router-link to="/money">
-      记账
-      <Icon name = 'money'/>
-    </router-link>
-    |
-    <router-link to="/labels">
+  <nav>
+    <router-link to="/labels" class="nav-item" active-class="isActive">
+      <Icon name='label'/>
       标签
-      <Icon name = 'label'/>
     </router-link>
-    |
-    <router-link to="/statistics">
+    <router-link to="/money" class="nav-item" active-class="isActive">
+      <Icon name='money'/>
+      记一笔
+    </router-link>
+    <router-link to="/statistics" class="nav-item" active-class="isActive">
+      <Icon name='statistics'/>
       统计
-      <Icon name = 'statistics'/>
     </router-link>
-  </div>
+  </nav>
 </template>
 
 <script lang='ts'>
@@ -22,10 +20,32 @@
   try {
     importAll(require.context('../assets/icons', true, /\.svg$/));
   } catch (e) {
-    console.log(e)
+    console.log(e);
   }
 
   export default {
     name: 'Nav'
   };
 </script>
+
+<style lang="scss">
+  nav {
+    display: flex;
+    justify-content: space-around;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+    font-size: 12px;
+    > .nav-item {
+      padding: 2px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .icon {
+        width: 32px;
+        height: 32px;
+      }
+    }
+    .isActive {
+      color: red;
+    }
+  }
+</style>
