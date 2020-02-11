@@ -5,11 +5,13 @@ import router from './router'; // js的潜规则，如果路径是个目录，�
 import store from './store';
 import Nav from '@/components/Nav.vue';
 import Layout from '@/components/Layout.vue';
+import Icon from '@/components/Icon.vue';
 
 Vue.config.productionTip = false;
 
-Vue.component('Nav', Nav)
-Vue.component('Layout', Layout)
+Vue.component('Nav', Nav);
+Vue.component('Layout', Layout);
+Vue.component('Icon', Icon);
 new Vue({
   router, // 引入路由
   store,
