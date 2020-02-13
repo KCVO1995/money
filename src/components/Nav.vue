@@ -29,6 +29,8 @@
 </script>
 
 <style lang="scss">
+  @import '~@/assets/style/helper.scss';
+
   nav {
     display: flex;
     justify-content: space-around;
@@ -47,7 +49,7 @@
       }
     }
     > .nav-item.selected {
-      color: #000;
+      color: $color-highLight;
     }
   }
 </style>

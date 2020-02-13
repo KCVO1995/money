@@ -9,8 +9,4 @@
 </script>
 
 <style lang='scss'>
-@import "~@/assets/test.scss";
-   .content {
-       color: $red;
-   }
 </style>
