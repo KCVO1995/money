@@ -27,8 +27,8 @@
       background: transparent;
       border: none;
       height: 64px;
-      color: #D9D9D9;
       flex-grow: 1;
+      color: #999;
     }
   }
 </style>

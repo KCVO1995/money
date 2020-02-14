@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-wrapper">
+  <div class="layout-wrapper" :style="{ height: screenHeight +'px' }">
     <div class="content" :class="classPrefix&&`${classPrefix}-content` ">
       <slot/>
     </div>
@@ -9,6 +9,11 @@
 
 <script lang='ts'>
   export default {
+    data() {
+      return {
+        screenHeight: document.documentElement.clientHeight
+      }
+    },
     name: 'Layout',
     props: ['classPrefix']
   };
@@ -18,7 +23,6 @@
   .layout-wrapper {
     display: flex;
     flex-direction: column;
-    height: 100vh;
   }
   .content {
     flex-grow: 1;
