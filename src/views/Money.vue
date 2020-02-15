@@ -2,7 +2,7 @@
   <Layout class-prefix="layout">
     <Tags/>
     <Notes/>
-    <Types prop-a="hei"/>
+    <Types/>
     <NumberPad/>
   </Layout>
 </template>
