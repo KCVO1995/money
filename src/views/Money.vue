@@ -19,22 +19,17 @@
     tags: string[];
     notes: string;
     type: string;
-    amount: number;
+    amount: number; // 数据类型
+    createAt: Date | undefined; // 类 // 构造函数
   }
-  const xxx = () => {
-    const recordList = localStorage.getItem('recordList');
-    if (recordList) {
-      return JSON.parse(recordList);
-    }
-  };
 
   @Component({
     components: {Types, NumberPad, Tags, Notes}
   })
   export default class Money extends Vue {
     tags = ['衣', '食', '住', '行'];
-    recordList: Record[] = [];
-    record: Record = {tags: [], notes: '', type: '-', amount: 0};
+    recordList: Record[] = JSON.parse(localStorage.getItem('recordList') || '[]');
+    record: Record = {tags: [], notes: '', type: '-', amount: 0, createAt: undefined};
 
     onUpdateTags(value: string[]) {
       this.record.tags = value;
@@ -50,7 +45,8 @@
 
     // 不能直接push this.record, this.record是一个对象，每次push，只push了地址，重复push的时候所有的记录都会相同
     saveRecord() {
-      const record2 = JSON.parse(JSON.stringify(this.record));
+      const record2: Record = JSON.parse(JSON.stringify(this.record));
+      record2.createAt = new Date();
       this.recordList.push(record2);
     }
 
