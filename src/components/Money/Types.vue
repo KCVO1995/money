@@ -7,7 +7,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Watch} from 'vue-property-decorator';
 
   @Component
   export default class Types extends Vue {
@@ -19,6 +19,12 @@
       } else {
         throw new Error('请输入+ — ');
       }
+    }
+
+    @Watch('type', {immediate: true})
+    onTypeChange(value: string) {
+
+      this.$emit('update:value', value)
     }
   }
 </script>

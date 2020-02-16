@@ -55,8 +55,12 @@
     }
 
     ok() {
+      if (this.output === '0.') {
+        alert('请输入正确的金额');
+        this.output = '0';
+      }
+      this.$emit('update:value', this.output);
       this.output = '0';
-      console.log('ok');
     }
   }
 </script>
