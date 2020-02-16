@@ -1,9 +1,9 @@
 <template>
   <Layout class-prefix="layout">
-    <Tags  @update:value="onUpdateTags" :data-source.sync="tags"/>
+    <Tags @update:value="onUpdateTags" :data-source.sync="tags"/>
     <Notes @update:value="onUpdateNotes"/>
     <Types :value.sync="record.type"/>
-    <NumberPad @update:value="onUpdateAmount"/>
+    <NumberPad @submit="saveRecord" @update:value="onUpdateAmount"/>
   </Layout>
 </template>
 
@@ -21,28 +21,42 @@
     type: string;
     amount: number;
   }
+  const xxx = () => {
+    const recordList = localStorage.getItem('recordList');
+    if (recordList) {
+      return JSON.parse(recordList);
+    }
+  };
 
   @Component({
     components: {Types, NumberPad, Tags, Notes}
   })
   export default class Money extends Vue {
     tags = ['衣', '食', '住', '行'];
+    recordList: Record[] = [];
     record: Record = {tags: [], notes: '', type: '-', amount: 0};
-    @Watch('record', {deep: true, immediate: true})
-    onRecordChange(record: Record) {
-      console.log(record);
-    }
 
     onUpdateTags(value: string[]) {
-      this.record.tags = value
+      this.record.tags = value;
     }
 
     onUpdateNotes(value: string) {
-      this.record.notes = value
+      this.record.notes = value;
     }
 
     onUpdateAmount(value: string) {
-      this.record.amount = parseFloat(value)
+      this.record.amount = parseFloat(value);
+    }
+
+    // 不能直接push this.record, this.record是一个对象，每次push，只push了地址，重复push的时候所有的记录都会相同
+    saveRecord() {
+      const record2 = JSON.parse(JSON.stringify(this.record));
+      this.recordList.push(record2);
+    }
+
+    @Watch('recordList')
+    onRecordListChange() {
+      localStorage.setItem('recordList', JSON.stringify(this.recordList));
     }
   }
 
