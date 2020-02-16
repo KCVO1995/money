@@ -1,8 +1,8 @@
 <template>
   <Layout class-prefix="layout">
-    <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
+    <Tags  @update:value="onUpdateTags" :data-source.sync="tags"/>
     <Notes @update:value="onUpdateNotes"/>
-    <Types @update:value="onUpdateType"/>
+    <Types :value.sync="record.type"/>
     <NumberPad @update:value="onUpdateAmount"/>
   </Layout>
 </template>
@@ -27,8 +27,8 @@
   })
   export default class Money extends Vue {
     tags = ['衣', '食', '住', '行'];
-    record: Record = {tags: [], notes: '', type: '', amount: 0};
-    @Watch('record', {deep: true})
+    record: Record = {tags: [], notes: '', type: '-', amount: 0};
+    @Watch('record', {deep: true, immediate: true})
     onRecordChange(record: Record) {
       console.log(record);
     }
@@ -39,10 +39,6 @@
 
     onUpdateNotes(value: string) {
       this.record.notes = value
-    }
-
-    onUpdateType(value: string) {
-      this.record.type = value
     }
 
     onUpdateAmount(value: string) {
