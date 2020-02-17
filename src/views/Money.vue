@@ -4,6 +4,7 @@
     <Notes @update:value="onUpdateNotes"/>
     <Types :value.sync="record.type"/>
     <NumberPad @submit="saveRecord" @update:value="onUpdateAmount"/>
+    {{recordList}}
   </Layout>
 </template>
 
@@ -14,22 +15,16 @@
   import NumberPad from '@/components/Money/NumberPad.vue';
   import Tags from '@/components/Money/Tags.vue';
   import Notes from '@/components/Money/Notes.vue';
+  import model from '@/model.ts';
 
-  type Record = {
-    tags: string[];
-    notes: string;
-    type: string;
-    amount: number; // 数据类型
-    createAt: Date | undefined; // 类 // 构造函数
-  }
 
   @Component({
     components: {Types, NumberPad, Tags, Notes}
   })
   export default class Money extends Vue {
     tags = ['衣', '食', '住', '行'];
-    recordList: Record[] = JSON.parse(localStorage.getItem('recordList') || '[]');
-    record: Record = {tags: [], notes: '', type: '-', amount: 0, createAt: undefined};
+    recordList = model.fetch();
+    record: RecordItem = {tags: [], notes: '', type: '-', amount: 0, createAt: undefined};
 
     onUpdateTags(value: string[]) {
       this.record.tags = value;
@@ -45,14 +40,14 @@
 
     // 不能直接push this.record, this.record是一个对象，每次push，只push了地址，重复push的时候所有的记录都会相同
     saveRecord() {
-      const record2: Record = JSON.parse(JSON.stringify(this.record));
-      record2.createAt = new Date();
+      this.record.createAt = new Date();
+      const record2 = model.clone(this.record);
       this.recordList.push(record2);
     }
 
     @Watch('recordList')
     onRecordListChange() {
-      localStorage.setItem('recordList', JSON.stringify(this.recordList));
+      model.save(this.recordList);
     }
   }
 
