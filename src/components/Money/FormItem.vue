@@ -1,5 +1,5 @@
 <template>
-  <label class="notes">
+  <label class="formItem">
     <span class="name">{{fieldName}}</span>
     <input type="text" :value="value" @input="onValueChange($event.target.value)" :placeholder="placeholder">
   </label>
@@ -21,10 +21,9 @@
 </script>
 
 <style lang='scss' scoped>
-  .notes {
+  .formItem {
     display: flex;
     align-items: center;
-    background: #f5f5f5;
     font-size: 14px;
     padding: 0 16px;
 
@@ -35,7 +34,7 @@
     input {
       background: transparent;
       border: none;
-      height: 64px;
+      height: 40px;
       flex-grow: 1;
       color: #999;
     }

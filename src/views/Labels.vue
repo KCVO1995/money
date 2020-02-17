@@ -3,7 +3,7 @@
     <div class="tagList">
       <router-link :to="`/labels/edit/${tag.id}`" class="tag" v-for="tag in tagList" :key="tag.id">
         <span>{{tag.name}}</span>
-          <Icon name="right"/>
+          <Icon name="right" class="rightIcon"/>
       </router-link>
     </div>
     <div class="createTagWrapping">
@@ -39,10 +39,10 @@
 </script>
 
 <style lang='scss' scoped>
+  @import "~@/assets/style/helper.scss";
   .tagList {
+    @extend %bottomShadow;
     background: #ffffff;
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
-
     > .tag {
       border-bottom: 1px solid #e6e6e6;
       margin-left: 16px;
@@ -56,7 +56,7 @@
         color: #000;
       }
 
-      .icon {
+      .rightIcon {
         width: 24px;
         height: 24px;
       }

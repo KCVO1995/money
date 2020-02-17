@@ -1,7 +1,9 @@
 <template>
   <Layout class-prefix="layout">
     <Tags @update:value="onUpdateTags"/>
-    <FormItem :value.sync="record.notes" field-name="备注" placeholder="在这里添加备注"/>
+    <div class="formItemWrapper">
+      <FormItem :value.sync="record.notes" field-name="备注" placeholder="在这里添加备注"/>
+    </div>
     <Types :value.sync="record.type"/>
     <NumberPad @submit="saveRecord" @update:value="onUpdateAmount"/>
   </Layout>
@@ -56,6 +58,9 @@
   .layout-content {
     display: flex;
     flex-direction: column;
+  }
+  .formItemWrapper {
+    padding: 12px 0;
   }
 </style>
 <style lang='scss' scoped>
