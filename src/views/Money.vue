@@ -1,6 +1,6 @@
 <template>
   <Layout class-prefix="layout">
-    <Tags @update:value="onUpdateTags" :data-source.sync="tags"/>
+    <Tags @update:value="onUpdateTags"/>
     <Notes @update:value="onUpdateNotes"/>
     <Types :value.sync="record.type"/>
     <NumberPad @submit="saveRecord" @update:value="onUpdateAmount"/>
@@ -15,14 +15,18 @@
   import Tags from '@/components/Money/Tags.vue';
   import Notes from '@/components/Money/Notes.vue';
   import recordListModel from '@/models/recordListModel';
+  import tagListModel from '@/models/tagListModel';
+
+  const recordList = recordListModel.fetch();
+  const tagList = tagListModel.fetch();
 
 
   @Component({
     components: {Types, NumberPad, Tags, Notes}
   })
   export default class Money extends Vue {
-    tags = ['衣', '食', '住', '行'];
-    recordList = recordListModel.fetch();
+    tags = tagList;
+    recordList = recordList;
     record: RecordItem = {tags: [], notes: '', type: '-', amount: 0, createAt: undefined};
 
     onUpdateTags(value: string[]) {
