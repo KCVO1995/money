@@ -9,7 +9,7 @@
   import {Component, Prop, Watch} from 'vue-property-decorator';
 
   @Component
-  export default class Notes extends Vue {
+  export default class FormItem extends Vue {
     value = '';
     @Prop(String) fieldName: string | undefined;
     @Prop({default: ''}) placeholder: string | undefined;
