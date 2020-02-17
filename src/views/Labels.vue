@@ -1,9 +1,11 @@
 <template>
   <Layout class="global">
     <ol>
-      <li v-for="tag in tagList" :key="tag">
-        <span>{{tag}}</span>
-        <Icon name="right"/>
+      <li v-for="tag in tagList" :key="tag.id">
+        <span>{{tag.name}}</span>
+        <router-link to="/labels/edit">
+          <Icon name="right"/>
+        </router-link>
       </li>
     </ol>
     <div class="createTagWrapping">
@@ -54,7 +56,7 @@
         color: #000;
       }
 
-      > .icon {
+      a > .icon {
         width: 24px;
         height: 24px;
       }
