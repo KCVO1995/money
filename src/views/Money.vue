@@ -4,7 +4,6 @@
     <Notes @update:value="onUpdateNotes"/>
     <Types :value.sync="record.type"/>
     <NumberPad @submit="saveRecord" @update:value="onUpdateAmount"/>
-    {{recordList}}
   </Layout>
 </template>
 
@@ -15,7 +14,7 @@
   import NumberPad from '@/components/Money/NumberPad.vue';
   import Tags from '@/components/Money/Tags.vue';
   import Notes from '@/components/Money/Notes.vue';
-  import model from '@/model.ts';
+  import recordListModel from '@/models/recordListModel';
 
 
   @Component({
@@ -23,7 +22,7 @@
   })
   export default class Money extends Vue {
     tags = ['衣', '食', '住', '行'];
-    recordList = model.fetch();
+    recordList = recordListModel.fetch();
     record: RecordItem = {tags: [], notes: '', type: '-', amount: 0, createAt: undefined};
 
     onUpdateTags(value: string[]) {
@@ -41,13 +40,13 @@
     // 不能直接push this.record, this.record是一个对象，每次push，只push了地址，重复push的时候所有的记录都会相同
     saveRecord() {
       this.record.createAt = new Date();
-      const record2 = model.clone(this.record);
+      const record2 = recordListModel.clone(this.record);
       this.recordList.push(record2);
     }
 
     @Watch('recordList')
     onRecordListChange() {
-      model.save(this.recordList);
+      recordListModel.save(this.recordList);
     }
   }
 
