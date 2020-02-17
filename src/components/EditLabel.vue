@@ -6,7 +6,7 @@
     </div>
     <FormItem field-name="标签名" :placeholder="tagName"/>
     <div>
-      <button>删除标签</button>
+      <Button>删除标签</Button>
     </div>
   </Layout>
 </template>
@@ -16,9 +16,10 @@
   import {Component} from 'vue-property-decorator';
   import tagListModel from '@/models/tagListModel';
   import FormItem from '@/components/Money/FormItem.vue';
+  import Button from '@/components/Button.vue';
 
   @Component({
-    components: {FormItem}
+    components: {Button, FormItem}
   })
   export default class EditLabel extends Vue {
     tagName = '';

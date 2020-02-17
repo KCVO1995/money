@@ -1,7 +1,7 @@
 <template>
   <Layout class-prefix="layout">
     <Tags @update:value="onUpdateTags"/>
-    <FormItem @update:value="onUpdateNotes" field-name="备注" placeholder="在这里添加备注"/>
+    <FormItem :value.sync="record.notes" field-name="备注" placeholder="在这里添加备注"/>
     <Types :value.sync="record.type"/>
     <NumberPad @submit="saveRecord" @update:value="onUpdateAmount"/>
   </Layout>
@@ -31,10 +31,6 @@
 
     onUpdateTags(value: string[]) {
       this.record.tags = value;
-    }
-
-    onUpdateNotes(value: string) {
-      this.record.notes = value;
     }
 
     onUpdateAmount(value: string) {
