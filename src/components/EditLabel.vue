@@ -8,7 +8,7 @@
       <Icon class="rightIcon"/>
     </div>
     <div class="form-wrapper">
-      <FormItem field-name="标签名" :placeholder="tagName"/>
+      <FormItem field-name="标签名" :placeholder="tag.name" @update:value="update"/>
     </div>
     <div class="buttonWrapper">
       <Button>删除标签</Button>
@@ -27,18 +27,23 @@
     components: {Button, FormItem}
   })
   export default class EditLabel extends Vue {
-    tagName = '';
+    tag?: Tag = undefined;
 
     created() {
       console.log(this.$route.params);
-      const id = this.$route.params.id;
+      const id = parseInt(this.$route.params.id);
       tagListModel.fetch();
       const tags = tagListModel.data;
       const tag = tags.filter(tag => tag.id === id)[0];
       if (tag) {
-        this.tagName = tag.name
+        this.tag = tag
       } else {
         this.$router.replace('/404');
+      }
+    }
+    update(name: string) {
+      if (this.tag) {
+        tagListModel.update(this.tag.id, name)
       }
     }
 
