@@ -6,7 +6,7 @@
       <Icon class="rightIcon"/>
     </div>
     <div class="form-wrapper">
-      <FormItem field-name="标签名" :placeholder="tag.name" @update:value="update"/>
+      <FormItem field-name="标签名" :placeholder="needPlaceholder && tag.name" @update:value="update"/>
     </div>
     <div class="buttonWrapper">
       <Button @click="remove">删除标签</Button>
@@ -26,6 +26,7 @@
   })
   export default class EditLabel extends Vue {
     tag?: Tag = undefined;
+    needPlaceholder = true;
 
     created() {
       console.log(this.$route.params);
@@ -41,11 +42,12 @@
     }
 
     goBack() {
-      this.$router.back()
+      this.$router.back();
     }
 
     update(name: string) {
       if (this.tag) {
+        this.needPlaceholder = name !== '';
         tagListModel.update(this.tag.id, name);
       }
     }
