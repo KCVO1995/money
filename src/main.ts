@@ -11,9 +11,14 @@ import recordListModel from '@/models/recordListModel';
 
 Vue.config.productionTip = false;
 
+// record store
+window.recordList = recordListModel.fetch();
+
+
+// tag store
 window.tagList = tagListModel.fetch();
 window.findTag = (id: number) => {
-  return window.tagList.filter(tag => tag.id === id)[0]
+  return window.tagList.filter(tag => tag.id === id)[0];
 };
 window.createTag = (name: string) => {
   const message = tagListModel.create(name);
@@ -27,7 +32,6 @@ window.removeTag = (id: number) => {
 window.updateTag = (id: number, name: string) => {
   return tagListModel.update(id, name);
 };
-window.recordList = recordListModel.fetch();
 
 Vue.component('Nav', Nav);
 Vue.component('Layout', Layout);
