@@ -31,8 +31,7 @@
     created() {
       console.log(this.$route.params);
       const id = parseInt(this.$route.params.id);
-      tagListModel.fetch();
-      const tags = tagListModel.data;
+      const tags = window.tagList;
       const tag = tags.filter(tag => tag.id === id)[0];
       if (tag) {
         this.tag = tag;
