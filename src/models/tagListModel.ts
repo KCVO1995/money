@@ -13,16 +13,20 @@ const tagListModel = {
     localStorage.setItem(localStorageKeyName, JSON.stringify(this.data));
   },
   create(name: string) {
+    let message: message;
     const names = this.data.map(item => item.name);
     if (names.indexOf(name) >= 0) {
-      return 'duplicated';
+      message = 'duplicated';
+      return message;
     }
     const id = createId();
     this.data.push({id: id, name: name});
     this.save();
-    return 'success';
+    message = 'success';
+    return message;
   },
   update(id: number, name: string) {
+    let message: message;
     const idList = this.data.map(item => item.id);
     if (idList.indexOf(id) >= 0) {
       const names = this.data.map(item => item.name);
@@ -30,13 +34,16 @@ const tagListModel = {
         const tag = this.data.filter(item => item.id === id)[0];
         tag.name = name;
         this.save();
-        return 'success';
+        message = 'success';
+        return message;
       } else {
-        return 'duplicate';
+        message = 'duplicated';
+        return message;
       }
 
     } else {
-      return 'not found';
+      message = 'not found';
+      return message;
     }
   },
   remove(id: number) {

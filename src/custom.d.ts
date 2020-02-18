@@ -9,3 +9,4 @@ type Tag = {
   id: number;
   name: string;
 }
+type message = 'duplicated' | 'success' | 'not found'
