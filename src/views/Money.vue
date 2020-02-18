@@ -38,14 +38,12 @@
 
     // 不能直接push this.record, this.record是一个对象，每次push，只push了地址，重复push的时候所有的记录都会相同
     saveRecord() {
-      this.record.createAt = new Date();
-      const record2 = recordListModel.clone(this.record);
-      this.recordList.push(record2);
+      recordListModel.add(this.record)
     }
 
     @Watch('recordList')
     onRecordListChange() {
-      recordListModel.save(this.recordList);
+      recordListModel.save();
     }
   }
 
