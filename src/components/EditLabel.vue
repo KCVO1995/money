@@ -53,9 +53,13 @@
 
     remove() {
       if (this.tag) {
-        tagListModel.remove(this.tag.id);
+        if (window.removeTag(this.tag.id)) {
+          this.$router.back();
+        } else {
+          alert('删除失败');
+        }
+
       }
-      this.$router.back();
     }
 
   }

@@ -13,5 +13,7 @@ type message = 'duplicated' | 'success' | 'not found'
 
 interface Window {
   tagList: Tag[];
+  createTag: (name: string) => void;
+  removeTag: (id: number) => boolean;
   recordList: RecordItem[];
 }

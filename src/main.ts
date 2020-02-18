@@ -12,6 +12,15 @@ import recordListModel from '@/models/recordListModel';
 Vue.config.productionTip = false;
 
 window.tagList = tagListModel.fetch();
+window.createTag = (name: string) => {
+  const message = tagListModel.create(name);
+  if (message === 'duplicated') {
+    alert('便签名重复');
+  }
+};
+window.removeTag = (id: number) => {
+  return tagListModel.remove(id);
+};
 window.recordList = recordListModel.fetch();
 
 Vue.component('Nav', Nav);

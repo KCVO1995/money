@@ -14,7 +14,6 @@
 <script lang='ts'>
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
-  import tagListModel from '@/models/tagListModel';
 
 
   @Component
@@ -36,10 +35,7 @@
     create() {
       const name = prompt('请输入标签名');
       if (name) {
-        const message = tagListModel.create(name);
-        if (message === 'duplicated') {
-          alert('便签名重复')
-        }
+        window.createTag(name);
       }
     }
 

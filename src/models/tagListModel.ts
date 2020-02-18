@@ -54,8 +54,12 @@ const tagListModel = {
         break;
       }
     }
+    if (index === -1) {
+      return false
+    }
     this.data.splice(index, 1);
     this.save();
+    return true
   }
 
 };

@@ -3,7 +3,7 @@
     <div class="tagList">
       <router-link :to="`/labels/edit/${tag.id}`" class="tag" v-for="tag in tagList" :key="tag.id">
         <span>{{tag.name}}</span>
-          <Icon name="right" class="rightIcon"/>
+        <Icon name="right" class="rightIcon"/>
       </router-link>
     </div>
     <div class="createTagWrapping">
@@ -15,7 +15,6 @@
 <script lang='ts'>
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
-  import tagListModel from '@/models/tagListModel';
   import Button from '@/components/Button.vue';
 
   @Component({
@@ -27,10 +26,7 @@
     createTag() {
       const name = prompt('请输入标签名');
       if (name) {
-        const message = tagListModel.create(name);
-        if (message === 'duplicated') {
-          alert('便签名重复')
-        }
+        window.createTag(name);
       }
     }
 
@@ -39,9 +35,11 @@
 
 <style lang='scss' scoped>
   @import "~@/assets/style/helper.scss";
+
   .tagList {
     @extend %bottomShadow;
     background: #ffffff;
+
     > .tag {
       border-bottom: 1px solid #e6e6e6;
       margin-left: 16px;
