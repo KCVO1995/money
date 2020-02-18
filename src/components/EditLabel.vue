@@ -11,7 +11,7 @@
       <FormItem field-name="标签名" :placeholder="tag.name" @update:value="update"/>
     </div>
     <div class="buttonWrapper">
-      <Button>删除标签</Button>
+      <Button @click="remove">删除标签</Button>
     </div>
   </Layout>
 </template>
@@ -45,6 +45,12 @@
       if (this.tag) {
         tagListModel.update(this.tag.id, name)
       }
+    }
+    remove() {
+      if (this.tag) {
+        tagListModel.remove(this.tag.id)
+      }
+      this.$router.back()
     }
 
   }
