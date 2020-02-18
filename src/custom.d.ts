@@ -18,4 +18,5 @@ interface Window {
   updateTag: (id: number, name: string) => message;
   findTag: (id: number) => Tag | undefined;
   recordList: RecordItem[];
+  addRecord: (record: RecordItem) => void;
 }

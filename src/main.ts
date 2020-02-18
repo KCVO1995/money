@@ -13,6 +13,9 @@ Vue.config.productionTip = false;
 
 // record store
 window.recordList = recordListModel.fetch();
+window.addRecord = (record: RecordItem) => {
+  recordListModel.add(record);
+};
 
 
 // tag store

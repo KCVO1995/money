@@ -16,7 +16,6 @@
   import NumberPad from '@/components/Money/NumberPad.vue';
   import Tags from '@/components/Money/Tags.vue';
   import FormItem from '@/components/Money/FormItem.vue';
-  import recordListModel from '@/models/recordListModel';
 
 
 
@@ -35,9 +34,8 @@
       this.record.amount = parseFloat(value);
     }
 
-    // 不能直接push this.record, this.record是一个对象，每次push，只push了地址，重复push的时候所有的记录都会相同
     saveRecord() {
-      recordListModel.add(this.record)
+      window.addRecord(this.record)
     }
 
   }
