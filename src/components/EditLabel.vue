@@ -1,9 +1,7 @@
 <template>
   <Layout>
     <div class="navBar">
-      <router-link to="/labels">
-        <Icon name="left" class="leftIcon"/>
-      </router-link>
+      <Icon name="left" class="leftIcon" @click="goBack"/>
       <span class="title">编辑标签</span>
       <Icon class="rightIcon"/>
     </div>
@@ -36,21 +34,27 @@
       const tags = tagListModel.data;
       const tag = tags.filter(tag => tag.id === id)[0];
       if (tag) {
-        this.tag = tag
+        this.tag = tag;
       } else {
         this.$router.replace('/404');
       }
     }
+
+    goBack() {
+      this.$router.back()
+    }
+
     update(name: string) {
       if (this.tag) {
-        tagListModel.update(this.tag.id, name)
+        tagListModel.update(this.tag.id, name);
       }
     }
+
     remove() {
       if (this.tag) {
-        tagListModel.remove(this.tag.id)
+        tagListModel.remove(this.tag.id);
       }
-      this.$router.back()
+      this.$router.back();
     }
 
   }
@@ -59,6 +63,7 @@
 
 <style lang='scss' scoped>
   @import "~@/assets/style/helper.scss";
+
   .navBar {
     text-align: center;
     font-size: 16px;
@@ -67,22 +72,27 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     > .title {
     }
+
     > a > .leftIcon {
       width: 24px;
       height: 24px;
     }
+
     > .rightIcon {
       width: 24px;
       height: 24px;
     }
   }
+
   .form-wrapper {
     @extend %bottomShadow;
     background: #fff;
     margin-top: 8px;
   }
+
   .buttonWrapper {
     text-align: center;
     margin-top: 44px;
