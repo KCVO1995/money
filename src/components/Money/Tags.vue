@@ -16,11 +16,10 @@
   import {Component} from 'vue-property-decorator';
   import tagListModel from '@/models/tagListModel';
 
-  tagListModel.fetch();
 
   @Component
   export default class Tags extends Vue {
-    tagList = tagListModel.data;
+    tagList = window.tagList;
     selectedTags: string[] = [];
 
 

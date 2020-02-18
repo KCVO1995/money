@@ -18,14 +18,13 @@
   import FormItem from '@/components/Money/FormItem.vue';
   import recordListModel from '@/models/recordListModel';
 
-  recordListModel.fetch();
 
 
   @Component({
     components: {FormItem, Types, NumberPad, Tags}
   })
   export default class Money extends Vue {
-    recordList = recordListModel.data;
+    recordList = window.recordList;
     record: RecordItem = {tags: [], notes: '', type: '-', amount: 0, createAt: undefined};
 
     onUpdateTags(value: string[]) {

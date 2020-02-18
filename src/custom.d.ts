@@ -10,3 +10,8 @@ type Tag = {
   name: string;
 }
 type message = 'duplicated' | 'success' | 'not found'
+
+interface Window {
+  tagList: Tag[];
+  recordList: RecordItem[];
+}

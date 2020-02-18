@@ -6,8 +6,13 @@ import store from './store';
 import Nav from '@/components/Nav.vue';
 import Layout from '@/components/Layout.vue';
 import Icon from '@/components/Icon.vue';
+import tagListModel from '@/models/tagListModel';
+import recordListModel from '@/models/recordListModel';
 
 Vue.config.productionTip = false;
+
+window.tagList = tagListModel.fetch();
+window.recordList = recordListModel.fetch();
 
 Vue.component('Nav', Nav);
 Vue.component('Layout', Layout);
