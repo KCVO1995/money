@@ -6,7 +6,7 @@
       <Icon class="rightIcon"/>
     </div>
     <div class="form-wrapper">
-      <FormItem field-name="标签名" :placeholder="needPlaceholder && tag.name" @update:value="update"/>
+      <FormItem field-name="标签名" :placeholder="tag.name" @update:value="update"/>
     </div>
     <div class="buttonWrapper">
       <Button @click="remove">删除标签</Button>
@@ -25,17 +25,13 @@
   })
   export default class EditLabel extends Vue {
     tag?: Tag = undefined;
-    needPlaceholder = true;
+    // needPlaceholder = true;
 
     created() {
-      console.log(this.$route.params);
-      const id = parseInt(this.$route.params.id);
-      const tag = window.findTag(id);
-      if (tag) {
-        this.tag = tag;
-      } else {
-        this.$router.replace('/404');
-      }
+        this.tag = window.findTag(parseInt(this.$route.params.id));
+        if (!this.tag) {
+          this.$router.replace('/404');
+        }
     }
 
     goBack() {
@@ -44,7 +40,7 @@
 
     update(name: string) {
       if (this.tag) {
-        this.needPlaceholder = name !== '';
+      //  this.needPlaceholder = name !== '';
         window.updateTag(this.tag.id, name)
       }
     }
