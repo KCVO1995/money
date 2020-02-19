@@ -1,8 +1,24 @@
-import recordListModel from '@/models/recordListModel';
+import clone from '@/lib/clone';
 
-export default {
-  recordList: recordListModel.fetch(),
+const localStorageKeyName = 'recordList';
+
+const recordStore = {
+  recordList: [] as RecordItem[],
+  fetchRecords() {
+    this.recordList = JSON.parse(localStorage.getItem(localStorageKeyName) || '[]') as RecordItem[];
+    return this.recordList;
+  },
+  saveRecords() {
+    localStorage.setItem(localStorageKeyName, JSON.stringify(this.recordList));
+  },
   addRecord(record: RecordItem) {
-    recordListModel.add(record);
+    record.createAt = new Date();
+    const newRecord = clone(record);
+    this.recordList.push(newRecord);
+    this.saveRecords();
   },
 };
+recordStore.fetchRecords();
+
+export default recordStore;
+
