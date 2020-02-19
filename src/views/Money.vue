@@ -1,6 +1,6 @@
 <template>
   <Layout class-prefix="layout">
-    <Tags @update:value="onUpdateTags"/>
+    <Tags :selected-tags.sync="record.selectedTags"/>
     <div class="formItemWrapper">
       <FormItem :value.sync="record.notes" field-name="备注" placeholder="在这里添加备注"/>
     </div>
@@ -19,16 +19,15 @@
   import store from '@/store/index2';
 
 
-
   @Component({
     components: {FormItem, Types, NumberPad, Tags}
   })
   export default class Money extends Vue {
     recordList = store.recordList;
-    record: RecordItem = {tags: [], notes: '', type: '-', amount: 0, createAt: undefined};
+    record: RecordItem = {selectedTags: [], notes: '', type: '-', amount: 0, createAt: undefined};
 
     onUpdateTags(value: string[]) {
-      this.record.tags = value;
+      this.record.selectedTags = value;
     }
 
     onUpdateAmount(value: string) {
@@ -37,6 +36,8 @@
 
     saveRecord() {
       store.addRecord(this.record);
+      this.record.notes = '';
+      this.record.selectedTags = [];
     }
 
   }
@@ -48,6 +49,7 @@
     display: flex;
     flex-direction: column;
   }
+
   .formItemWrapper {
     padding: 12px 0;
   }

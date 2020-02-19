@@ -1,11 +1,11 @@
 <template>
   <div class="tags">
     <div class="new">
-      <button @click="create">新增标签</button>
+      <button @click="createTag">新增标签</button>
     </div>
     <ul class="current">
       <li v-for="tag in tagList" :key="tag.id" @click="toggle(tag.name)"
-          :class="{selected: selectedTags.indexOf(tag.name) >= 0}">{{tag.name}}
+          :class="{selected: selectedTags && selectedTags.indexOf(tag.name) >= 0}">{{tag.name}}
       </li>
     </ul>
   </div>
@@ -13,27 +13,29 @@
 
 <script lang='ts'>
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
   import store from '@/store/index2';
 
 
   @Component
   export default class Tags extends Vue {
     tagList = store.tagList;
-    selectedTags: string[] = [];
+    @Prop() selectedTags: string[] | undefined;
 
 
     toggle(tagName: string) {
-      const index = this.selectedTags.indexOf(tagName);
-      if (index >= 0) {
-        this.selectedTags.splice(index, 1);
-      } else {
-        this.selectedTags.push(tagName);
+      if (this.selectedTags) {
+        const index = this.selectedTags.indexOf(tagName);
+        if (index >= 0) {
+          this.selectedTags.splice(index, 1);
+        } else {
+          this.selectedTags.push(tagName);
+        }
+        this.$emit('update:value', this.selectedTags);
       }
-      this.$emit('update:value', this.selectedTags);
     }
 
-    create() {
+    createTag() {
       const name = prompt('请输入标签名');
       if (name) {
         store.createTag(name);
