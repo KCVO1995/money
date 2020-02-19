@@ -28,7 +28,7 @@
     needPlaceholder = true;
 
     created() {
-      this.tag = window.findTag(parseInt(this.$route.params.id));
+      this.tag = window.store.findTag(parseInt(this.$route.params.id));
       if (!this.tag) {
         this.$router.replace('/404');
       }
@@ -41,13 +41,13 @@
     update(name: string) {
       if (this.tag) {
         this.needPlaceholder = false;
-        window.updateTag(this.tag.id, name);
+        window.store.updateTag(this.tag.id, name);
       }
     }
 
     remove() {
       if (this.tag) {
-        if (window.removeTag(this.tag.id)) {
+        if (window.store.removeTag(this.tag.id)) {
           this.$router.back();
         } else {
           alert('删除失败');

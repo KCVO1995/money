@@ -11,7 +11,7 @@ type Tag = {
 }
 type message = 'duplicated' | 'success' | 'not found'
 
-interface Window {
+type Store = {
   tagList: Tag[];
   createTag: (name: string) => void;
   removeTag: (id: number) => boolean;
@@ -20,3 +20,8 @@ interface Window {
   recordList: RecordItem[];
   addRecord: (record: RecordItem) => void;
 }
+
+interface Window {
+  store: Store;
+}
+

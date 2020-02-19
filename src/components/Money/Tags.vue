@@ -18,7 +18,7 @@
 
   @Component
   export default class Tags extends Vue {
-    tagList = window.tagList;
+    tagList = window.store.tagList;
     selectedTags: string[] = [];
 
 
@@ -35,7 +35,7 @@
     create() {
       const name = prompt('请输入标签名');
       if (name) {
-        window.createTag(name);
+        window.store.createTag(name);
       }
     }
 
