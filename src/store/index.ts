@@ -29,7 +29,6 @@ const store = new Vuex.Store({
     // ---------------------------
     fetchTags(state) {
       state.tagList = JSON.parse(localStorage.getItem('tagList') || JSON.stringify(state.reset));
-      console.log(1);
     },
     createTag(state, name: string) {
       const names = state.tagList.map(item => item.name);
@@ -81,6 +80,5 @@ const store = new Vuex.Store({
 
 store.commit('fetchRecords');
 store.commit('fetchTags');
-console.log(store.state.recordList);
 
 export default store;
