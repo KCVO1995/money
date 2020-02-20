@@ -6,7 +6,7 @@
       <Icon class="rightIcon"/>
     </div>
     <div class="form-wrapper">
-      <FormItem field-name="标签名" :placeholder="needPlaceholder && foundTag.name" @update:value="update"/>
+      <FormItem field-name="标签名" placeholder="请输入标签名" @update:value="update" :value="foundTag.name"/>
     </div>
     <div class="buttonWrapper">
       <Button @click="remove">删除标签</Button>
