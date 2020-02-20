@@ -29,7 +29,7 @@
     needPlaceholder = true;
 
     created() {
-      //TODO
+      // TODO
       // this.tag = store.commit('findTag', parseInt(this.$route.params.id));
       if (!this.tag) {
         this.$router.replace('/404');
