@@ -6,7 +6,7 @@
       <Icon class="rightIcon"/>
     </div>
     <div class="form-wrapper">
-      <FormItem field-name="标签名" :placeholder="needPlaceholder && tag.name" @update:value="update"/>
+      <FormItem field-name="标签名" :placeholder="needPlaceholder && foundTag.name" @update:value="update"/>
     </div>
     <div class="buttonWrapper">
       <Button @click="remove">删除标签</Button>
@@ -25,13 +25,15 @@
     components: {Button, FormItem},
   })
   export default class EditLabel extends Vue {
-    tag?: Tag = undefined;
+    get foundTag() {
+      return store.state.foundTag;
+    }
+
     needPlaceholder = true;
 
     created() {
-      // TODO
-      // this.tag = store.commit('findTag', parseInt(this.$route.params.id));
-      if (!this.tag) {
+      store.commit('findTag', parseInt(this.$route.params.id));
+      if (!this.foundTag) {
         this.$router.replace('/404');
       }
     }
@@ -41,26 +43,19 @@
     }
 
     update(name: string) {
-      if (this.tag) {
+      if (this.foundTag) {
         this.needPlaceholder = false;
-        // TODO
-        // store.updateTag(this.tag.id, name);
+        store.commit('updateTag', {id: this.foundTag.id, name});
       }
     }
 
     remove() {
-      if (this.tag) {
-        // TODO
-        // if (store.removeTag(this.tag.id)) {
-        //   this.$router.back();
-        // } else {
-        //   alert('删除失败');
-        // }
-
+      if (this.foundTag) {
+        store.commit('removeTag', this.foundTag.id);
       }
     }
-
   }
+
 
 </script>
 

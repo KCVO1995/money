@@ -18,14 +18,12 @@
   import CreateTag from '@/mixins/CreateTag.vue';
 
 
-  @Component({
-    computed: {
-      tagList() {
-        return store.state.tagList;
-      }
-    }
-  })
+  @Component
   export default class Tags extends mixins(CreateTag) {
+    get tagList() {
+      return store.state.tagList;
+    }
+
     @Prop() selectedTags: string[] | undefined;
 
     toggle(tagName: string) {

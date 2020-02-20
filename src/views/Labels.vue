@@ -21,13 +21,13 @@
 
   @Component({
     components: {Button},
-    computed: {
-      tagList() {
-        return store.state.tagList;
-      }
-    }
   })
-  export default class Labels extends mixins(CreateTag) {}
+  export default class Labels extends mixins(CreateTag) {
+    get tagList() {
+      return store.state.tagList;
+    }
+
+  }
 </script>
 
 <style lang='scss' scoped>
