@@ -1,15 +1,15 @@
 <template>
-  <ul class="types">
-    <li :class="{[classPrefix + '-item']: classPrefix, selected: value === '-'}" @click="selectType('-')">支出</li>
-    <li :class="{[classPrefix + '-item']: classPrefix, selected: value === '+'}" @click="selectType('+')">收入</li>
-  </ul>
+  <Tabs data-source=""/>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import {Component, Prop} from 'vue-property-decorator';
+  import Tabs from '@/components/Tabs.vue';
 
-  @Component
+  @Component({
+    components: {Tabs}
+  })
   export default class Types extends Vue {
     @Prop(String) readonly value: string | undefined;
     @Prop(String) readonly classPrefix: string | undefined;

@@ -30,21 +30,16 @@
   import {Component} from 'vue-property-decorator';
   import Types from '@/components/Money/Types.vue';
   import Tabs from '@/components/Tabs.vue';
+  import intervalList from '@/constants/intervalList';
+  import typeList from '@/constants/typeList';
 
   @Component({
     components: {Tabs, Types}
   })
   export default class Statistics extends Vue {
-    intervalList = [
-      {text: '按天', value: 'day'},
-      {text: '按周', value: 'week'},
-      {text: '按月', value: 'mouth'},
-    ];
+    intervalList = intervalList;
     interval = 'day';
-    typeList = [
-      {text: '支出', value: '-'},
-      {text: '收入', value: '+'},
-    ];
+    typeList = typeList;
     type = '-';
   }
 
