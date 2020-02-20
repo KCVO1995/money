@@ -21,7 +21,10 @@
         display: none;
       }
     }
+  }
 
+  ::v-deep .interval-tabs-item {
+    height: 40px;
   }
 </style>
 
