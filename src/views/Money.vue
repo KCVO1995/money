@@ -26,10 +26,6 @@
     recordList = store.recordList;
     record: RecordItem = {selectedTags: [], notes: '', type: '-', amount: 0, createAt: undefined};
 
-    onUpdateTags(value: string[]) {
-      this.record.selectedTags = value;
-    }
-
     onUpdateAmount(value: string) {
       this.record.amount = parseFloat(value);
     }
