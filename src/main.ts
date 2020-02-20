@@ -15,6 +15,7 @@ Vue.component('Layout', Layout);
 Vue.component('Icon', Icon);
 new Vue({
   router, // 引入路由
-  store,
+  store,  // 引入store到vue
+  // 原型上
   render: h => h(App)
 }).$mount('#app');

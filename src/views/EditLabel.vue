@@ -19,17 +19,18 @@
   import {Component} from 'vue-property-decorator';
   import FormItem from '@/components/Money/FormItem.vue';
   import Button from '@/components/Button.vue';
-  import store from '@/store/index2';
+  import store from '@/store/index';
 
   @Component({
-    components: {Button, FormItem}
+    components: {Button, FormItem},
   })
   export default class EditLabel extends Vue {
     tag?: Tag = undefined;
     needPlaceholder = true;
 
     created() {
-      this.tag = store.findTag(parseInt(this.$route.params.id));
+      //TODO
+      // this.tag = store.commit('findTag', parseInt(this.$route.params.id));
       if (!this.tag) {
         this.$router.replace('/404');
       }
@@ -42,17 +43,19 @@
     update(name: string) {
       if (this.tag) {
         this.needPlaceholder = false;
-        store.updateTag(this.tag.id, name);
+        // TODO
+        // store.updateTag(this.tag.id, name);
       }
     }
 
     remove() {
       if (this.tag) {
-        if (store.removeTag(this.tag.id)) {
-          this.$router.back();
-        } else {
-          alert('删除失败');
-        }
+        // TODO
+        // if (store.removeTag(this.tag.id)) {
+        //   this.$router.back();
+        // } else {
+        //   alert('删除失败');
+        // }
 
       }
     }
