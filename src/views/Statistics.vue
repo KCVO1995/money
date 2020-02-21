@@ -3,7 +3,7 @@
     <Tabs :data-source="recordTypeList" class-prefix="types" :value.sync="recordType"/>
     <Tabs :data-source="intervalList" class-prefix="interval" :value.sync="interval"/>
     <ol>
-      <li v-for="group in result" :key="group.title">
+      <li v-for="(group,index) in resultArray" :key="index">
         <h3 class="title">{{beautify(group.title)}}</h3>
         <ol>
           <li v-for="item in group.items" :key="item.id" class="record">
@@ -26,6 +26,7 @@
   import recordTypeList from '@/constants/recordTypeList';
   import store from '@/store';
   import dayjs from 'dayjs';
+  import clone from '@/lib/clone';
 
   @Component({
     components: {Tabs}
@@ -35,16 +36,28 @@
       return store.state.recordList;
     }
 
-    get result() {
-      const recordList = store.state.recordList;
-      const hashTable: { [key: string]: { title: string; items: RecordItem[] } } = {};
-      for (let i = 0; i < recordList.length; i++) {
-        const [date] = recordList[i].createAt!.split('T');
-        hashTable[date] = hashTable[date] || {title: date, items: []};
-        hashTable[date].items.push(recordList[i]);
+    get resultArray() {
+      // [
+      //   {title, items}
+      //   {title, items}
+      // ]
+      const recordList = clone(store.state.recordList);
+      if (recordList.length === 0) return [];
+      recordList.sort((a: RecordItem, b) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf());
+
+      const groupList = [{title: dayjs(recordList[0].createAt).format('YYYY-MM-DD'), items: [recordList[0]]}];
+      for (let i = 1; i < recordList.length; i++) {
+        const recordCreateAt = dayjs(recordList[i].createAt);
+        const last = groupList[groupList.length - 1];
+        if (recordCreateAt.isSame(last.title, 'day')) {
+          last.items.push(recordList[i]);
+        } else {
+          groupList.push({title: recordCreateAt.format('YYYY-MM-DD'), items: [recordList[i]]});
+        }
       }
-      console.log(hashTable);
-      return hashTable;
+      console.log(groupList);
+      return groupList;
+
     }
 
     intervalList = intervalList;
@@ -120,4 +133,3 @@
 </style>
 
 
-[{"selectedTags":[],"notes":"xxx xxxx","type":"-","amount":1,"createAt":"2020-02-15T14:35:49.281Z"},{"selectedTags":["食"],"notes":"","type":"-","amount":2,"createAt":"2020-02-16T14:35:51.994Z"},{"selectedTags":["食"],"notes":"","type":"-","amount":3,"createAt":"2020-02-17T14:35:53.297Z"},{"selectedTags":["食"],"notes":"","type":"-","amount":4,"createAt":"2020-02-18T14:35:54.665Z"},{"selectedTags":["食"],"notes":"","type":"-","amount":5,"createAt":"2020-02-19T14:35:55.817Z"},{"selectedTags":["食"],"notes":"","type":"-","amount":6,"createAt":"2020-02-20T14:35:56.946Z"},{"selectedTags":["食"],"notes":"","type":"-","amount":7,"createAt":"2020-02-20T15:01:09.237Z"},{"selectedTags":["食"],"notes":"很短很短","type":"-","amount":8,"createAt":"2020-02-20T15:01:10.605Z"},{"selectedTags":[],"notes":"","type":"-","amount":9,"createAt":"2020-02-21T03:48:35.592Z"},{"selectedTags":[],"notes":"我我我","type":"-","amount":9,"createAt":"2020-02-21T03:49:01.704Z"},{"selectedTags":[],"notes":"","type":"-","amount":3,"createAt":"2020-02-21T04:01:18.963Z"},{"selectedTags":[],"notes":"","type":"-","amount":1,"createAt":"2020-02-21T05:50:30.527Z"}]
