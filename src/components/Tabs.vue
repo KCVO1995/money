@@ -18,7 +18,6 @@
     @Prop(String) classPrefix?: string;
 
     liClass(item: DataSourceItem) {
-      console.log(this.value);
       return {
         [this.classPrefix + '-tabs-item']: this.classPrefix,
         selected: item.value === this.value
