@@ -54,6 +54,7 @@
       display: flex;
       text-align: center;
       flex-wrap: wrap;
+      margin-right: -24px;
 
       > li {
         $h: 24px;
@@ -61,7 +62,7 @@
         margin-top: 4px;
         padding: 0 18px;
         height: $h;
-        margin-right: $h;
+        margin-right: 20px;
         line-height: $h;
         border-radius: $h/2;
         background-color: $bg;
