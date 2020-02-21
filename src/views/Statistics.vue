@@ -4,7 +4,10 @@
     <Tabs :data-source="intervalList" class-prefix="interval" :value.sync="interval"/>
     <ol>
       <li v-for="(group,index) in resultArray" :key="index">
-        <h3 class="title">{{beautify(group.title)}}</h3>
+        <div class="title">
+          <div>{{beautify(group.title)}}</div>
+          <div>￥ {{group.total}}</div>
+        </div>
         <ol>
           <li v-for="item in group.items" :key="item.id" class="record">
             <span>{{tagString(item.selectedTags)}}</span>
@@ -41,21 +44,29 @@
       //   {title, items}
       //   {title, items}
       // ]
-      const recordList = clone(store.state.recordList);
+      const recordList = clone(store.state.recordList).filter(record => record.type === this.recordType);
       if (recordList.length === 0) return [];
       recordList.sort((a: RecordItem, b) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf());
 
-      const groupList = [{title: dayjs(recordList[0].createAt).format('YYYY-MM-DD'), items: [recordList[0]]}];
+      const groupList = [{
+        title: dayjs(recordList[0].createAt).format('YYYY-MM-DD'),
+        total: 0 || recordList[0].amount,
+        items: [recordList[0]]
+      }];
       for (let i = 1; i < recordList.length; i++) {
         const recordCreateAt = dayjs(recordList[i].createAt);
         const last = groupList[groupList.length - 1];
         if (recordCreateAt.isSame(last.title, 'day')) {
           last.items.push(recordList[i]);
+          last.total += recordList[i].amount;
         } else {
-          groupList.push({title: recordCreateAt.format('YYYY-MM-DD'), items: [recordList[i]]});
+          groupList.push({
+            title: recordCreateAt.format('YYYY-MM-DD'),
+            total: recordList[i].amount,
+            items: [recordList[i]]
+          });
         }
       }
-      console.log(groupList);
       return groupList;
 
     }
@@ -114,7 +125,7 @@
   }
 
   ::v-deep {
-    .types-tabs-item {
+    li.types-tabs-item {
       background: #fff;
 
       &.selected {
@@ -125,6 +136,7 @@
         }
       }
     }
+
 
     .interval-tabs-item {
       height: 40px;

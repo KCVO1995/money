@@ -20,7 +20,7 @@
     liClass(item: DataSourceItem) {
       return {
         [this.classPrefix + '-tabs-item']: this.classPrefix,
-        selected: item.value === this.value
+        selected: item.value === this.value,
       };
     }
 
