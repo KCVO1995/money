@@ -37,9 +37,16 @@
     }
 
     saveRecord() {
-      store.commit('createRecord', this.record);
-      this.record.notes = '';
-      this.record.selectedTags = [];
+      if (this.record.selectedTags.length === 0) {
+        alert('选择一个标签，分类记录有助于统计');
+        return;
+      } else {
+        console.log(1);
+        store.commit('createRecord', this.record);
+        this.record.notes = '';
+        this.record.selectedTags = [];
+      }
+
     }
 
   }

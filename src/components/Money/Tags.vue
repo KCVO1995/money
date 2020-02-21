@@ -4,8 +4,8 @@
       <button @click="createTag">新增标签</button>
     </div>
     <ul class="current">
-      <li v-for="tag in tagList" :key="tag.id" @click="toggle(tag.name)"
-          :class="{selected: selectedTags && selectedTags.indexOf(tag.name) >= 0}">{{tag.name}}
+      <li v-for="tag in tagList" :key="tag.id" @click="toggle(tag)"
+          :class="{selected: selectedTags && selectedTags.indexOf(tag) >= 0}">{{tag.name}}
       </li>
     </ul>
   </div>
@@ -24,15 +24,16 @@
       return store.state.tagList;
     }
 
-    @Prop() selectedTags: string[] | undefined;
+    @Prop() selectedTags: Tag[] | undefined;
 
-    toggle(tagName: string) {
+    toggle(tag: Tag) {
+      console.log(tag);
       if (this.selectedTags) {
-        const index = this.selectedTags.indexOf(tagName);
+        const index = this.selectedTags.indexOf(tag);
         if (index >= 0) {
           this.selectedTags.splice(index, 1);
         } else {
-          this.selectedTags.push(tagName);
+          this.selectedTags.push(tag);
         }
         this.$emit('update:value', this.selectedTags);
       }
@@ -54,7 +55,7 @@
       display: flex;
       text-align: center;
       flex-wrap: wrap;
-      margin-right: -24px;
+      margin-right: -16px;
 
       > li {
         $h: 24px;
@@ -62,7 +63,7 @@
         margin-top: 4px;
         padding: 0 18px;
         height: $h;
-        margin-right: 20px;
+        margin-right: 18px;
         line-height: $h;
         border-radius: $h/2;
         background-color: $bg;

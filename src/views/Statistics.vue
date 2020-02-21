@@ -2,7 +2,7 @@
   <Layout>
     <Tabs :data-source="recordTypeList" class-prefix="types" :value.sync="recordType"/>
     <Tabs :data-source="intervalList" class-prefix="interval" :value.sync="interval"/>
-    <ol>
+    <ol v-if="resultArray.length > 0">
       <li v-for="(group,index) in resultArray" :key="index">
         <div class="title">
           <div>{{beautify(group.title)}}</div>
@@ -17,6 +17,12 @@
         </ol>
       </li>
     </ol>
+    <div v-if="recordType === '+' && resultArray.length <= 0" class="noResult">
+      <span>目前还没有收入，赶紧赚钱吧</span>
+    </div>
+    <div v-if="recordType === '-' && resultArray.length <= 0" class="noResult">
+      <span>目前还没有支出</span>
+    </div>
   </Layout>
 </template>
 
@@ -45,7 +51,7 @@
       //   {title, items}
       // ]
       const recordList = clone(store.state.recordList).filter(record => record.type === this.recordType);
-      if (recordList.length === 0) return [];
+      if (recordList.length === 0) {return [];}
       recordList.sort((a: RecordItem, b) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf());
 
       const groupList = [{
@@ -76,8 +82,8 @@
     recordTypeList = recordTypeList;
     recordType = '-';
 
-    tagString(tag: string[]) {
-      return tag.length === 0 ? '无' : tag.join(',');
+    tagString(tags: Tag[]) {
+      return tags.length === 0 ? '无' : tags.map(tag => tag.name).join('，');
     }
 
     beautify(date: string) {
@@ -106,6 +112,11 @@
     display: flex;
     justify-content: space-between;
     align-content: center;
+  }
+
+  .noResult {
+    padding: 16px;
+    text-align: center;
   }
 
   .title {
