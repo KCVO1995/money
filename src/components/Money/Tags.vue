@@ -27,7 +27,6 @@
     @Prop() selectedTags: Tag[] | undefined;
 
     toggle(tag: Tag) {
-      console.log(tag);
       if (this.selectedTags) {
         const index = this.selectedTags.indexOf(tag);
         if (index >= 0) {

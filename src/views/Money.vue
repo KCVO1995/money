@@ -38,8 +38,7 @@
 
     saveRecord() {
       if (this.record.selectedTags.length === 0) {
-        alert('选择一个标签，分类记录有助于统计');
-        return;
+        return alert('选择一个标签，分类记录有助于统计');
       } else {
         console.log(1);
         store.commit('createRecord', this.record);
