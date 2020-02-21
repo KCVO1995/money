@@ -12,7 +12,6 @@ cd dist
 # 部署到自定义域域名
 # echo 'kcvo.top' > CNAME
 
-git init
 git add -A
 git commit -m 'deploy'
 
