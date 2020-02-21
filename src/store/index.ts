@@ -34,10 +34,11 @@ const store = new Vuex.Store({
       const names = state.tagList.map(item => item.name);
       if (names.indexOf(name) >= 0) {
         alert('便签名重复');
+      } else {
+        const id = createId();
+        state.tagList.push({id: id, name: name});
+        store.commit('saveTags');
       }
-      const id = createId();
-      state.tagList.push({id: id, name: name});
-      store.commit('saveTags');
     },
     saveTags(state) {
       localStorage.setItem('tagList', JSON.stringify(state.tagList));
