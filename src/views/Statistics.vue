@@ -9,10 +9,12 @@
           <div>￥ {{group.total}}</div>
         </div>
         <ol>
-          <li v-for="item in group.items" :key="item.id" class="record">
-            <span>{{tagString(item.selectedTags)}}</span>
-            <span class="notes">{{item.notes}}</span>
-            <span>￥ {{item.amount}}</span>
+          <li v-for="item in group.items" :key="item.id">
+            <router-link :to="`/statistics/edit/${item.id}`" class="record">
+              <span>{{tagString(item.selectedTags)}}</span>
+              <span class="notes">{{item.notes}}</span>
+              <span>￥ {{item.amount}}</span>
+            </router-link>
           </li>
         </ol>
       </li>

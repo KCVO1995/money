@@ -9,10 +9,11 @@ const store = new Vuex.Store({
   state: {
     recordList: [] as RecordItem[],
     recordId: JSON.parse(localStorage.getItem('_recordIdMax') || '0'),
+    foundRecord: undefined as RecordItem | undefined,
     tagList: [] as Tag[],
     tagId: JSON.parse(localStorage.getItem('_tagIdMax') || '4'),
+    foundTag: undefined as Tag | undefined,
     reset: [{id: 1, name: '衣'}, {id: 2, name: '食'}, {id: 3, name: '住'}, {id: 4, name: '行'}],
-    foundTag: undefined as Tag | undefined
   },
   mutations: {
     fetchRecords(state) {
@@ -32,6 +33,9 @@ const store = new Vuex.Store({
     createRecordId(state) {
       state.recordId++;
       localStorage.setItem('_recordIdMax', JSON.stringify(state.recordId));
+    },
+    findRecord(state, id) {
+      state.foundRecord = state.recordList.filter(record => record.id === id)[0];
     },
     // ---------------------------
     createTagId(state) {
