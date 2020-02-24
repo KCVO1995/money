@@ -5,13 +5,28 @@
       <span class="title">编辑记录</span>
       <Icon class="rightIcon"/>
     </div>
-    <div class="form-wrapper">
-      <FormItem field-name="标签" placeholder="请输入标签名" @update:value="updateTags"
-                :value="beautify(foundRecord.selectedTags)"/>
-      <FormItem field-name="金额" placeholder="请输入标签名" @update:value="updateAmount" :value="foundRecord.amount"/>
-      <FormItem field-name="日期" placeholder="请输入标签名" @update:value="updateDate" :value="foundRecord.createAt"/>
-      <FormItem field-name="备注" placeholder="请输入标签名" @update:value="updateNotes" :value="foundRecord.notes"/>
-    </div>
+    <ol class="recordDetail">
+      <li class="item">
+        <span class="name">标签</span>
+        <span class="detail">{{beautifyTags(foundRecord.selectedTags)}}</span>
+      </li>
+      <li class="item">
+        <span class="name">类型</span>
+        <span class="detail">{{beautifyType(foundRecord.type)}}</span>
+      </li>
+      <li class="item">
+        <span class="name">金额</span>
+        <span class="detail">{{foundRecord.amount}}</span>
+      </li>
+      <li class="item">
+        <span class="name">日期</span>
+        <span class="detail">{{beautifyDate(foundRecord.createAt)}}</span>
+      </li>
+      <li class="item">
+        <span class="name">备注</span>
+        <span class="detail">{{foundRecord.notes}}</span>
+      </li>
+    </ol>
     <div class="buttonWrapper">
       <Button @click="remove">删除记录</Button>
     </div>
@@ -21,16 +36,13 @@
 <script lang='ts'>
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
-  import FormItem from '@/components/Money/FormItem.vue';
   import Button from '@/components/Button.vue';
   import store from '@/store/index';
   import Money from '@/views/Money.vue';
-  import Tags from '@/components/Money/Tags.vue';
-  import Tabs from '@/components/Tabs.vue';
-  import NumberPad from '@/components/Money/NumberPad.vue';
+  import dayjs from 'dayjs';
 
   @Component({
-    components: {Money, Button, FormItem, Tags, Tabs, NumberPad},
+    components: {Money, Button},
   })
   export default class EditRecord extends Vue {
     get foundRecord() {
@@ -38,42 +50,36 @@
     }
 
     created() {
-      console.log(this.$route.params.id);
       store.commit('findRecord', parseInt(this.$route.params.id));
       if (!this.foundRecord) {
         this.$router.replace('/404');
       }
     }
 
-    beautify(tags: Tag[]) {
+    beautifyTags(tags: Tag[]) {
       const tagsName = [];
       if (tags) {
         for (let i = 0; i < tags.length; i++) {
           tagsName.push(tags[i].name);
         }
       }
-      return tagsName;
+      return tagsName.join('，');
+    }
+
+    beautifyType(type: string) {
+      if (type === '-') {
+        return '支出';
+      } else if (type === '+') {
+        return '收入';
+      }
+    }
+
+    beautifyDate(date: string) {
+      return dayjs(date).format('YYYY年M月D');
     }
 
     goBack() {
       this.$router.back();
-    }
-
-
-    updateTags(tags: string) {
-      console.log(tags);
-    }
-
-    updateAmount(amount: number) {
-      console.log(amount);
-    }
-
-    updateDate(date: string) {
-      console.log(date);
-    }
-
-    updateNotes(notes: string) {
-      console.log(notes);
     }
 
     remove() {
@@ -90,6 +96,7 @@
   @import "~@/assets/style/helper.scss";
 
   .navBar {
+    width: 100vw;
     text-align: center;
     font-size: 16px;
     padding: 12px 16px;
@@ -112,10 +119,28 @@
     }
   }
 
-  .form-wrapper {
+  .recordDetail {
     @extend %bottomShadow;
     background: #fff;
     margin-top: 8px;
+
+    > .item {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      padding: 0 16px;
+
+      .name {
+        padding-right: 16px;
+        line-height: 40px;
+        height: 40px;
+      }
+
+      .detail {
+        flex-grow: 1;
+        color: #999;
+      }
+    }
   }
 
   .buttonWrapper {

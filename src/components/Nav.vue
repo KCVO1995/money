@@ -4,7 +4,7 @@
       <Icon name='label'/>
       标签
     </router-link>
-    <router-link to="/money" class="nav-item" active-class="selected">
+    <router-link to="/money/0" class="nav-item" active-class="selected">
       <Icon name='money'/>
       记一笔
     </router-link>

@@ -15,7 +15,7 @@ const routes = [
     redirect: '/statistics' // 重新定向
   },
   {
-    path: '/money',
+    path: '/money/:id',
     name: 'money',
     meta: {index: 3},
     component: Money
