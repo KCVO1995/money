@@ -12,7 +12,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    redirect: '/money' // 重新定向
+    redirect: '/statistics' // 重新定向
   },
   {
     path: '/money',
@@ -31,7 +31,7 @@ const routes = [
     component: Statistics
   },
   {
-    path: '/statistics/edit/:id',
+    path: '/money/edit/:id',
     component: EditRecord
   },
   {

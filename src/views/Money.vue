@@ -1,12 +1,12 @@
 <template>
-  <Layout class-prefix="layout">
+  <div class="global">
     <Tags :selected-tags.sync="record.selectedTags"/>
     <div class="formItemWrapper">
       <FormItem :value.sync="record.notes" field-name="备注" placeholder="在这里添加备注"/>
     </div>
     <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
     <NumberPad @submit="saveRecord" @update:value="onUpdateAmount"/>
-  </Layout>
+  </div>
 </template>
 
 <script lang='ts'>
@@ -40,7 +40,6 @@
       if (this.record.selectedTags.length === 0) {
         return alert('选择一个标签，分类记录有助于统计');
       } else {
-        console.log(1);
         store.commit('createRecord', this.record);
         this.record.notes = '';
         this.record.selectedTags = [];
@@ -52,10 +51,11 @@
 
 </script>
 
-<style lang="scss">
-  .layout-content {
+<style lang="scss" scoped>
+  .global {
     display: flex;
     flex-direction: column;
+    height: 100vh;
   }
 
   .formItemWrapper {

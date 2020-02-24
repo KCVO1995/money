@@ -1,21 +1,21 @@
 <template>
-  <Layout>
+  <div>
     <div class="navBar">
       <Icon name="left" class="leftIcon" @click="goBack"/>
       <span class="title">编辑记录</span>
       <Icon class="rightIcon"/>
     </div>
     <div class="form-wrapper">
-      <FormItem field-name="标签" placeholder="请输入标签名" @update:value="update"
+      <FormItem field-name="标签" placeholder="请输入标签名" @update:value="updateTags"
                 :value="beautify(foundRecord.selectedTags)"/>
-      <FormItem field-name="金额" placeholder="请输入标签名" @update:value="update" :value="foundRecord.amount"/>
-      <FormItem field-name="日期" placeholder="请输入标签名" @update:value="update" :value="foundRecord.createAt"/>
-      <FormItem field-name="备注" placeholder="请输入标签名" @update:value="update" :value="foundRecord.notes"/>
+      <FormItem field-name="金额" placeholder="请输入标签名" @update:value="updateAmount" :value="foundRecord.amount"/>
+      <FormItem field-name="日期" placeholder="请输入标签名" @update:value="updateDate" :value="foundRecord.createAt"/>
+      <FormItem field-name="备注" placeholder="请输入标签名" @update:value="updateNotes" :value="foundRecord.notes"/>
     </div>
     <div class="buttonWrapper">
       <Button @click="remove">删除记录</Button>
     </div>
-  </Layout>
+  </div>
 </template>
 
 <script lang='ts'>
@@ -24,16 +24,18 @@
   import FormItem from '@/components/Money/FormItem.vue';
   import Button from '@/components/Button.vue';
   import store from '@/store/index';
+  import Money from '@/views/Money.vue';
+  import Tags from '@/components/Money/Tags.vue';
+  import Tabs from '@/components/Tabs.vue';
+  import NumberPad from '@/components/Money/NumberPad.vue';
 
   @Component({
-    components: {Button, FormItem},
+    components: {Money, Button, FormItem, Tags, Tabs, NumberPad},
   })
   export default class EditRecord extends Vue {
     get foundRecord() {
       return store.state.foundRecord;
     }
-
-    needPlaceholder = true;
 
     created() {
       console.log(this.$route.params.id);
@@ -43,8 +45,7 @@
       }
     }
 
-    beautify(tags: string[]) {
-      console.log(this.foundRecord?.selectedTags);
+    beautify(tags: Tag[]) {
       const tagsName = [];
       if (tags) {
         for (let i = 0; i < tags.length; i++) {
@@ -58,11 +59,21 @@
       this.$router.back();
     }
 
-    update(name: string) {
-      if (this.foundTag) {
-        this.needPlaceholder = false;
-        store.commit('updateTag', {id: this.foundTag.id, name});
-      }
+
+    updateTags(tags: string) {
+      console.log(tags);
+    }
+
+    updateAmount(amount: number) {
+      console.log(amount);
+    }
+
+    updateDate(date: string) {
+      console.log(date);
+    }
+
+    updateNotes(notes: string) {
+      console.log(notes);
     }
 
     remove() {

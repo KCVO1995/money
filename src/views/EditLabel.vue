@@ -29,8 +29,6 @@
       return store.state.foundTag;
     }
 
-    needPlaceholder = true;
-
     created() {
       store.commit('findTag', parseInt(this.$route.params.id));
       if (!this.foundTag) {
@@ -44,7 +42,6 @@
 
     update(name: string) {
       if (this.foundTag) {
-        this.needPlaceholder = false;
         store.commit('updateTag', {id: this.foundTag.id, name});
       }
     }

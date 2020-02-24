@@ -10,7 +10,7 @@
         </div>
         <ol>
           <li v-for="item in group.items" :key="item.id">
-            <router-link :to="`/statistics/edit/${item.id}`" class="record">
+            <router-link :to="`/money/edit/${item.id}`" class="record">
               <span>{{tagString(item.selectedTags)}}</span>
               <span class="notes">{{item.notes}}</span>
               <span>￥ {{item.amount}}</span>
