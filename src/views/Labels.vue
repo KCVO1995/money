@@ -1,5 +1,5 @@
 <template>
-  <Layout class="global">
+  <Layout>
     <div class="tagList">
       <router-link :to="`/labels/edit/${tag.id}`" class="tag" v-for="tag in tagList" :key="tag.id">
         <span>{{tag.name}}</span>
@@ -36,6 +36,7 @@
   .tagList {
     @extend %bottomShadow;
     background: #ffffff;
+    width: 100vw;
 
     > .tag {
       border-bottom: 1px solid #e6e6e6;

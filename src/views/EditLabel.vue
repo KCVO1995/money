@@ -60,6 +60,7 @@
   @import "~@/assets/style/helper.scss";
 
   .navBar {
+    width: 100vw;
     text-align: center;
     font-size: 16px;
     padding: 12px 16px;

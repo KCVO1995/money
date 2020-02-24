@@ -1,8 +1,39 @@
 <template>
   <div>
-    <router-view/>
+    <transition :name="transitionName">
+      <router-view/>
+    </transition>
   </div>
 </template>
+
+<script lang="ts">
+  import Vue from 'vue';
+  import {Component, Watch} from 'vue-property-decorator';
+
+  @Component
+  export default class App extends Vue {
+    transitionName = '';
+
+    @Watch('$route')
+    onRouteChange(to, from) {
+      if (to.meta.index === 3) {
+        this.transitionName = 'up';
+        return;
+      } else if (from.meta.index === 3) {
+        this.transitionName = 'down';
+        return;
+      } else if (to.meta.index > from.meta.index) {
+        console.log(1);
+        this.transitionName = 'left';
+        return;
+      } else if (to.meta.index < from.meta.index) {
+        console.log(2);
+        this.transitionName = 'right';
+        return;
+      }
+    }
+  }
+</script>
 
 <style lang="scss">
   @import '~@/assets/style/reset.scss';
@@ -18,4 +49,117 @@
     font-size: 16px;
   }
 
+  .up-enter-active {
+    position: absolute;
+    animation: upEnter 500ms;
+  }
+
+  .up-leave-active {
+    position: absolute;
+    animation: upOut 500ms;
+  }
+
+  .down-enter-active {
+    position: absolute;
+    animation: downEnter 500ms;
+  }
+
+  .down-leave-active {
+    position: absolute;
+    animation: downOut 500ms;
+  }
+
+  .left-enter-active {
+    position: absolute;
+    animation: leftEnter 500ms;
+  }
+
+  .left-leave-active {
+    position: absolute;
+    animation: leftOut 500ms;
+  }
+
+  .right-enter-active {
+    position: absolute;
+    animation: rightEnter 500ms;
+  }
+
+  .right-leave-active {
+    position: absolute;
+    animation: rightOut 500ms;
+  }
+
+  @keyframes upEnter {
+    from {
+      transform: translate3d(0, 100%, 0);
+    }
+    to {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes upOut {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(0, -100%, 0);
+    }
+  }
+
+  @keyframes downEnter {
+    from {
+      transform: translate3d(0, -100%, 0);
+    }
+    to {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes downOut {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(0, 100%, 0);
+    }
+  }
+
+  @keyframes rightEnter {
+    from {
+      transform: translate3d(-100%, 0, 0);
+    }
+    to {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes rightOut {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(100%, 0, 0);
+    }
+  }
+
+  @keyframes leftEnter {
+    from {
+      transform: translate3d(100%, 0, 0);
+    }
+    to {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes leftOut {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-100%, 0, 0);
+    }
+  }
 </style>
+
+

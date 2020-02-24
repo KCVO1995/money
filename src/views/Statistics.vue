@@ -1,5 +1,5 @@
 <template>
-  <Layout>
+  <Layout class="global">
     <Tabs :data-source="recordTypeList" class-prefix="types" :value.sync="recordType"/>
     <Tabs :data-source="intervalList" class-prefix="interval" :value.sync="interval"/>
     <ol v-if="resultArray.length > 0">
@@ -108,6 +108,10 @@
 </script>
 
 <style scoped lang="scss">
+  .global {
+    width: 100vw;
+  }
+
   %item {
     padding: 8px 16px;
     line-height: 24px;

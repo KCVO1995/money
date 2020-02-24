@@ -16,22 +16,31 @@ const routes = [
   },
   {
     path: '/money',
+    name: 'money',
+    meta: {index: 3},
     component: Money
   },
   {
     path: '/labels',
+    name: 'labels',
+    meta: {index: 1},
     component: Labels
   },
   {
     path: '/labels/edit/:id',
+    name: 'editLabel',
+    meta: {index: 2},
     component: EditLabel
   },
   {
     path: '/statistics',
+    name: 'statistics',
+    meta: {index: 2},
     component: Statistics
   },
   {
     path: '/money/edit/:id',
+    name: 'editRecord',
     component: EditRecord
   },
   {
