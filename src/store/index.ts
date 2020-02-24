@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import clone from '@/lib/clone';
-import createId from '@/lib/createId';
 import router from '@/router';
 
 Vue.use(Vuex); // 把store 绑到 Vue.prototype
@@ -9,7 +8,9 @@ Vue.use(Vuex); // 把store 绑到 Vue.prototype
 const store = new Vuex.Store({
   state: {
     recordList: [] as RecordItem[],
+    recordId: JSON.parse(localStorage.getItem('_recordIdMax') || '0'),
     tagList: [] as Tag[],
+    tagId: JSON.parse(localStorage.getItem('_tagIdMax') || '4'),
     reset: [{id: 1, name: '衣'}, {id: 2, name: '食'}, {id: 3, name: '住'}, {id: 4, name: '行'}],
     foundTag: undefined as Tag | undefined
   },
@@ -18,6 +19,8 @@ const store = new Vuex.Store({
       state.recordList = JSON.parse(localStorage.getItem('recordList') || '[]') as RecordItem[];
     },
     createRecord(state, record) {
+      store.commit('createRecordId');
+      record.id = state.recordId;
       record.createAt = new Date().toISOString();
       const newRecord = clone(record);
       state.recordList.push(newRecord);
@@ -26,7 +29,15 @@ const store = new Vuex.Store({
     saveRecords(state) {
       localStorage.setItem('recordList', JSON.stringify(state.recordList));
     },
+    createRecordId(state) {
+      state.recordId++;
+      localStorage.setItem('_recordIdMax', JSON.stringify(state.recordId));
+    },
     // ---------------------------
+    createTagId(state) {
+      state.tagId++;
+      localStorage.setItem('_tagIdMax', JSON.stringify(state.tagId));
+    },
     fetchTags(state) {
       state.tagList = JSON.parse(localStorage.getItem('tagList') || JSON.stringify(state.reset));
     },
@@ -35,8 +46,8 @@ const store = new Vuex.Store({
       if (names.indexOf(name) >= 0) {
         alert('便签名重复');
       } else {
-        const id = createId();
-        state.tagList.push({id: id, name: name});
+        store.commit('createTagId');
+        state.tagList.push({id: state.tagId, name: name});
         store.commit('saveTags');
       }
     },

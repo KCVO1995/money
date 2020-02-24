@@ -1,4 +1,5 @@
 type RecordItem = {
+  id: number;
   selectedTags: string[];
   notes: string;
   type: string;

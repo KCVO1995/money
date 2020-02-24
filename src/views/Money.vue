@@ -30,7 +30,7 @@
     }
 
     recordTypeList = recordTypeList;
-    record: RecordItem = {selectedTags: [], notes: '', type: '-', amount: 0, createAt: undefined};
+    record: RecordItem = {id: 0, selectedTags: [], notes: '', type: '-', amount: 0, createAt: undefined};
 
     onUpdateAmount(value: string) {
       this.record.amount = parseFloat(value);

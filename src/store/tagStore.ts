@@ -1,5 +1,3 @@
-import createId from '@/lib/createId';
-
 const localStorageKeyName = 'tagList';
 
 const tagStore = {
@@ -12,20 +10,20 @@ const tagStore = {
   findTag(id: number) {
     return this.tagList.filter(tag => tag.id === id)[0];
   },
-  createTag(name: string) {
-    let message: message;
-    const names = this.tagList.map(item => item.name);
-    if (names.indexOf(name) >= 0) {
-      alert('便签名重复');
-      message = 'duplicated';
-      return message;
-    }
-    const id = createId();
-    this.tagList.push({id: id, name: name});
-    this.saveTags();
-    message = 'success';
-    return message;
-  },
+  // createTag(name: string) {
+  //   let message: message;
+  //   const names = this.tagList.map(item => item.name);
+  //   if (names.indexOf(name) >= 0) {
+  //     alert('便签名重复');
+  //     message = 'duplicated';
+  //     return message;
+  //   }
+  //   const id = createId();
+  //   this.tagList.push({id: id, name: name});
+  //   this.saveTags();
+  //   message = 'success';
+  //   return message;
+  // },
   removeTag(id: number) {
     let index = -1;
     for (let i = 0; i < this.tagList.length; i++) {
