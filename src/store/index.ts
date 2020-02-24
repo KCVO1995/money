@@ -37,6 +37,23 @@ const store = new Vuex.Store({
     findRecord(state, id) {
       state.foundRecord = state.recordList.filter(record => record.id === id)[0];
     },
+    removeRecord(state, id: number) {
+      console.log(1);
+      let index = -1;
+      for (let i = 0; i < state.recordList.length; i++) {
+        if (state.recordList[i].id === id) {
+          index = i;
+          break;
+        }
+      }
+      if (index === -1) {
+        alert('删除失败');
+      } else {
+        state.recordList.splice(index, 1);
+        store.commit('saveRecords');
+        router.back();
+      }
+    },
     // ---------------------------
     createTagId(state) {
       state.tagId++;

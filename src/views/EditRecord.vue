@@ -16,7 +16,7 @@
       </li>
       <li class="item">
         <span class="name">金额</span>
-        <span class="detail">{{foundRecord.amount}}</span>
+        <span class="detail">{{foundRecord.amount}} 元</span>
       </li>
       <li class="item">
         <span class="name">日期</span>
@@ -28,6 +28,9 @@
       </li>
     </ol>
     <div class="buttonWrapper">
+      <router-link to="`/money/${foundRecord.id}`">
+        <Button>编辑记录</Button>
+      </router-link>
       <Button @click="remove">删除记录</Button>
     </div>
   </div>
@@ -75,7 +78,7 @@
     }
 
     beautifyDate(date: string) {
-      return dayjs(date).format('YYYY年M月D');
+      return dayjs(date).format('YYYY年M月D日');
     }
 
     goBack() {
@@ -83,8 +86,8 @@
     }
 
     remove() {
-      if (this.foundTag) {
-        store.commit('removeTag', this.foundTag.id);
+      if (this.foundRecord) {
+        store.commit('removeRecord', this.foundRecord.id);
       }
     }
   }
@@ -145,7 +148,10 @@
 
   .buttonWrapper {
     text-align: center;
-    margin-top: 44px;
+    margin: 44px auto 0;
+    display: flex;
+    justify-content: space-between;
+    width: 70vw;
   }
 
 
