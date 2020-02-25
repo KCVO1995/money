@@ -39,7 +39,7 @@ const routes = [
     component: Statistics
   },
   {
-    path: '/money/edit/:id',
+    path: '/statistics/edit/:id',
     name: 'editRecord',
     component: EditRecord
   },

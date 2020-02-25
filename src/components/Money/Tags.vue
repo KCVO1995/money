@@ -5,7 +5,7 @@
     </div>
     <ul class="current">
       <li v-for="tag in tagList" :key="tag.id" @click="toggle(tag)"
-          :class="{selected: selectedTags && selectedTags.indexOf(tag) >= 0}">{{tag.name}}
+          :class="x(tag)">{{tag.name}}
       </li>
     </ul>
   </div>
@@ -26,13 +26,23 @@
 
     @Prop() selectedTags: Tag[] | undefined;
 
+    x(tag: Tag) {
+      const arr = this.selectedTags?.map(item => item.id);
+      if (arr) {
+        return {selected: arr.indexOf(tag.id) >= 0};
+      }
+    }
+
     toggle(tag: Tag) {
       if (this.selectedTags) {
-        const index = this.selectedTags.indexOf(tag);
+        const arr = this.selectedTags?.map(item => item.id);
+        const index = arr.indexOf(tag.id);
         if (index >= 0) {
           this.selectedTags.splice(index, 1);
         } else {
+          console.log(tag);
           this.selectedTags.push(tag);
+          console.log(this.selectedTags);
         }
         this.$emit('update:value', this.selectedTags);
       }

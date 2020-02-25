@@ -28,9 +28,7 @@
       </li>
     </ol>
     <div class="buttonWrapper">
-      <router-link to="`/money/${foundRecord.id}`">
-        <Button>编辑记录</Button>
-      </router-link>
+      <Button @click="push">编辑记录</Button>
       <Button @click="remove">删除记录</Button>
     </div>
   </div>
@@ -53,6 +51,7 @@
     }
 
     created() {
+      store.commit('fetchRecords');
       store.commit('findRecord', parseInt(this.$route.params.id));
       if (!this.foundRecord) {
         this.$router.replace('/404');
@@ -79,6 +78,12 @@
 
     beautifyDate(date: string) {
       return dayjs(date).format('YYYY年M月D日');
+    }
+
+    push() {
+      if (this.foundRecord) {
+        this.$router.push(`/money/${this.foundRecord.id}`);
+      }
     }
 
     goBack() {
