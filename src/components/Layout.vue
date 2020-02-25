@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-wrapper" :style="{ height: screenHeight +'px' }">
+  <div class="layout-wrapper">
     <div class="content" :class="classPrefix&&`${classPrefix}-content` ">
       <slot/>
     </div>

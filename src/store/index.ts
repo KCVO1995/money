@@ -38,7 +38,6 @@ const store = new Vuex.Store({
       state.foundRecord = state.recordList.filter(record => record.id === id)[0];
     },
     removeRecord(state, id: number) {
-      console.log(1);
       let index = -1;
       for (let i = 0; i < state.recordList.length; i++) {
         if (state.recordList[i].id === id) {

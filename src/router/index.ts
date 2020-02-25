@@ -17,7 +17,7 @@ const routes = [
   {
     path: '/money/:id',
     name: 'money',
-    meta: {index: 3},
+    meta: {index: 666},
     component: Money
   },
   {
@@ -41,6 +41,7 @@ const routes = [
   {
     path: '/statistics/edit/:id',
     name: 'editRecord',
+    meta: {index: 3},
     component: EditRecord
   },
   {

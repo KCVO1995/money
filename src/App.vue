@@ -1,7 +1,7 @@
 <template>
   <div>
     <transition :name="transitionName">
-      <router-view/>
+      <router-view :style="{ height: screenHeight +'px' }">placeholder</router-view>
     </transition>
   </div>
 </template>
@@ -14,21 +14,20 @@
   @Component
   export default class App extends Vue {
     transitionName = '';
+    screenHeight = document.documentElement.clientHeight;
 
     @Watch('$route')
     onRouteChange(to: Route, from: Route) {
-      if (to.meta.index === 3) {
+      if (to.meta.index === 666) {
         this.transitionName = 'up';
         return;
-      } else if (from.meta.index === 3) {
+      } else if (from.meta.index === 666) {
         this.transitionName = 'down';
         return;
       } else if (to.meta.index > from.meta.index) {
-        console.log(1);
         this.transitionName = 'left';
         return;
       } else if (to.meta.index < from.meta.index) {
-        console.log(2);
         this.transitionName = 'right';
         return;
       }

@@ -52,7 +52,6 @@
           store.commit('saveRecords', this.record);
           this.$router.back();
         } else {
-          console.log(this.record);
           store.commit('createRecord', this.record);
           this.$router.back();
         }

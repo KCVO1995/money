@@ -40,9 +40,7 @@
         if (index >= 0) {
           this.selectedTags.splice(index, 1);
         } else {
-          console.log(tag);
           this.selectedTags.push(tag);
-          console.log(this.selectedTags);
         }
         this.$emit('update:value', this.selectedTags);
       }
