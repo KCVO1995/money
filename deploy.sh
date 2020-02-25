@@ -12,6 +12,7 @@ cd dist
 # 部署到自定义域域名
 # echo 'kcvo.top' > CNAME
 
+git init
 git add -A
 git commit -m 'deploy'
 
@@ -19,6 +20,6 @@ git commit -m 'deploy'
 # git push -f git@github.com:KCVO1995/<USERNAME>.github.io.git master
 
 # 部署到 https://<USERNAME>.github.io/<REPO>
- git push -f git@github.com:KCVO1995/money-website.git master:gh-pages
+ git push -f git@github.com:KCVO1995/morney-website.git master:gh-pages
 
 cd -
