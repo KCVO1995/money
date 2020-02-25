@@ -5,7 +5,7 @@
     </div>
     <ul class="current">
       <li v-for="tag in tagList" :key="tag.id" @click="toggle(tag)"
-          :class="x(tag)">{{tag.name}}
+          :class="select(tag)">{{tag.name}}
       </li>
     </ul>
   </div>
@@ -26,7 +26,7 @@
 
     @Prop() selectedTags: Tag[] | undefined;
 
-    x(tag: Tag) {
+    select(tag: Tag) {
       const arr = this.selectedTags?.map(item => item.id);
       if (arr) {
         return {selected: arr.indexOf(tag.id) >= 0};
