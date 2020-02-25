@@ -5,7 +5,7 @@
       <FormItem :value.sync="record.notes" field-name="备注" placeholder="在这里添加备注"/>
     </div>
     <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
-    <NumberPad @submit="saveRecord" @update:value="onUpdateAmount"/>
+    <NumberPad @submit="saveRecord" :value.sync="record.amount"/>
   </div>
 </template>
 
@@ -43,13 +43,6 @@
     }
 
     recordTypeList = recordTypeList;
-
-    onUpdateAmount(value: string) {
-      if (this.record) {
-        this.record.amount = parseFloat(value);
-      }
-    }
-
 
     saveRecord() {
       if (this.record) {
