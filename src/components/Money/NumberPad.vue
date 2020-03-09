@@ -42,7 +42,7 @@
       const input = button.textContent as string;
 
       // 最大支持16位数字 使用0-9替代初始0,并排除 00 .. 的情况
-      if (this.output.length < 16) {
+      if (this.output.length < 10) {
         if (this.output === '0' && input !== '.') {
           this.output = input;
         } else if (input !== '.' || input === '.' && this.output.indexOf('.') === -1) {
