@@ -83,6 +83,7 @@
         &.selected {
           color: #fff;
           background: darken($bg, 20%);
+          border-radius: 15px;
           > .iconTag {
             fill: white;
           }

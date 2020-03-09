@@ -126,6 +126,9 @@
           width: 15px;
           height: 15px;
         }
+        &:active {
+          background: rgb(175, 190, 244);
+        }
       }
     }
   }
