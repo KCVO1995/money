@@ -1,8 +1,8 @@
 <template>
   <div class="navBar">
-    <Icon name="left" class="leftIcon"/>
+    <Icon name="more" class="leftIcon"/>
     <span class="title"><slot/></span>
-    <Icon class="rightIcon"/>
+    <Icon name="setting" class="rightIcon"/>
   </div>
 </template>
 
@@ -22,7 +22,8 @@
     width: 100vw;
     height: 60px;
     text-align: center;
-    font-size: 16px;
+    font-size: 18px;
+    color: #999999;
     padding: 12px 16px;
     background: #f8f8f8;
     display: flex;
@@ -33,12 +34,14 @@
     > .title {
     }
 
-    > a > .leftIcon {
+    > .leftIcon {
+      fill: #999999;
       width: 24px;
       height: 24px;
     }
 
     > .rightIcon {
+      fill: #999999;
       width: 24px;
       height: 24px;
     }
