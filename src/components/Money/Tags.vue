@@ -56,7 +56,6 @@
     display: flex;
     flex-direction: column-reverse;
     overflow: auto;
-    background: #fff;
 
     > .current {
       display: flex;

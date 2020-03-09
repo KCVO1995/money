@@ -6,6 +6,7 @@ import store from './store';
 import Nav from '@/components/Nav.vue';
 import Layout from '@/components/Layout.vue';
 import Icon from '@/components/Icon.vue';
+import Top from '@/components/Top.vue';
 
 Vue.config.productionTip = false;
 
@@ -13,6 +14,7 @@ Vue.config.productionTip = false;
 Vue.component('Nav', Nav);
 Vue.component('Layout', Layout);
 Vue.component('Icon', Icon);
+Vue.component('Top', Top);
 new Vue({
   router, // 引入路由
   store,  // 引入store到vue

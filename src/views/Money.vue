@@ -1,5 +1,6 @@
 <template>
   <div class="global">
+    <Top>记账</Top>
     <Tags :selected-tags.sync="record.selectedTags"/>
     <div class="formItemWrapper">
       <FormItem :value.sync="record.notes" field-name="备注" placeholder="在这里添加备注"/>
