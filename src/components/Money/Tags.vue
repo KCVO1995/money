@@ -76,8 +76,8 @@
         background: $bg;
         > .iconTag {
           fill: $color;
-          width: 35px;
-          height: 35px;
+          width: 30px;
+          height: 30px;
           margin-bottom: 5px;
         }
         &.selected {

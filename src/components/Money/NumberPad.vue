@@ -1,21 +1,29 @@
 <template>
   <div class="numberPad">
-    <div class="output">{{output}}</div>
+    <div class="output">
+      <span>CNY</span>
+      <div class="amount">
+        {{output}}
+      </div>
+      <span class="ok" @click="ok">OK</span>
+    </div>
     <div class="buttons">
       <button @click="inputContent">1</button>
       <button @click="inputContent">2</button>
       <button @click="inputContent">3</button>
-      <button @click="remove">删除</button>
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
-      <button @click="clear">清空</button>
       <button @click="inputContent">7</button>
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
-      <button @click="ok" class="ok">OK</button>
-      <button @click="inputContent" class="zero">0</button>
       <button @click="inputContent">.</button>
+      <button @click="inputContent" class="zero">0</button>
+      <!--      <button @click="clear">清空</button>-->
+      <button @click="remove">
+        <Icon name="退格"/>
+      </button>
+      <!--      <button @click="ok" class="ok">OK</button>-->
     </div>
   </div>
 </template>
@@ -73,60 +81,50 @@
 
   .numberPad {
     > .output {
-      @extend %innerShadow;
-      font-size: 36px;
+      margin: 15px auto 15px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 250px;
+      height: 50px;
       font-family: Consolas, monospace;
-      padding: 9px 16px;
-      text-align: right;
+      color: #999;
+      > .amount {
+        font-size: 32px;
+        color: black;
+      }
+      > .ok {
+        font-size: 22px;
+      }
     }
 
     > .buttons {
-      @extend %clearFix;
-
+      width: 275px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
       > button {
-        float: left;
-        height: 64px;
-        width: 25%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+        margin-bottom: 20px;
+        width: 70px;
+        height: 70px;
+        background: white;
         border: none;
-        background: transparent;
-
-        &.ok {
-          height: 128px;
-          float: right;
+        border-radius: 50%;
+        flex-shrink: 0;
+        box-shadow: 0 0 4px rgba(0, 0, 0, .10);
+        > .icon {
+          width: 26px;
+          height: 26px
         }
-
-        &.zero {
-          width: 50%;
-        }
-
-        $bgc: #f2f2f2;
-
-        &:nth-child(1) {
-          background: $bgc;
-        }
-
-        &:nth-child(2), &:nth-child(5) {
-          background: darken($bgc, 4%);
-        }
-
-        &:nth-child(3), &:nth-child(6), &:nth-child(9) {
-          background: darken($bgc, 4*2%);
-        }
-
-        &:nth-child(4), &:nth-child(7), &:nth-child(10) {
-          background: darken($bgc, 4*3%);
-        }
-
-        &:nth-child(8), &:nth-child(11), &:nth-child(13) {
-          background: darken($bgc, 4*4%);
-        }
-
-        &:nth-child(14) {
-          background: darken($bgc, 4*5%);
-        }
-
-        &:nth-child(12) {
-          background: darken($bgc, 4*6%);
+        > .point {
+          width: 15px;
+          height: 15px;
         }
       }
     }

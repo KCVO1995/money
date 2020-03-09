@@ -22,10 +22,11 @@
 
 <style lang='scss' scoped>
   .formInput {
+    margin: 10px auto 0;
     display: flex;
     align-items: center;
     font-size: 14px;
-    margin: 0 60px;
+    min-width: 250px;
     border-bottom: 2px solid #999999;
     height: 40px;
     > .icon {
