@@ -1,11 +1,19 @@
 <template>
   <div class="tags">
-    <div class="new">
-      <button @click="createTag">新增标签</button>
-    </div>
+    <!--    <div class="new">-->
+    <!--      <button @click="createTag">新增标签</button>-->
+    <!--    </div>-->
     <ul class="current">
       <li v-for="tag in tagList" :key="tag.id" @click="toggle(tag)"
-          :class="select(tag)">{{tag.name}}
+          :class="select(tag)">
+        <Icon :name="`${tag.name}`" class="iconTag"/>
+        {{tag.name}}
+      </li>
+      <li class="new">
+        <router-link to="/labels" active-class="active">
+          <Icon name="add" class="addTag">placeholder</Icon>
+          <span>新增</span>
+        </router-link>
       </li>
     </ul>
   </div>
@@ -49,50 +57,60 @@
 </script>
 
 <style lang='scss' scoped>
+  $bg: #f8f8f8;
+  $color: #999;
   .tags {
     font-size: 14px;
-    padding: 16px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column-reverse;
-    overflow: auto;
-
     > .current {
       display: flex;
       text-align: center;
-      flex-wrap: wrap;
-      margin-right: -16px;
-
+      overflow: auto;
+      color: $color;
       > li {
-        $h: 24px;
-        $bg: #D9D9D9;
-        margin-top: 4px;
-        padding: 0 18px;
-        height: $h;
-        margin-right: 18px;
-        line-height: $h;
-        border-radius: $h/2;
-        background-color: $bg;
-
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 75px;
+        min-width: 75px;
+        background: $bg;
+        > .iconTag {
+          fill: $color;
+          width: 35px;
+          height: 35px;
+          margin-bottom: 5px;
+        }
         &.selected {
           color: #fff;
-          background: darken($bg, 30%);
+          background: darken($bg, 20%);
+          > .iconTag {
+            fill: white;
+          }
+        }
+      }
+    }
+
+    .new {
+      > a {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        > .addTag {
+          fill: $color;
+          width: 35px;
+          height: 35px;
+          margin-bottom: 5px;
+        }
+        & .active {
+          background: darken($bg, 20%);
+          color: #fff;
+          > .addTag {
+            fill: white;
+          }
         }
       }
 
-
-    }
-
-    > .new {
-      padding-top: 16px;
-
-      > button {
-        background: transparent;
-        border: none;
-        color: #999;
-        border-bottom: 1px solid;
-        padding: 0 4px;
-      }
     }
   }
 </style>
