@@ -2,10 +2,8 @@
   <div class="global">
     <Top>记账</Top>
     <Tags :selected-tags.sync="record.selectedTags"/>
-    <div class="formItemWrapper">
-      <FormItem :value.sync="record.notes" field-name="备注" placeholder="在这里添加备注"/>
-    </div>
-    <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
+    <Input placeholder="在这里输入备注" :value.sync="record.notes"/>
+    <!--    <Tabs :data-source="recordTypeList" :value.sync="record.type"/>-->
     <NumberPad @submit="saveRecord" :value.sync="record.amount"/>
   </div>
 </template>
@@ -19,11 +17,12 @@
   import Tabs from '@/components/Tabs.vue';
   import store from '@/store/index';
   import Button from '@/components/Button.vue';
+  import Input from '@/components/Money/Input.vue';
   import recordTypeList from '@/constants/recordTypeList';
 
 
   @Component({
-    components: {Button, FormItem, Tabs, NumberPad, Tags},
+    components: {Button, FormItem, Tabs, NumberPad, Tags, Input},
   })
   export default class Money extends Vue {
     reset: RecordItem = {id: 0, selectedTags: [], notes: '', type: '-', amount: 0, createAt: undefined};

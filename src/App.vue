@@ -43,7 +43,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #333;
-    background: #f5f5f5;
+    background: #f8f8f8;
     line-height: 1.5;
     font-family: $font-hei;
     font-size: 16px;
