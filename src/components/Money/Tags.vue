@@ -19,15 +19,13 @@
 </template>
 
 <script lang='ts'>
+  import Vue from 'vue';
   import {Component, Prop} from 'vue-property-decorator';
   import store from '@/store/index';
   import iconList from '@/constants/iconList';
-  import {mixins} from 'vue-class-component';
-  import CreateTag from '@/mixins/CreateTag.vue';
-
 
   @Component
-  export default class Tags extends mixins(CreateTag) {
+  export default class Tags extends Vue {
     get tagList() {
       return store.state.tagList;
     }
