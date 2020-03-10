@@ -9,6 +9,7 @@
       const name = prompt('请输入标签名');
       if (name) {
         store.commit('createTag', name);
+        this.$router.back();
       }
     }
   }

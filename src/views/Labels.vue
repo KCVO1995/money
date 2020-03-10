@@ -78,6 +78,7 @@
         font-family: $font-kai;
         font-size: 30px;
         line-height: 30px;
+        text-align: center;
       }
 
       > span {
