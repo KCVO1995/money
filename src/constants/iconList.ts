@@ -1,0 +1,1 @@
+export default Object.freeze(['食物', '住房', '交通', '服装', '新增']);

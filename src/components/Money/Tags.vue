@@ -3,7 +3,8 @@
     <ul class="current">
       <li v-for="tag in tagList" :key="tag.id" @click="toggle(tag)"
           :class="select(tag)">
-        <Icon :name="`${tag.name}`" class="iconTag"/>
+        <Icon :name="`${tag.name}`" class="iconTag" v-if="showIcon(tag.name)"/>
+        <div v-else class="firstName">{{firstName(tag.name)}}</div>
         {{tag.name}}
       </li>
       <li class="new" @click="createTag">
@@ -20,6 +21,7 @@
 <script lang='ts'>
   import {Component, Prop} from 'vue-property-decorator';
   import store from '@/store/index';
+  import iconList from '@/constants/iconList';
   import {mixins} from 'vue-class-component';
   import CreateTag from '@/mixins/CreateTag.vue';
 
@@ -29,7 +31,6 @@
     get tagList() {
       return store.state.tagList;
     }
-
     @Prop() selectedTags: Tag[] | undefined;
 
     select(tag: Tag) {
@@ -51,10 +52,19 @@
         this.$emit('update:value', this.selectedTags);
       }
     }
+
+    showIcon(name: string) {
+      return iconList.indexOf(name) >= 0;
+    }
+
+    firstName(name: string) {
+      return name.trim().split('').splice(0, 1).join('');
+    }
   }
 </script>
 
 <style lang='scss' scoped>
+  @import "~@/assets/style/helper.scss";
   $bg: #f8f8f8;
   $color: #999;
   .tags {
@@ -73,11 +83,18 @@
         height: 75px;
         min-width: 75px;
         background: $bg;
-        > .iconTag {
+        > .iconTag,
+        .firstName {
           fill: $color;
           width: 30px;
           height: 30px;
           margin-bottom: 5px;
+        }
+        > .iconTag {fill: $color}
+        > .firstName {
+          font-family: $font-kai;
+          font-size: 30px;
+          line-height: 30px;
         }
         &.selected {
           color: #fff;
