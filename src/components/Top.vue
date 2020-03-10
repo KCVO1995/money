@@ -1,18 +1,27 @@
 <template>
   <div class="navBar">
-    <Icon name="more" class="leftIcon"/>
+    <Icon :name="leftIcon" class="leftIcon" @click="toggle"/>
     <span class="title"><slot/></span>
-    <Icon name="setting" class="rightIcon"/>
+    <Icon :name="rightIcon" class="rightIcon"/>
   </div>
 </template>
 
 <script lang='ts'>
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
 
   @Component
   export default class Top extends Vue {
+    @Prop(String) leftIcon: string | undefined;
+    @Prop(String) rightIcon: string | undefined;
 
+    toggle() {
+      if (this.leftIcon === 'left') {
+        this.$router.back();
+      } else {
+        return;
+      }
+    }
   }
 
 </script>

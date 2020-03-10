@@ -1,9 +1,8 @@
 <template>
   <div class="global">
-    <Top>记账</Top>
+    <Top leftIcon="left" rightIcon="setting">记账</Top>
     <Tags :selected-tags.sync="record.selectedTags"/>
     <Input placeholder="在这里输入备注" :value.sync="record.notes"/>
-    <!--    <Tabs :data-source="recordTypeList" :value.sync="record.type"/>-->
     <NumberPad @submit="saveRecord" :value.sync="record.amount"/>
   </div>
 </template>
