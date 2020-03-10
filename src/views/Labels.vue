@@ -52,13 +52,13 @@
   $color: #999;
 
   .tagList {
-    margin: 0 35px;
+    margin: 0 25px;
     color: $color;
 
     > .tag {
       @extend %Shadow;
       background: white;
-      height: 80px;
+      height: 65px;
       display: flex;
       align-items: center;
       margin-top: 20px;
