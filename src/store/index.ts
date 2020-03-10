@@ -90,7 +90,6 @@ const store = new Vuex.Store({
       } else {
         state.tagList.splice(index, 1);
         store.commit('saveTags');
-        router.back();
       }
 
 
