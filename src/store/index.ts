@@ -13,7 +13,7 @@ const store = new Vuex.Store({
     tagList: [] as Tag[],
     tagId: JSON.parse(localStorage.getItem('_tagIdMax') || '4'),
     foundTag: undefined as Tag | undefined,
-    reset: [{id: 1, name: '服装'}, {id: 2, name: '食物'}, {id: 3, name: '住房'}, {id: 4, name: '交通'}],
+    reset: [{id: 1, name: '服装'}, {id: 2, name: '餐饮'}, {id: 3, name: '住房'}, {id: 4, name: '交通'}],
   },
   mutations: {
     fetchRecords(state) {
