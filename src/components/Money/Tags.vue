@@ -1,21 +1,19 @@
 <template>
   <div class="tags">
-    <!--    <div class="new">-->
-    <!--      <button @click="createTag">新增标签</button>-->
-    <!--    </div>-->
     <ul class="current">
       <li v-for="tag in tagList" :key="tag.id" @click="toggle(tag)"
           :class="select(tag)">
         <Icon :name="`${tag.name}`" class="iconTag"/>
         {{tag.name}}
       </li>
-      <li class="new">
-        <router-link to="/labels" active-class="active">
-          <Icon name="add" class="addTag">placeholder</Icon>
-          <span>新增</span>
-        </router-link>
+      <li class="new" @click="createTag">
+        <Icon name="add" class="iconTag">placeholder</Icon>
+        <span>新增</span>
       </li>
     </ul>
+    <div class="more">
+      滑动选择更多
+    </div>
   </div>
 </template>
 
@@ -61,11 +59,12 @@
   $color: #999;
   .tags {
     font-size: 14px;
+    color: $color;
+    position: relative;
     > .current {
       display: flex;
       text-align: center;
       overflow: auto;
-      color: $color;
       > li {
         display: flex;
         flex-direction: column;
@@ -90,27 +89,13 @@
         }
       }
     }
+    > .more {
+      position: absolute;
+      bottom: -12px;
+      right: 12px;
+      line-height: 12px;
+      font-size: 12px;
 
-    .new {
-      > a {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        > .addTag {
-          fill: $color;
-          width: 35px;
-          height: 35px;
-          margin-bottom: 5px;
-        }
-        & .active {
-          background: darken($bg, 20%);
-          color: #fff;
-          > .addTag {
-            fill: white;
-          }
-        }
-      }
 
     }
   }
