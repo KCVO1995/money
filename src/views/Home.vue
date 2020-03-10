@@ -13,13 +13,18 @@
     </div>
     <div class="container-daily">
       <div class="daily outlay">
-        <span>今日支出</span>
-        <span>-￥640</span>
+        <div class="amount-daily">
+          <span>今日支出</span>
+          <span class="amount">-￥640</span>
+        </div>
         <Icon name="curve" class="icon-daily"/>
       </div>
+      <div class="line"></div>
       <div class="daily income">
-        <span>今日收入</span>
-        <span>￥1200</span>
+        <div class="amount-daily">
+          <span>今日收入</span>
+          <span class="amount">￥1200</span>
+        </div>
         <Icon name="curve" class="icon-daily"/>
       </div>
     </div>
@@ -90,24 +95,42 @@
     }
     .container-daily {
       position: absolute;
-      bottom: 25px;
+      bottom: 20px;
       display: flex;
+      > .line {
+        position: absolute;
+        bottom: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 60px;
+        width: 2px;
+        background: #999999;
+      }
       > .daily {
         width: 50vw;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        > .amount-daily {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          transform: translateY(70%);
+          .amount {
+            margin-top: 10px;
+          }
+        }
         > .icon-daily {
           width: 100px;
           height: 100px;
         }
         &.outlay {
-          color: #D81E06;
+          .amount {color: #D81E06;}
           > .icon-daily {fill: #D81E06;}
         }
         &.income {
-          color: #1296DB;
+          .amount {color: #1296DB;}
           > .icon-daily {fill: #1296DB;}
         }
       }
