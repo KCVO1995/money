@@ -7,9 +7,9 @@
       <li>7月</li>
     </ul>
     <div class="main">
-      <div class="type">+</div>
+      <div class="type" @click="toRecord('+')">+</div>
       <div class="output">收入/支出</div>
-      <div class="type">-</div>
+      <div class="type" @click="toRecord('-')">-</div>
     </div>
     <div class="container-daily">
       <div class="daily outlay">
@@ -33,11 +33,15 @@
 
 <script lang='ts'>
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Inject} from 'vue-property-decorator';
 
   @Component
   export default class Home extends Vue {
+    @Inject() eventBus;
 
+    toRecord(type: string) {
+      this.eventBus.$emit('xxx', type);
+    }
   }
 
 </script>

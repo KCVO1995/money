@@ -8,13 +8,15 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Watch} from 'vue-property-decorator';
+  import {Component, Provide, Watch} from 'vue-property-decorator';
   import {Route} from 'vue-router';
 
   @Component
   export default class App extends Vue {
     transitionName = '';
     screenHeight = document.documentElement.clientHeight;
+
+    @Provide('eventBus') eventBus = new Vue();
 
     @Watch('$route')
     onRouteChange(to: Route, from: Route) {
