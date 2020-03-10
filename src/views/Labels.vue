@@ -2,6 +2,10 @@
   <div>
     <Top leftIcon="left" rightIcon="setting">标签管理</Top>
     <ul class="tagList">
+      <li class="tag" @click="createTag">
+        <Icon name="add" class="iconTag"/>
+        <span>新增标签</span>
+      </li>
       <li v-for="tag in tagList" :key="tag.id" class="tag">
         <Icon :name="`${tag.name}`" class="iconTag" v-if="showIcon(tag.name)"/>
         <div v-else class="firstName">{{firstName(tag.name)}}</div>
@@ -9,9 +13,6 @@
         <Icon name="trash" class="trashIcon" @click="removeTag(tag.id)"/>
       </li>
     </ul>
-    <div class="createTagWrapping">
-      <Button @click="createTag">新建标签</Button>
-    </div>
   </div>
 </template>
 
@@ -71,6 +72,7 @@
         height: 30px;
         margin: auto 20px;
       }
+      &:last-child {margin-bottom: 20px;}
       > .iconTag {fill: $color}
       > .firstName {
         font-family: $font-kai;
