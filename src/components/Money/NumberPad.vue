@@ -107,6 +107,7 @@
       align-items: center;
       flex-wrap: wrap;
       > button {
+        @extend %Shadow;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -118,7 +119,6 @@
         border: none;
         border-radius: 50%;
         flex-shrink: 0;
-        box-shadow: 0 0 4px rgba(0, 0, 0, .10);
         > .icon {
           width: 26px;
           height: 26px
