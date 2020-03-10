@@ -6,19 +6,26 @@ import Statistics from '@/views/Statistics.vue';
 import CreateLabel from '@/views/CreateLabel.vue';
 import NotFound from '@/views/NotFound.vue';
 import EditRecord from '@/views/EditRecord.vue';
+import Home from '@/views/Home.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    redirect: '/statistics' // 重新定向
+    redirect: '/home' // 重新定向
   },
   {
     path: '/money/:id',
     name: 'money',
     meta: {index: 666},
     component: Money
+  },
+  {
+    path: '/home',
+    name: 'home',
+    meta: {index: 1},
+    component: Home
   },
   {
     path: '/labels',
