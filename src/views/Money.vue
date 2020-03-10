@@ -2,8 +2,10 @@
   <div class="global">
     <Top leftIcon="left" rightIcon="setting">记一笔</Top>
     <Tags :selected-tags.sync="record.selectedTags"/>
-    <Input placeholder="在这里输入备注" :value.sync="record.notes"/>
-    <NumberPad @submit="saveRecord" :value.sync="record.amount"/>
+    <div class="main">
+      <Input placeholder="在这里输入备注" :value.sync="record.notes"/>
+      <NumberPad @submit="saveRecord" :value.sync="record.amount"/>
+    </div>
   </div>
 </template>
 
@@ -77,10 +79,11 @@
     width: 100vw;
     height: 100vh;
   }
-
-  .formItemWrapper {
-    padding: 12px 0;
+  .main {
+    margin: auto;
   }
+
+
 </style>
 <style lang='scss' scoped>
 </style>
