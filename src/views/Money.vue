@@ -32,6 +32,7 @@
     }
 
     created() {
+      console.log(1);
       this.eventBus.$on('update:type', (type: string) => {
         this.reset.type = type;
       });
