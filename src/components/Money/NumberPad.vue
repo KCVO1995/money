@@ -95,9 +95,10 @@
       }
       > .ok {
         font-size: 22px;
+        color: #666666;
+        border-bottom: 1.5px solid #1296DB;
       }
     }
-
     > .buttons {
       width: 275px;
       margin: 0 auto;
@@ -121,10 +122,6 @@
         > .icon {
           width: 26px;
           height: 26px
-        }
-        > .point {
-          width: 15px;
-          height: 15px;
         }
         &:active {
           background: rgb(175, 190, 244);

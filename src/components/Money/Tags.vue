@@ -112,8 +112,6 @@
       right: 12px;
       line-height: 12px;
       font-size: 12px;
-
-
     }
   }
 </style>
