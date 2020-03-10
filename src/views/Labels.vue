@@ -2,7 +2,7 @@
   <div>
     <Top leftIcon="left" rightIcon="setting">标签管理</Top>
     <ul class="tagList">
-      <li class="tag" @click="createTag">
+      <li class="tag" @click="createLabel">
         <Icon name="add" class="iconTag"/>
         <span>新增标签</span>
       </li>
@@ -42,6 +42,10 @@
 
     removeTag(id: number) {
       this.$store.commit('removeTag', id);
+    }
+
+    createLabel() {
+      this.$router.push('/labels/create');
     }
 
   }
@@ -88,15 +92,6 @@
         font-size: 20px;
         flex-grow: 1;
       }
-
-
     }
   }
-
-  .createTagWrapping {
-    text-align: center;
-    margin-top: 45px;
-  }
-
-
 </style>

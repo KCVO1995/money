@@ -31,6 +31,7 @@
     get tagList() {
       return store.state.tagList;
     }
+
     @Prop() selectedTags: Tag[] | undefined;
 
     select(tag: Tag) {
@@ -59,6 +60,10 @@
 
     firstName(name: string) {
       return name.trim().split('').splice(0, 1).join('');
+    }
+
+    createTag() {
+      this.$router.push('/labels/create');
     }
   }
 </script>
