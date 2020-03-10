@@ -3,8 +3,8 @@ import VueRouter from 'vue-router';
 import Money from '@/views/Money.vue';
 import Labels from '@/views/Labels.vue';
 import Statistics from '@/views/Statistics.vue';
+import CreateLabel from '@/views/CreateLabel.vue';
 import NotFound from '@/views/NotFound.vue';
-import EditLabel from '@/views/EditLabel.vue';
 import EditRecord from '@/views/EditRecord.vue';
 
 Vue.use(VueRouter);
@@ -27,10 +27,10 @@ const routes = [
     component: Labels
   },
   {
-    path: '/labels/edit/:id',
-    name: 'editLabel',
+    path: '/labels/create',
+    name: 'crateLabel',
     meta: {index: 2},
-    component: EditLabel
+    component: CreateLabel
   },
   {
     path: '/statistics',
