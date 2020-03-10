@@ -15,7 +15,7 @@
       <div class="daily outlay">
         <div class="amount-daily">
           <span>今日支出</span>
-          <span class="amount">-￥640</span>
+          <span class="amount">-￥{{showAmount("-")}}</span>
         </div>
         <Icon name="curve" class="icon-daily"/>
       </div>
@@ -23,7 +23,7 @@
       <div class="daily income">
         <div class="amount-daily">
           <span>今日收入</span>
-          <span class="amount">￥1200</span>
+          <span class="amount">￥{{showAmount("+")}}</span>
         </div>
         <Icon name="curve" class="icon-daily"/>
       </div>
@@ -33,7 +33,9 @@
 
 <script lang='ts'>
   import Vue from 'vue';
+  import clone from '@/lib/clone';
   import {Component, Inject} from 'vue-property-decorator';
+  import dayjs from 'dayjs';
 
   @Component
   export default class Home extends Vue {
@@ -44,6 +46,25 @@
       this.$nextTick(() => {
         this.eventBus.$emit('update:type', type);
       });
+    }
+
+    showAmount(type: string) {
+      const recordList = clone(this.$store.state.recordList).filter(record => record.type === type);
+      if (recordList.length === 0) {return 0;}
+      const today = dayjs();
+      const todayGroup = [];
+      let dailyTotal = 0;
+      for (let i = 0; i < recordList.length; i++) {
+        const recordCreateAt = dayjs(recordList[i].createAt);
+        if (dayjs(recordCreateAt).isSame(today, 'day')) {
+          console.log('一样');
+          todayGroup.push(recordList[i]);
+        }
+      }
+      for (let i = 0; i < todayGroup.length; i++) {
+        dailyTotal += todayGroup[i].amount;
+      }
+      return dailyTotal;
     }
   }
 
@@ -124,6 +145,7 @@
           flex-direction: column;
           justify-content: center;
           transform: translateY(70%);
+          text-align: center;
           .amount {
             margin-top: 10px;
           }
