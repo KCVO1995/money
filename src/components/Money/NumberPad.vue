@@ -1,11 +1,11 @@
 <template>
   <div class="numberPad">
     <div class="output">
-      <span>CNY</span>
+      <span class="clear" @click="clear">清除</span>
       <div class="amount">
         {{output}}
       </div>
-      <span class="ok" @click="ok">OK</span>
+      <span class="ok" @click="ok">提交</span>
     </div>
     <div class="buttons">
       <button @click="inputContent">1</button>
@@ -19,11 +19,9 @@
       <button @click="inputContent">9</button>
       <button @click="inputContent">.</button>
       <button @click="inputContent" class="zero">0</button>
-      <!--      <button @click="clear">清空</button>-->
       <button @click="remove">
         <Icon name="退格"/>
       </button>
-      <!--      <button @click="ok" class="ok">OK</button>-->
     </div>
   </div>
 </template>
@@ -93,8 +91,9 @@
         font-size: 32px;
         color: black;
       }
-      > .ok {
-        font-size: 22px;
+      > .ok,
+      .clear {
+        font-size: 18px;
         color: #666666;
         border-bottom: 1.5px solid #1296DB;
       }
@@ -108,6 +107,7 @@
       flex-wrap: wrap;
       > button {
         @extend %Shadow;
+        color: #999;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -124,6 +124,7 @@
           height: 26px
         }
         &:active {
+          color: white;
           background: rgb(175, 190, 244);
         }
       }
