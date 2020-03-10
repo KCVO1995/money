@@ -9,7 +9,7 @@
 
 <script lang='ts'>
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Inject} from 'vue-property-decorator';
   import NumberPad from '@/components/Money/NumberPad.vue';
   import Tags from '@/components/Money/Tags.vue';
   import FormItem from '@/components/Money/FormItem.vue';
@@ -24,12 +24,18 @@
     components: {Button, FormItem, Tabs, NumberPad, Tags, Input},
   })
   export default class Money extends Vue {
+    @Inject() eventBus;
     reset: RecordItem = {id: 0, selectedTags: [], notes: '', type: '-', amount: 0, createAt: undefined};
 
     get recordList() {
       return store.state.recordList;
     }
 
+    created() {
+      this.eventBus.$on('update:type', (type: string) => {
+        this.reset.type = type;
+      });
+    }
 
     get record() {
       const routeId = this.$route.params.id;

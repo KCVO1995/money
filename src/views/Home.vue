@@ -40,7 +40,10 @@
     @Inject() eventBus;
 
     toRecord(type: string) {
-      this.eventBus.$emit('xxx', type);
+      this.$router.push('/money/0');
+      this.$nextTick(() => {
+        this.eventBus.$emit('update:type', type);
+      });
     }
   }
 
