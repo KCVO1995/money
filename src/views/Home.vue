@@ -4,7 +4,8 @@
     <ul class="month">
       <li v-for="(mon, index) in months" :key="index" @click="selectMonth(index)">{{mon}}月</li>
     </ul>
-    <Balls :selected-month="selectedMonth">placeholder</Balls>
+    <balls :selected-month="selectedMonth">placeholder</balls>
+    <router-link to="/statistics" class="detail">查看明细</router-link>
     <DailyAmount/>
   </div>
 </template>
@@ -20,7 +21,7 @@
     components: {Balls, DailyAmount}
   })
   export default class Home extends Vue {
-    selectedMonth = 3;
+    selectedMonth = 0;
 
     get months() {
       const currentMonth = dayjs().get('month');
@@ -56,7 +57,7 @@
     color: #999;
     position: relative;
     width: 100vw;
-    .month {
+    > .month {
       height: 50px;
       margin-top: 20px;
       display: flex;
@@ -73,6 +74,14 @@
           color: #1296DB;
         }
       }
+    }
+    > .detail {
+      font-size: 14px;
+      position: absolute;
+      top: 63%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-bottom: 1px solid #1296DB;
     }
   }
 </style>
