@@ -2,13 +2,11 @@
   <div class="global">
     <Top leftIcon="more" rightIcon="setting">米奇记账</Top>
     <ul class="month">
-      <li>5月</li>
-      <li class="selected">6月</li>
-      <li>7月</li>
+      <li v-for="(mon, index) in months" :key="index" @click="selectMonth(index)">{{mon}}月</li>
     </ul>
     <div class="main">
       <div class="type" @click="toRecord('+')">+</div>
-      <div class="output" @click="showMonth">收入/支出</div>
+      <div class="output">收入/支出</div>
       <div class="type" @click="toRecord('-')">-</div>
     </div>
     <DailyAmount/>
@@ -27,6 +25,21 @@
   export default class Home extends Vue {
     @Inject() eventBus;
 
+    get months() {
+      const currentMonth = dayjs().get('month');
+      const months = [];
+      let mon = currentMonth;
+      for (let i = 0; i < 3; i++) {
+        months.push(mon);
+        mon += 1;
+      }
+      return months;
+    }
+
+    mounted() {
+      this.selectMonth(1);
+    }
+
     toRecord(type: string) {
       this.$router.push('/money/0');
       this.$nextTick(() => {
@@ -34,10 +47,17 @@
       });
     }
 
-    showMonth() {
-      const x = dayjs.get('month');
-      console.log(x);
+    selectMonth(index: number) {
+      const li = this.$el.querySelectorAll('li');
+      for (let i = 0; i < li.length; i++) {
+        if (i === index) {
+          li[i].classList.add('selected');
+        } else {
+          li[i].classList.remove('selected');
+        }
+      }
     }
+
 
   }
 
