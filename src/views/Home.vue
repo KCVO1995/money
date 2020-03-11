@@ -90,23 +90,24 @@
       height: 50px;
       margin-top: 20px;
       display: flex;
-      justify-content: center;
+      justify-content: space-around;
       align-items: center;
       > li {
-        flex-grow: 1;
+        width: 28vw;
         text-align: center;
         line-height: $line-height;
         &.selected {
           @extend %Shadow;
           background: white;
           border-radius: $line-height/2;
+          color: #1296DB;
         }
       }
     }
     .main {
       position: absolute;
       top: 50%;
-      transform: translateY(-50%);
+      transform: translateY(-60%);
       display: flex;
       justify-content: space-around;
       align-items: center;
