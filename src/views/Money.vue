@@ -26,7 +26,7 @@
     components: {Button, FormItem, Tabs, NumberPad, Tags, Input},
   })
   export default class Money extends Vue {
-    @Inject() eventBus;
+    @Inject() eventBus: any;
     reset: RecordItem = {id: 0, selectedTags: [], notes: '', type: '-', amount: 0, createAt: undefined};
 
     get recordList() {

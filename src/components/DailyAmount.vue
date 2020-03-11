@@ -67,8 +67,8 @@
         height: 100px;
       }
       &.outlay {
-        .amount {color: #D81E06;}
-        > .icon-daily {fill: #D81E06;}
+        .amount {color: rgba(225, 90, 130);}
+        > .icon-daily {fill: rgba(225, 90, 130);}
       }
       &.income {
         .amount {color: #1296DB;}

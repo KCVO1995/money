@@ -41,7 +41,6 @@ const showAmount = (type: string, unit: Unit, selectedMonth: number | undefined)
   for (let i = 0; i < todayGroup.length; i++) {
     total += todayGroup[i].amount;
   }
-  console.log(total);
   return total;
 };
 
