@@ -2,7 +2,7 @@
   <div class="global">
     <Top leftIcon="more" rightIcon="setting">米奇记账</Top>
     <ul class="month">
-      <li v-for="(mon, index) in months" :key="index" @click="selectMonth(index)">{{mon}}月</li>
+      <li v-for="(mon, index) in months" :key="index" @click="selectMonth(mon)" :class="liClass(mon)">{{mon}}月</li>
     </ul>
     <balls :selected-month="selectedMonth">placeholder</balls>
     <router-link to="/statistics" class="detail">查看明细</router-link>
@@ -34,18 +34,17 @@
       return months;
     }
 
-    mounted() {this.selectMonth(1);}
+    mounted() {
+      const currentMonth = dayjs().get('month') + 1;
+      this.selectMonth(currentMonth);
+    }
 
-    selectMonth(index: number) {
-      this.selectedMonth = this.months[index];
-      const li = this.$el.querySelectorAll('li');
-      for (let i = 0; i < li.length; i++) {
-        if (i === index) {
-          li[i].classList.add('selected');
-        } else {
-          li[i].classList.remove('selected');
-        }
-      }
+    selectMonth(mon: number) {
+      this.selectedMonth = mon;
+    }
+
+    liClass(mon: number) {
+      return {selected: mon === this.selectedMonth};
     }
   }
 </script>
