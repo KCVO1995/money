@@ -8,7 +8,7 @@
     </ul>
     <div class="main">
       <div class="type" @click="toRecord('+')">+</div>
-      <div class="output">收入/支出</div>
+      <div class="output" @click="showMonth">收入/支出</div>
       <div class="type" @click="toRecord('-')">-</div>
     </div>
     <DailyAmount/>
@@ -19,6 +19,7 @@
   import Vue from 'vue';
   import {Component, Inject} from 'vue-property-decorator';
   import DailyAmount from '@/components/DailyAmount.vue';
+  import dayjs from 'dayjs';
 
   @Component({
     components: {DailyAmount}
@@ -31,6 +32,11 @@
       this.$nextTick(() => {
         this.eventBus.$emit('update:type', type);
       });
+    }
+
+    showMonth() {
+      const x = dayjs.get('month');
+      console.log(x);
     }
 
   }
