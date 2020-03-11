@@ -25,7 +25,9 @@
 
   @Component
   export default class DailyAmount extends Vue {
-    show(type: string) {return showAmount(type, 'day');}
+    show(type: string) {
+      return showAmount(type, 'day', undefined);
+    }
   }
 
 </script>

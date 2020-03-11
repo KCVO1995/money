@@ -28,7 +28,9 @@
     components: {DailyAmount}
   })
   export default class Home extends Vue {
-    @Inject() eventBus;
+    @Inject() eventBus: any;
+
+    selectedMonth = 3;
 
     get months() {
       const currentMonth = dayjs().get('month');
@@ -53,6 +55,7 @@
     }
 
     selectMonth(index: number) {
+      this.selectedMonth = this.months[index];
       const li = this.$el.querySelectorAll('li');
       for (let i = 0; i < li.length; i++) {
         if (i === index) {
@@ -64,10 +67,8 @@
     }
 
     show(type: string) {
-      return showAmount(type, 'month');
+      return showAmount(type, 'month', this.selectedMonth - 1);
     }
-
-
   }
 
 </script>
