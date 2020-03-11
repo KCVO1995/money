@@ -6,7 +6,11 @@
     </ul>
     <div class="main">
       <div class="type" @click="toRecord('+')">+</div>
-      <div class="output">收入/支出</div>
+      <div class="output">
+        <span>{{show("+")}}</span>
+        收入/支出
+        <span>{{show("-")}}</span>
+      </div>
       <div class="type" @click="toRecord('-')">-</div>
     </div>
     <DailyAmount/>
@@ -18,6 +22,7 @@
   import {Component, Inject} from 'vue-property-decorator';
   import DailyAmount from '@/components/DailyAmount.vue';
   import dayjs from 'dayjs';
+  import showAmount from '@/lib/ShowAmount';
 
   @Component({
     components: {DailyAmount}
@@ -56,6 +61,10 @@
           li[i].classList.remove('selected');
         }
       }
+    }
+
+    show(type: string) {
+      return showAmount(type, 'month');
     }
 
 

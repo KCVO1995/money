@@ -3,7 +3,7 @@
     <div class="daily outlay">
       <div class="amount-daily">
         <span>今日支出</span>
-        <span class="amount">-￥{{showAmount("-")}}</span>
+        <span class="amount">-￥{{show("-")}}</span>
       </div>
       <Icon name="curve" class="icon-daily"/>
     </div>
@@ -11,7 +11,7 @@
     <div class="daily income">
       <div class="amount-daily">
         <span>今日收入</span>
-        <span class="amount">￥{{showAmount("+")}}</span>
+        <span class="amount">￥{{show("+")}}</span>
       </div>
       <Icon name="curve" class="icon-daily"/>
     </div>
@@ -21,29 +21,11 @@
 <script lang='ts'>
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
-  import clone from '@/lib/clone';
-  import dayjs from 'dayjs';
+  import showAmount from '@/lib/ShowAmount';
 
   @Component
   export default class DailyAmount extends Vue {
-    showAmount(type: string) {
-      const recordList = clone(this.$store.state.recordList).filter(record => record.type === type);
-      if (recordList.length === 0) {return 0;}
-      const today = dayjs();
-      const todayGroup = [];
-      let dailyTotal = 0;
-      for (let i = 0; i < recordList.length; i++) {
-        const recordCreateAt = dayjs(recordList[i].createAt);
-        if (dayjs(recordCreateAt).isSame(today, 'day')) {
-          console.log('一样');
-          todayGroup.push(recordList[i]);
-        }
-      }
-      for (let i = 0; i < todayGroup.length; i++) {
-        dailyTotal += todayGroup[i].amount;
-      }
-      return dailyTotal;
-    }
+    show(type: string) {return showAmount(type, 'day');}
   }
 
 </script>
