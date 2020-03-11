@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Money from '@/views/Money.vue';
 import Labels from '@/views/Labels.vue';
 import Statistics from '@/views/Statistics.vue';
+import Sta from '@/views/Sta.vue';
 import CreateLabel from '@/views/CreateLabel.vue';
 import NotFound from '@/views/NotFound.vue';
 import EditRecord from '@/views/EditRecord.vue';
@@ -38,6 +39,12 @@ const routes = [
     name: 'crateLabel',
     meta: {index: 2},
     component: CreateLabel
+  },
+  {
+    path: '/sta',
+    name: 'sta',
+    meta: {index: 2},
+    component: Sta
   },
   {
     path: '/statistics',
