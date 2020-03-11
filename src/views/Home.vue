@@ -122,15 +122,15 @@
         align-items: center;
       }
       > .output {
-        height: 130px;
-        width: 130px;
+        height: 150px;
+        width: 150px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         position: relative;
         > .line {
-          width: 100px;
+          width: 120px;
           height: 1px;
           background: #999999;
           top: 50%;
@@ -142,31 +142,22 @@
           text-align: center;
           display: flex;
           flex-direction: column;
-          > .amount {
-            font-size: 20px;
-            line-height: 35px;
+          > .amount {font-size: 20px;line-height: 35px;
           }
-          > span {
-            font-size: 12px;
-            line-height: 18px;
+          > span {font-size: 12px;line-height: 18px;
           }
         }
         > .income {
           justify-content: flex-end;
-          color: #1296DB;
+          > .amount {color: #1296DB;}
         }
         > .outlay {
-          color: rgba(225, 90, 130)
+          > .amount {color: rgba(225, 90, 130)}
         }
-
-
       }
-      > .type {
-        height: 50px;
-        width: 50px;
-        font-size: 30px;
+      > .type {height: 50px;width: 50px;font-size: 30px;
       }
     }
-
   }
+
 </style>

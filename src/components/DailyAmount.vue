@@ -43,7 +43,7 @@
       left: 50%;
       transform: translateX(-50%);
       height: 60px;
-      width: 2px;
+      width: 1px;
       background: #999999;
     }
     > .daily {
