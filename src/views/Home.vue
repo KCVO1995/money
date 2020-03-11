@@ -7,9 +7,15 @@
     <div class="main">
       <div class="type" @click="toRecord('+')">+</div>
       <div class="output">
-        <span>{{show("+")}}</span>
-        收入/支出
-        <span>{{show("-")}}</span>
+        <div class="income">
+          <span>{{selectedMonth}}月收入</span>
+          <div class="amount">￥ {{show("-")}}</div>
+        </div>
+        <div class="line"></div>
+        <div class="outlay">
+          <div class="amount">￥{{show("+")}}</div>
+          <span>{{selectedMonth}}月支出</span>
+        </div>
       </div>
       <div class="type" @click="toRecord('-')">-</div>
     </div>
@@ -115,8 +121,44 @@
         align-items: center;
       }
       > .output {
-        height: 120px;
-        width: 120px;
+        height: 130px;
+        width: 130px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        > .line {
+          width: 100px;
+          height: 1px;
+          background: #999999;
+          top: 50%;
+          transform: translateY(-50%)
+        }
+        > .income,
+        .outlay {
+          flex-grow: 1;
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          > .amount {
+            font-size: 20px;
+            line-height: 35px;
+          }
+          > span {
+            font-size: 12px;
+            line-height: 18px;
+          }
+        }
+        > .income {
+          justify-content: flex-end;
+          color: #1296DB;
+        }
+        > .outlay {
+          color: rgba(225, 90, 130)
+        }
+
+
       }
       > .type {
         height: 50px;

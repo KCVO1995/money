@@ -3,7 +3,7 @@
     <div class="daily outlay">
       <div class="amount-daily">
         <span>今日支出</span>
-        <span class="amount">-￥{{show("-")}}</span>
+        <span class="amount">￥{{show("-")}}</span>
       </div>
       <Icon name="curve" class="icon-daily"/>
     </div>
