@@ -6,7 +6,7 @@
       <ul class="weeks" v-for="week in days" :key="week.key">
         <Icon name="left" class="icon-date"/>
         <li v-for="date in week" :key="date.key" class="container-date">
-          <span class="date">{{date.$D}}</span>
+          <span class="date" :class="currentMonth(date)">{{date.$D}}</span>
         </li>
         <Icon name="right" class="icon-date"/>
       </ul>
@@ -26,18 +26,23 @@
   export default class Sta extends Vue {
     selectedMonth = 0;
 
-    get days() {
-      return this.createDay(this.selectedMonth - 1);
-    }
+    get days() {return this.createDay(this.selectedMonth - 1);}
 
     getDaysInMonth(month: number) {
       const mon = dayjs().set('month', month).set('date', 1);
       return dayjs(mon).daysInMonth();
     }
 
+    currentMonth(date: any) {
+      const currentDay = dayjs().set('month', this.selectedMonth - 1).set('date', 1);
+      console.log(dayjs(date).isSame(currentDay, 'month'));
+      return {
+        currentMonth: !dayjs(date).isSame(currentDay, 'month')
+      };
+    }
+
     createDay(month: number) {
       const daysInMonth = this.getDaysInMonth(month);
-      const daysInLastMonth = this.getDaysInMonth(month - 1);
       const hashTable: { [key: number]: [] } = {};
       let weeks = 1;
       for (let i = 1; i < daysInMonth; i++) {
@@ -46,6 +51,12 @@
         hashTable[weeks].push(date);
         if (date.$W === 0) {weeks++;}
       }
+      this.complement(hashTable, month);
+      return hashTable;
+    }
+
+    complement(hashTable, month: number) {
+      const daysInLastMonth = this.getDaysInMonth(month - 1);
       const last = hashTable[Object.keys(hashTable).length];
       const first = hashTable[1];
       if (first.length < 7) {
@@ -62,8 +73,6 @@
           last.push(date);
         }
       }
-      console.log(hashTable);
-      return hashTable;
     }
 
 
@@ -93,6 +102,9 @@
           text-align: center;
           font-size: 22px;
           font-family: Consolas, monospace;
+          &.currentMonth {
+            color: #e6e6e6;
+          }
         }
         > .day {
           font-size: 12px;
