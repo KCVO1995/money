@@ -40,19 +40,15 @@
 
     selectedDate = dayjs().set('month', this.selectedMonth - 1).set('date', 1);
 
-    // get selectedDate() {
-    //   return dayjs().set('month', this.selectedMonth - 1).set('date', 1);
-    // }
-
-
-    liClass(date: any) {
-      return {
-        selected: dayjs(date).isSame(this.selectedDate, 'day')
-      };
-
+    mounted() {
+      this.selectedDate = dayjs().set('month', this.selectedMonth - 1).set('date', 1);
     }
 
-    selectDate(date) {
+    liClass(date: any) {
+      return {selected: dayjs(date).isSame(this.selectedDate, 'day')};
+    }
+
+    selectDate(date: any) {
       this.selectedDate = date;
     }
 
@@ -116,8 +112,6 @@
         }
       }
     }
-
-
   }
 </script>
 
