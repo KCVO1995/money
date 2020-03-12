@@ -5,7 +5,7 @@
     <div class="calendar">
       <ul class="weeks" v-for="week in days" :key="week.key">
         <Icon name="left" class="icon-date" @click="position('-')"/>
-        <li v-for="date in week" :key="date.key" class="container-date">
+        <li v-for="date in week" :key="date.key" class="container-date" :class="liClass(date)">
           <span class="date" :class="currentMonth(date)">{{date.$D}}</span>
         </li>
         <Icon name="right" class="icon-date" @click="position('+')"/>
@@ -36,6 +36,16 @@
   })
   export default class Sta extends Vue {
     selectedMonth = 0;
+
+    get selectedDate() {
+      return dayjs().set('month', this.selectedMonth - 1).set('date', 1);
+    }
+
+    liClass(date: any) {
+      return {
+        selected: dayjs(date).isSame(this.selectedDate, 'day')
+      };
+    }
 
     get days() {return this.createDay(this.selectedMonth - 1);}
 
@@ -95,9 +105,7 @@
           calendar.scrollLeft -= width;
         }
       }
-
     }
-
   }
 </script>
 
@@ -107,7 +115,6 @@
     .calendar {
       margin-top: 20px;
       display: flex;
-      border: 1px solid red;
       overflow: auto;
       > .weeks {
         flex-grow: 1;
@@ -125,12 +132,21 @@
           text-align: center;
           > .date {
             display: block;
-            line-height: 40px;
+            line-height: 30px;
             text-align: center;
             font-size: 22px;
             font-family: Consolas, monospace;
             &.currentMonth {
               color: black;
+            }
+          }
+          &.selected {
+            > .date {
+              display: block;
+              border-radius: 50%;
+              width: 30px;
+              background: rgb(160, 190, 250);
+              margin: 0 auto;
             }
           }
         }
