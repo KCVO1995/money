@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="global">
     <Top leftIcon="left" rightIcon="setting">账目明细</Top>
     <SelectMonth :selected-month.sync="selectedMonth">placeholder</SelectMonth>
     <div class="calendar">
@@ -11,6 +11,15 @@
         <Icon name="right" class="icon-date"/>
       </ul>
     </div>
+    <ul class="week-container">
+      <li>Mon</li>
+      <li>Tue</li>
+      <li>Wed</li>
+      <li>Thu</li>
+      <li>Fri</li>
+      <li>Sat</li>
+      <li>Sun</li>
+    </ul>
   </div>
 </template>
 
@@ -38,7 +47,7 @@
       const currentDay = dayjs().set('month', this.selectedMonth - 1).set('date', 1);
       console.log(dayjs(date).isSame(currentDay, 'month'));
       return {
-        currentMonth: !dayjs(date).isSame(currentDay, 'month')
+        currentMonth: dayjs(date).isSame(currentDay, 'month')
       };
     }
 
@@ -81,36 +90,52 @@
 </script>
 
 <style lang='scss' scoped>
-  .calendar {
-    margin-top: 20px;
-    display: flex;
-    > .weeks {
-      flex-grow: 1;
-      flex-shrink: 1;
+  .global {
+    color: #999999;
+    .calendar {
+      margin-top: 20px;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      > .icon-date {
-        width: 4.5vw;
-      }
-      > .container-date {
-        width: 13vw;
-        height: 60px;
-        text-align: center;
-        > .date {
-          display: block;
-          line-height: 40px;
+      border: 1px solid red;
+      overflow: auto;
+      > .weeks {
+        flex-grow: 1;
+        flex-shrink: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        > .icon-date {
+          width: 4.5vw;
+        }
+        > .container-date {
+          width: 13vw;
+          height: 60px;
           text-align: center;
-          font-size: 22px;
-          font-family: Consolas, monospace;
-          &.currentMonth {
-            color: #e6e6e6;
+          > .date {
+            display: block;
+            line-height: 40px;
+            text-align: center;
+            font-size: 22px;
+            font-family: Consolas, monospace;
+            &.currentMonth {
+              color: black;
+            }
           }
         }
-        > .day {
-          font-size: 12px;
-          color: #999999;
-        }
+      }
+    }
+    .week-container {
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 91vw;
+      transform: translateY(-130%);
+      > li {
+        line-height: 12px;
+        font-size: 12px;
+        width: 13vw;
+        flex-grow: 1;
+        text-align: center;
       }
     }
   }
