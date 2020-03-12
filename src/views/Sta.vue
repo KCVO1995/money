@@ -4,11 +4,11 @@
     <SelectMonth :selected-month.sync="selectedMonth">placeholder</SelectMonth>
     <div class="calendar">
       <ul class="weeks" v-for="week in days" :key="week.key">
-        <Icon name="left" class="icon-date"/>
+        <Icon name="left" class="icon-date" @click="position('-')"/>
         <li v-for="date in week" :key="date.key" class="container-date">
           <span class="date" :class="currentMonth(date)">{{date.$D}}</span>
         </li>
-        <Icon name="right" class="icon-date"/>
+        <Icon name="right" class="icon-date" @click="position('+')"/>
       </ul>
     </div>
     <ul class="week-container">
@@ -28,6 +28,7 @@
   import {Component} from 'vue-property-decorator';
   import SelectMonth from '@/components/SelectMonth.vue';
   import dayjs from 'dayjs';
+
   type dateGroup = { [key: number]: [] }
 
   @Component({
@@ -45,7 +46,6 @@
 
     currentMonth(date: any) {
       const currentDay = dayjs().set('month', this.selectedMonth - 1).set('date', 1);
-      console.log(dayjs(date).isSame(currentDay, 'month'));
       return {
         currentMonth: dayjs(date).isSame(currentDay, 'month')
       };
@@ -85,6 +85,18 @@
       }
     }
 
+    position(type: string) {
+      const calendar = this.$el.querySelector('.calendar');
+      const {width} = document.body.getBoundingClientRect();
+      if (calendar) {
+        if (type === '+') {
+          calendar.scrollLeft += width;
+        } else {
+          calendar.scrollLeft -= width;
+        }
+      }
+
+    }
 
   }
 </script>
@@ -104,10 +116,11 @@
         justify-content: space-between;
         align-items: center;
         > .icon-date {
-          width: 4.5vw;
+          width: 8vw;
+          height: 6vw;
         }
         > .container-date {
-          width: 13vw;
+          width: 12vw;
           height: 60px;
           text-align: center;
           > .date {
@@ -128,12 +141,12 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 91vw;
+      width: 84vw;
       transform: translateY(-130%);
       > li {
         line-height: 12px;
         font-size: 12px;
-        width: 13vw;
+        width: 12vw;
         flex-grow: 1;
         text-align: center;
       }
