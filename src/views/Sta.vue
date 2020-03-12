@@ -19,6 +19,7 @@
   import {Component} from 'vue-property-decorator';
   import SelectMonth from '@/components/SelectMonth.vue';
   import dayjs from 'dayjs';
+  type dateGroup = { [key: number]: [] }
 
   @Component({
     components: {SelectMonth}
@@ -43,7 +44,7 @@
 
     createDay(month: number) {
       const daysInMonth = this.getDaysInMonth(month);
-      const hashTable: { [key: number]: [] } = {};
+      const hashTable: dateGroup = {};
       let weeks = 1;
       for (let i = 1; i < daysInMonth; i++) {
         const date = dayjs().set('month', month).set('date', i);
@@ -55,7 +56,7 @@
       return hashTable;
     }
 
-    complement(hashTable, month: number) {
+    complement(hashTable: dateGroup, month: number) {
       const daysInLastMonth = this.getDaysInMonth(month - 1);
       const last = hashTable[Object.keys(hashTable).length];
       const first = hashTable[1];
