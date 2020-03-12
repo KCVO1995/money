@@ -41,7 +41,8 @@
     "svg-sprite-loader-mod": "^4.1.6-mod1",
     "svgo-loader": "^2.2.1",
     "typescript": "~3.7.5",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "weekday": "^3.0.1"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"

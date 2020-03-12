@@ -34,7 +34,9 @@
     }
 
     show(type: string) {
-      return showAmount(type, 'month', this.selectedMonth - 1);
+      if (this.selectedMonth) {
+        return showAmount(type, 'month', this.selectedMonth - 1);
+      }
     }
   }
 </script>
