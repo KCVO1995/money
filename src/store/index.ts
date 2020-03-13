@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import clone from '@/lib/clone';
-import router from '@/router';
 
 Vue.use(Vuex); // 把store 绑到 Vue.prototype
 
@@ -50,7 +49,6 @@ const store = new Vuex.Store({
       } else {
         state.recordList.splice(index, 1);
         store.commit('saveRecords');
-        router.back();
       }
     },
     // ---------------------------

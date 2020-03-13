@@ -12,9 +12,7 @@
           <span class="record-amount income">￥{{record.amount}}</span>
           <span class="record-tag">{{record.selectedTags[0].name}}收入</span>
         </div>
-        <router-link :to="`money/${record.id}`">
-          <Icon name="input" class="edit"/>
-        </router-link>
+        <Icon name="trash" class="trash" @click="remove(record.id)"/>
       </li>
       <li v-for="record in todayRecord('-')" :key="record.id" class="record">
         <TagIcon :tagName="record.selectedTags[0].name" class="icon-tag"/>
@@ -22,9 +20,7 @@
           <span class="record-amount outlay">￥{{record.amount}}</span>
           <span class="record-tag">{{record.selectedTags[0].name}}支出</span>
         </div>
-        <router-link :to="`money/${record.id}`">
-          <Icon name="input" class="edit"/>
-        </router-link>
+        <Icon name="trash" class="trash" @click="remove(record.id)"/>
       </li>
     </ul>
   </div>
@@ -38,6 +34,7 @@
   import SelectDate from '@/components/SelectDate.vue';
   import ShowWeekDaily from '@/components/ShowWeekDaily.vue';
   import ShowAmount from '@/lib/ShowAmount';
+  import store from '@/store';
 
 
   @Component({components: {ShowWeekDaily, SelectDate, SelectMonth}})
@@ -47,12 +44,16 @@
     selectedDate = dayjs().set('month', this.selectedMonth - 1).set('date', 1);
 
 
-    mounted() {this.selectedDate = dayjs().set('month', this.selectedMonth - 1).set('date', 1);}
+    mounted() {
+      this.selectedDate = dayjs().set('month', this.selectedMonth - 1).set('date', 1);
+    }
 
     todayRecord(type: string) {
       console.log(ShowAmount(type, 'day', this.selectedDate, true));
       return ShowAmount(type, 'day', this.selectedDate, true);
     }
+
+    remove(id: number) {store.commit('removeRecord', id);}
 
   }
 </script>
@@ -82,12 +83,10 @@
         margin-top: 20px;
         border-radius: 15px;
         > .icon-tag {margin: auto 20px;}
-        > a {
-          > .edit {
-            width: 20px;
-            height: 20px;
-            margin-right: 15px;
-          }
+        > .trash {
+          width: 30px;
+          height: 30px;
+          margin-right: 15px;
         }
         &:last-child {margin-bottom: 20px;}
         > .detail {
