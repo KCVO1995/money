@@ -49,8 +49,7 @@
       border-radius: 15px;
 
       > .iconTag,
-      > .trashIcon,
-      .firstName {
+      .trashIcon {
         fill: $color;
         width: 30px;
         height: 30px;
