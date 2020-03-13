@@ -17,9 +17,7 @@
 
     get months() {
       const months = [];
-      for (let i = 1; i < 13; i++) {
-        months.push(i);
-      }
+      for (let i = 1; i < 13; i++) {months.push(i);}
       return months;
     }
 
@@ -27,10 +25,7 @@
       const currentMonth = dayjs().get('month') + 1;
       this.selectMonth(currentMonth);
       const monthGroup = this.$el;
-      if (currentMonth > 1) {
-        monthGroup.scrollLeft = (currentMonth - 2) * 125;
-        console.log(monthGroup.scrollLeft);
-      }
+      if (currentMonth > 1) {monthGroup.scrollLeft = (currentMonth - 2) * 125;}
     }
 
     selectMonth(mon: number) {this.$emit('update:selectedMonth', mon);}
