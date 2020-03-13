@@ -4,7 +4,6 @@
     <SelectMonth :selected-month.sync="selectedMonth">placeholder</SelectMonth>
     <SelectDate :selected-date.sync="selectedDate" :selected-month="selectedMonth">placeholder</SelectDate>
     <ShowWeekDaily :selected-date="selectedDate"/>
-
   </div>
 </template>
 
