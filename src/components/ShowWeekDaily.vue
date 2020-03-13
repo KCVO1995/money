@@ -34,9 +34,9 @@
   export default class ShowWeekDaily extends Vue {
     @Prop() selectedDate: any;
 
-    showDaily(type: string) {return ShowAmount(type, 'day', this.selectedDate);}
+    showDaily(type: string) {return ShowAmount(type, 'day', this.selectedDate, false);}
 
-    showWeek(type: string) {return ShowAmount(type, 'week', this.selectedDate);}
+    showWeek(type: string) {return ShowAmount(type, 'week', this.selectedDate, false);}
   }
 
 </script>

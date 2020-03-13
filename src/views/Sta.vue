@@ -4,6 +4,9 @@
     <SelectMonth :selected-month.sync="selectedMonth">placeholder</SelectMonth>
     <SelectDate :selected-date.sync="selectedDate" :selected-month="selectedMonth">placeholder</SelectDate>
     <ShowWeekDaily :selected-date="selectedDate"/>
+    <ul>
+      <li v-for="(record,index) in todayRecord('+')" :key="index">{{record.amount}}</li>
+    </ul>
   </div>
 </template>
 
@@ -13,8 +16,8 @@
   import SelectMonth from '@/components/SelectMonth.vue';
   import dayjs from 'dayjs';
   import SelectDate from '@/components/SelectDate.vue';
-  import ShowAmount from '@/lib/ShowAmount';
   import ShowWeekDaily from '@/components/ShowWeekDaily.vue';
+  import ShowAmount from '@/lib/ShowAmount';
 
 
   @Component({components: {ShowWeekDaily, SelectDate, SelectMonth}})
@@ -23,7 +26,13 @@
 
     selectedDate = dayjs().set('month', this.selectedMonth - 1).set('date', 1);
 
+
     mounted() {this.selectedDate = dayjs().set('month', this.selectedMonth - 1).set('date', 1);}
+
+    todayRecord(type: string) {
+      return ShowAmount(type, 'day', this.selectedDate, true);
+    }
+
 
   }
 </script>

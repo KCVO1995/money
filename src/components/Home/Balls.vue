@@ -37,7 +37,7 @@
     show(type: string) {
       if (this.selectedMonth) {
         const currentMonth = dayjs().set('month', this.selectedMonth - 1);
-        return showAmount(type, 'month', currentMonth);
+        return showAmount(type, 'month', currentMonth, false);
       }
     }
   }

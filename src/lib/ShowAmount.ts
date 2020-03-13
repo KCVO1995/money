@@ -21,7 +21,7 @@ type Unit =
   | 'week'
   | 'w'
   | undefined
-const showAmount = (type: string, unit: Unit, according: any) => {
+const showAmount = (type: string, unit: Unit, according: any, record: boolean) => {
   const recordList = clone(store.state.recordList).filter(record => record.type === type);
   if (recordList.length === 0) {return 0;}
   const todayGroup = [];
@@ -32,9 +32,8 @@ const showAmount = (type: string, unit: Unit, according: any) => {
       todayGroup.push(recordList[i]);
     }
   }
-  for (let i = 0; i < todayGroup.length; i++) {
-    total += todayGroup[i].amount;
-  }
+  if (record) {return todayGroup;}
+  for (let i = 0; i < todayGroup.length; i++) {total += todayGroup[i].amount;}
   return total;
 };
 
