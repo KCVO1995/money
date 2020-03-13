@@ -23,7 +23,6 @@ type Unit =
   | undefined
 const showAmount = (type: string, unit: Unit, according: any, record: boolean) => {
   const recordList = clone(store.state.recordList).filter(record => record.type === type);
-  console.log('aaa');
   if (recordList.length === 0) {return 0;}
   const todayGroup = [];
   let total = 0;

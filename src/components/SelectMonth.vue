@@ -22,10 +22,11 @@
     }
 
     mounted() {
+      const {width} = document.body.getBoundingClientRect();
       const currentMonth = dayjs().get('month') + 1;
       this.selectMonth(currentMonth);
       const monthGroup = this.$el;
-      if (currentMonth > 1) {monthGroup.scrollLeft = (currentMonth - 2) * 125;}
+      if (currentMonth > 1) {monthGroup.scrollLeft = (currentMonth - 2) * width / 3;}
     }
 
     selectMonth(mon: number) {this.$emit('update:selectedMonth', mon);}

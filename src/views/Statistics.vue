@@ -1,164 +1,109 @@
 <template>
-  <Layout class="global">
-    <Tabs :data-source="recordTypeList" class-prefix="types" :value.sync="recordType"/>
-    <Tabs :data-source="intervalList" class-prefix="interval" :value.sync="interval"/>
-    <ol v-if="resultArray.length > 0">
-      <li v-for="(group,index) in resultArray" :key="index">
-        <div class="title">
-          <div>{{beautify(group.title)}}</div>
-          <div>￥ {{group.total}}</div>
+  <div class="global">
+    <Top leftIcon="left" rightIcon="setting">账目明细</Top>
+    <SelectMonth :selected-month.sync="selectedMonth">placeholder</SelectMonth>
+    <SelectDate :selected-date.sync="selectedDate" :selected-month="selectedMonth">placeholder</SelectDate>
+    <ShowWeekDaily :selected-date="selectedDate"/>
+    <span class="note">今天明细</span>
+    <ul class="record-list">
+      <li v-for="record in todayRecord('+')" :key="record.id" class="record">
+        <TagIcon :tagName="record.selectedTags[0].name" class="icon-tag"/>
+        <div class="detail">
+          <span class="record-amount income">￥{{record.amount}}</span>
+          <span class="record-tag">{{record.selectedTags[0].name}}收入</span>
         </div>
-        <ol>
-          <li v-for="item in group.items" :key="item.id">
-            <router-link :to="`/statistics/edit/${item.id}`" class="record">
-              <span>{{tagString(item.selectedTags)}}</span>
-              <span class="notes">{{item.notes}}</span>
-              <span>￥ {{item.amount}}</span>
-            </router-link>
-          </li>
-        </ol>
+        <Icon name="trash" class="trash" @click="remove(record.id)"/>
       </li>
-    </ol>
-    <div v-if="recordType === '+' && resultArray.length <= 0" class="noResult">
-      <span>目前还没有收入，赶紧赚钱吧</span>
-    </div>
-    <div v-if="recordType === '-' && resultArray.length <= 0" class="noResult">
-      <span>目前还没有支出</span>
-    </div>
-  </Layout>
+      <li v-for="record in todayRecord('-')" :key="record.id" class="record">
+        <TagIcon :tagName="record.selectedTags[0].name" class="icon-tag"/>
+        <div class="detail">
+          <span class="record-amount outlay">￥{{record.amount}}</span>
+          <span class="record-tag">{{record.selectedTags[0].name}}支出</span>
+        </div>
+        <Icon name="trash" class="trash" @click="remove(record.id)"/>
+      </li>
+    </ul>
+  </div>
 </template>
-
 
 <script lang='ts'>
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
-  import Tabs from '@/components/Tabs.vue';
-  import intervalList from '@/constants/intervalList';
-  import recordTypeList from '@/constants/recordTypeList';
-  import store from '@/store';
+  import SelectMonth from '@/components/SelectMonth.vue';
   import dayjs from 'dayjs';
-  import clone from '@/lib/clone';
+  import SelectDate from '@/components/SelectDate.vue';
+  import ShowWeekDaily from '@/components/ShowWeekDaily.vue';
+  import ShowAmount from '@/lib/ShowAmount';
+  import store from '@/store';
 
-  @Component({
-    components: {Tabs}
-  })
-  export default class Statistics extends Vue {
-    get recordList() {
-      return store.state.recordList;
+
+  @Component({components: {ShowWeekDaily, SelectDate, SelectMonth}})
+  export default class Sta extends Vue {
+    selectedMonth = 0;
+
+    selectedDate = dayjs().set('month', this.selectedMonth - 1).set('date', 1);
+
+
+    mounted() {
+      this.selectedDate = dayjs().set('month', this.selectedMonth - 1).set('date', 1);
     }
 
-    get resultArray() {
-      // [
-      //   {title, items}
-      //   {title, items}
-      // ]
-      const recordList = clone(store.state.recordList).filter(record => record.type === this.recordType);
-      if (recordList.length === 0) {return [];}
-      recordList.sort((a: RecordItem, b) => dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf());
-
-      const groupList = [{
-        title: dayjs(recordList[0].createAt).format('YYYY-MM-DD'),
-        total: 0 || recordList[0].amount,
-        items: [recordList[0]]
-      }];
-      for (let i = 1; i < recordList.length; i++) {
-        const recordCreateAt = dayjs(recordList[i].createAt);
-        const last = groupList[groupList.length - 1];
-        if (recordCreateAt.isSame(last.title, 'day')) {
-          last.items.push(recordList[i]);
-          last.total += recordList[i].amount;
-        } else {
-          groupList.push({
-            title: recordCreateAt.format('YYYY-MM-DD'),
-            total: recordList[i].amount,
-            items: [recordList[i]]
-          });
-        }
-      }
-      return groupList;
-
+    todayRecord(type: string) {
+      return ShowAmount(type, 'day', this.selectedDate, true);
     }
 
-    intervalList = intervalList;
-    interval = 'day';
-    recordTypeList = recordTypeList;
-    recordType = '-';
+    remove(id: number) {store.commit('removeRecord', id);}
 
-    tagString(tags: Tag[]) {
-      return tags.length === 0 ? '无' : tags.map(tag => tag.name).join('，');
-    }
-
-    beautify(date: string) {
-      const d = dayjs(date);
-      const today = dayjs();
-      if (d.isSame(today, 'day')) {
-        return '今天';
-      } else if (d.isSame(today.subtract(1, 'day'), 'day')) {
-        return '昨天';
-      } else if (d.isSame(today.subtract(2, 'day'), 'day')) {
-        return '前天';
-      } else if (d.isSame(today, 'year')) {
-        return d.format('M月D日');
-      } else {
-        return d.format('YYYY年M月D日');
-      }
-    }
   }
-
 </script>
 
-<style scoped lang="scss">
+<style lang='scss' scoped>
+  @import "~@/assets/style/helper.scss";
+  $color: #999;
   .global {
-    width: 100vw;
-  }
-
-  %item {
-    padding: 8px 16px;
-    line-height: 24px;
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-  }
-
-  .noResult {
-    padding: 16px;
-    text-align: center;
-  }
-
-  .title {
-    @extend %item;
-  }
-
-  .record {
-    background: white;
-    @extend %item;
-  }
-
-  .notes {
-    flex: 1;
-    margin-right: auto;
-    margin-left: 16px;
-    color: #999999;
-  }
-
-  ::v-deep {
-    li.types-tabs-item {
-      background: #fff;
-
-      &.selected {
-        background: #c4c4c4;
-
-        &::after {
-          display: none;
+    color: $color;
+    > .note {
+      display: block;
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      line-height: 14px;
+      margin-top: 25px;
+    }
+    > .record-list {
+      margin: 0 25px;
+      color: $color;
+      > .record {
+        @extend %Shadow;
+        background: white;
+        height: 65px;
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+        border-radius: 15px;
+        > .icon-tag {margin: auto 20px;}
+        > .trash {
+          width: 30px;
+          height: 30px;
+          margin-right: 15px;
+        }
+        &:last-child {margin-bottom: 20px;}
+        > .detail {
+          padding-left: 20px;
+          border-left: 1px solid $color;
+          font-size: 14px;
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          > .record-amount {
+            font-size: 18px;
+            &.income {color: #1296DB}
+            &.outlay {color: rgba(225, 90, 130)}
+          }
         }
       }
     }
 
-
-    .interval-tabs-item {
-      height: 40px;
-    }
   }
 </style>
-
-
