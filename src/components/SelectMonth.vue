@@ -14,13 +14,9 @@
     @Prop(Number) selectedMonth: number | undefined;
 
     get months() {
-      const currentMonth = dayjs().get('month');
       const months = [];
-      let mon = currentMonth;
-      for (let i = 0; i < 3; i++) {
-        months.push(mon);
-        mon += 1;
-      }
+      for (let i = 1; i < 13; i++) {months.push(i);}
+      console.log(months);
       return months;
     }
 

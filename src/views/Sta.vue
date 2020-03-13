@@ -32,26 +32,17 @@
 
   type dateGroup = { [key: number]: [] }
 
-  @Component({
-    components: {SelectMonth}
-  })
+  @Component({components: {SelectMonth}})
   export default class Sta extends Vue {
     selectedMonth = 0;
 
     selectedDate = dayjs().set('month', this.selectedMonth - 1).set('date', 1);
 
-    mounted() {
-      this.selectedDate = dayjs().set('month', this.selectedMonth - 1).set('date', 1);
-    }
+    mounted() {this.selectedDate = dayjs().set('month', this.selectedMonth - 1).set('date', 1);}
 
-    liClass(date: any) {
-      return {selected: dayjs(date).isSame(this.selectedDate, 'day')};
-    }
+    liClass(date: any) {return {selected: dayjs(date).isSame(this.selectedDate, 'day')};}
 
-    selectDate(date: any) {
-      this.selectedDate = date;
-    }
-
+    selectDate(date: any) {this.selectedDate = date;}
 
     get days() {return this.createDay(this.selectedMonth - 1);}
 
@@ -78,6 +69,7 @@
         if (date.$W === 0) {weeks++;}
       }
       this.complement(hashTable, month);
+      console.log(hashTable);
       return hashTable;
     }
 
