@@ -44,9 +44,9 @@
 
     mounted() {this.selectedDate = dayjs().set('month', this.selectedMonth - 1).set('date', 1);}
 
-    // showDaily(type: string) {
-    //   return ShowAmount(type, 'day', undefined)
-    // }
+    showDaily(type: string) {
+      return ShowAmount(type, 'day', dayjs());
+    }
 
   }
 </script>

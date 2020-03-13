@@ -21,20 +21,14 @@ type Unit =
   | 'week'
   | 'w'
   | undefined
-const showAmount = (type: string, unit: Unit, selectedMonth: number | undefined) => {
+const showAmount = (type: string, unit: Unit, according: any) => {
   const recordList = clone(store.state.recordList).filter(record => record.type === type);
   if (recordList.length === 0) {return 0;}
-  let today;
-  if (selectedMonth) {
-    today = dayjs().month(selectedMonth);
-  } else {
-    today = dayjs();
-  }
   const todayGroup = [];
   let total = 0;
   for (let i = 0; i < recordList.length; i++) {
     const recordCreateAt = dayjs(recordList[i].createAt);
-    if (dayjs(recordCreateAt).isSame(today, unit)) {
+    if (dayjs(recordCreateAt).isSame(according, unit)) {
       todayGroup.push(recordList[i]);
     }
   }
