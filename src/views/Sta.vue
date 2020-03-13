@@ -69,7 +69,6 @@
         if (date.$W === 0) {weeks++;}
       }
       this.complement(hashTable, month);
-      console.log(hashTable);
       return hashTable;
     }
 

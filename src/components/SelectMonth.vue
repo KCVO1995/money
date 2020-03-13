@@ -1,7 +1,9 @@
 <template>
-  <ul class="month">
-    <li v-for="(mon, index) in months" :key="index" @click="selectMonth(mon)" :class="liClass(mon)">{{mon}}月</li>
-  </ul>
+  <div class="monthsGroup">
+    <ul class="month">
+      <li v-for="(mon, index) in months" :key="index" @click="selectMonth(mon)" :class="liClass(mon)">{{mon}}月</li>
+    </ul>
+  </div>
 </template>
 
 <script lang='ts'>
@@ -15,19 +17,26 @@
 
     get months() {
       const months = [];
-      for (let i = 1; i < 13; i++) {months.push(i);}
-      console.log(months);
+      for (let i = 1; i < 13; i++) {
+        months.push(i);
+      }
       return months;
     }
 
     mounted() {
       const currentMonth = dayjs().get('month') + 1;
       this.selectMonth(currentMonth);
+      const monthGroup = this.$el;
+      if (currentMonth > 1) {
+        monthGroup.scrollLeft = (currentMonth - 2) * 125;
+        console.log(monthGroup.scrollLeft);
+      }
     }
 
     selectMonth(mon: number) {this.$emit('update:selectedMonth', mon);}
 
     liClass(mon: number) {return {selected: mon === this.selectedMonth};}
+
   }
 
 </script>
@@ -35,22 +44,28 @@
 <style lang='scss' scoped>
   @import "~@/assets/style/helper.scss";
   $line-height: 50px;
-  .month {
-    height: 50px;
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    > li {
-      width: 28vw;
-      text-align: center;
-      line-height: $line-height;
-      &.selected {
-        @extend %Shadow;
-        background: white;
-        border-radius: $line-height/2;
-        color: #1296DB;
+  .monthsGroup {
+    overflow: auto;
+    .month {
+      width: 400vw;
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      transform: translateY(-5%);
+      > li {
+        width: 28vw;
+        text-align: center;
+        line-height: $line-height;
+        &.selected {
+          @extend %Shadow;
+          background: white;
+          border-radius: $line-height/2;
+          color: #1296DB;
+        }
       }
     }
   }
+
+
 </style>
