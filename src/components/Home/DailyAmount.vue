@@ -22,12 +22,11 @@
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
   import showAmount from '@/lib/ShowAmount';
+  import dayjs from 'dayjs';
 
   @Component
   export default class DailyAmount extends Vue {
-    show(type: string) {
-      return showAmount(type, 'day', undefined);
-    }
+    show(type: string) {return showAmount(type, 'day', dayjs());}
   }
 
 </script>

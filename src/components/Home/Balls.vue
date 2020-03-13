@@ -20,6 +20,7 @@
   import Vue from 'vue';
   import {Component, Inject, Prop} from 'vue-property-decorator';
   import showAmount from '@/lib/ShowAmount';
+  import dayjs from 'dayjs';
 
   @Component
   export default class Balls extends Vue {
@@ -35,7 +36,8 @@
 
     show(type: string) {
       if (this.selectedMonth) {
-        return showAmount(type, 'month', this.selectedMonth - 1);
+        const currentMonth = dayjs().set('month', this.selectedMonth - 1);
+        return showAmount(type, 'month', currentMonth);
       }
     }
   }
