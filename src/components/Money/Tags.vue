@@ -1,14 +1,12 @@
 <template>
   <div class="tags">
     <ul class="current">
-      <li v-for="tag in tagList" :key="tag.id" @click="toggle(tag)"
-          :class="select(tag)">
-        <Icon :name="`${tag.name}`" class="iconTag" v-if="showIcon(tag.name)"/>
-        <div v-else class="firstName">{{firstName(tag.name)}}</div>
-        {{tag.name}}
+      <li v-for="tag in tagList" :key="tag.id" @click="toggle(tag)" :class="select(tag)">
+        <TagIcon :tagName="tag.name"/>
+        <span>{{tag.name}}</span>
       </li>
       <li class="new" @click="createTag">
-        <Icon name="add" class="iconTag">placeholder</Icon>
+        <Icon name="add" class="add">placeholder</Icon>
         <span>新增</span>
       </li>
     </ul>
@@ -22,21 +20,16 @@
   import Vue from 'vue';
   import {Component, Prop} from 'vue-property-decorator';
   import store from '@/store/index';
-  import iconList from '@/constants/iconList';
 
   @Component
   export default class Tags extends Vue {
-    get tagList() {
-      return store.state.tagList;
-    }
+    get tagList() {return store.state.tagList;}
 
     @Prop() selectedTags: Tag[] | undefined;
 
     select(tag: Tag) {
       const arr = this.selectedTags?.map(item => item.id);
-      if (arr) {
-        return {selected: arr.indexOf(tag.id) >= 0};
-      }
+      if (arr) {return {selected: arr.indexOf(tag.id) >= 0};}
     }
 
     toggle(tag: Tag) {
@@ -52,21 +45,11 @@
       }
     }
 
-    showIcon(name: string) {
-      return iconList.indexOf(name) >= 0;
-    }
-
-    firstName(name: string) {
-      return name.trim().split('').splice(0, 1).join('');
-    }
-
-    createTag() {
-      this.$router.push('/labels/create');
-    }
+    createTag() {this.$router.push('/labels/create');}
   }
 </script>
 
-<style lang='scss' scoped>
+<style lang='scss'>
   @import "~@/assets/style/helper.scss";
   $bg: #f8f8f8;
   $color: #999;
@@ -86,26 +69,13 @@
         height: 75px;
         min-width: 75px;
         background: $bg;
-        > .iconTag,
-        .firstName {
-          fill: $color;
-          width: 30px;
-          height: 30px;
-          margin-bottom: 5px;
-        }
-        > .iconTag {fill: $color}
-        > .firstName {
-          font-family: $font-kai;
-          font-size: 30px;
-          line-height: 30px;
-        }
+        > .add {fill: $color;width: 30px;height: 30px;}
+        > span {margin-top: 5px;}
         &.selected {
           color: #fff;
           background: darken($bg, 20%);
           border-radius: 15px;
-          > .iconTag {
-            fill: white;
-          }
+          .iconTag {fill: white;}
         }
       }
     }

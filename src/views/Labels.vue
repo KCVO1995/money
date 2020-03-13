@@ -7,8 +7,7 @@
         <span>新增标签</span>
       </li>
       <li v-for="tag in tagList" :key="tag.id" class="tag">
-        <Icon :name="`${tag.name}`" class="iconTag" v-if="showIcon(tag.name)"/>
-        <div v-else class="firstName">{{firstName(tag.name)}}</div>
+        <TagIcon :tagName="tag.name" class="iconTag"/>
         <span>{{tag.name}}</span>
         <Icon name="trash" class="trashIcon" @click="removeTag(tag.id)"/>
       </li>
@@ -20,29 +19,14 @@
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
   import store from '@/store/index';
-  import iconList from '@/constants/iconList';
 
   @Component
   export default class Labels extends Vue {
-    get tagList() {
-      return store.state.tagList;
-    }
+    get tagList() {return store.state.tagList;}
 
-    showIcon(name: string) {
-      return iconList.indexOf(name) >= 0;
-    }
+    removeTag(id: number) {this.$store.commit('removeTag', id);}
 
-    firstName(name: string) {
-      return name.trim().split('').splice(0, 1).join('');
-    }
-
-    removeTag(id: number) {
-      this.$store.commit('removeTag', id);
-    }
-
-    createLabel() {
-      this.$router.push('/labels/create');
-    }
+    createLabel() {this.$router.push('/labels/create');}
 
   }
 </script>
@@ -65,7 +49,7 @@
       border-radius: 15px;
 
       > .iconTag,
-      .trashIcon,
+      > .trashIcon,
       .firstName {
         fill: $color;
         width: 30px;
@@ -73,13 +57,6 @@
         margin: auto 20px;
       }
       &:last-child {margin-bottom: 20px;}
-      > .iconTag {fill: $color}
-      > .firstName {
-        font-family: $font-kai;
-        font-size: 30px;
-        line-height: 30px;
-        text-align: center;
-      }
 
       > span {
         display: block;
