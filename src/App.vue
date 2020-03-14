@@ -21,15 +21,19 @@
     @Watch('$route')
     onRouteChange(to: Route, from: Route) {
       if (to.meta.index === 666) {
+        console.log(1);
         this.transitionName = 'up';
         return;
       } else if (from.meta.index === 666) {
+        console.log(2);
         this.transitionName = 'down';
         return;
       } else if (to.meta.index > from.meta.index) {
+        console.log(3);
         this.transitionName = 'left';
         return;
       } else if (to.meta.index < from.meta.index) {
+        console.log(4);
         this.transitionName = 'right';
         return;
       }
@@ -53,42 +57,42 @@
 
   .up-enter-active {
     position: absolute;
-    animation: upEnter 500ms;
+    animation: upEnter 300ms;
   }
 
   .up-leave-active {
     position: absolute;
-    animation: upOut 500ms;
+    animation: upOut 300ms;
   }
 
   .down-enter-active {
     position: absolute;
-    animation: downEnter 500ms;
+    animation: downEnter 300ms;
   }
 
   .down-leave-active {
     position: absolute;
-    animation: downOut 500ms;
+    animation: downOut 300ms;
   }
 
   .left-enter-active {
     position: absolute;
-    animation: leftEnter 500ms;
+    animation: leftEnter 300ms;
   }
 
   .left-leave-active {
     position: absolute;
-    animation: leftOut 500ms;
+    animation: leftOut 300ms;
   }
 
   .right-enter-active {
     position: absolute;
-    animation: rightEnter 500ms;
+    animation: rightEnter 300ms;
   }
 
   .right-leave-active {
     position: absolute;
-    animation: rightOut 500ms;
+    animation: rightOut 300ms;
   }
 
   @keyframes upEnter {

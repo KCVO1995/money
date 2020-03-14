@@ -37,7 +37,7 @@ const routes = [
   {
     path: '/labels/create',
     name: 'crateLabel',
-    meta: {index: 2},
+    meta: {index: 666},
     component: CreateLabel
   },
   {

@@ -39,6 +39,8 @@
         if (index >= 0) {
           this.selectedTags.splice(index, 1);
         } else {
+          // 目前只能选中一个
+          this.selectedTags.shift();
           this.selectedTags.push(tag);
         }
         this.$emit('update:value', this.selectedTags);
