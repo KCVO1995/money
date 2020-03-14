@@ -62,7 +62,6 @@
         const date = dayjs().set('month', month).set('date', i) as never;
         hashTable[weeks] = hashTable[weeks] || [];
         hashTable[weeks].push(date);
-        console.log(date);
         if (date['$W'] === 0) {weeks++;}
       }
       this.complement(hashTable, month);
