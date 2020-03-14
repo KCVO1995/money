@@ -62,6 +62,7 @@
     > .current {
       display: flex;
       text-align: center;
+      margin: 0 10px;
       overflow: auto;
       > li {
         display: flex;
