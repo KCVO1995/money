@@ -28,6 +28,7 @@
   import dayjs from 'dayjs';
 
   type dateGroup = { [key: number]: [] }
+  type Dayjs = { [key: number]: [] | number | string }
 
   @Component
   export default class SelectDate extends Vue {
@@ -58,10 +59,11 @@
       const hashTable: dateGroup = {};
       let weeks = 1;
       for (let i = 1; i < daysInMonth; i++) {
-        const date = dayjs().set('month', month).set('date', i);
+        const date = dayjs().set('month', month).set('date', i) as never;
         hashTable[weeks] = hashTable[weeks] || [];
         hashTable[weeks].push(date);
-        if (date.$W === 0) {weeks++;}
+        console.log(date);
+        if (date['$W'] === 0) {weeks++;}
       }
       this.complement(hashTable, month);
       return hashTable;
@@ -74,14 +76,14 @@
       if (first.length < 7) {
         const delta = 7 - first.length;
         for (let i = 0; i < delta; i++) {
-          const date = dayjs().set('month', month - 1).set('date', daysInLastMonth - i);
+          const date = dayjs().set('month', month - 1).set('date', daysInLastMonth - i) as never;
           first.unshift(date);
         }
       }
       if (last.length < 7) {
         const delta = 7 - last.length;
         for (let i = 0; i < delta; i++) {
-          const date = dayjs().set('month', month + 1).set('date', i + 1);
+          const date = dayjs().set('month', month + 1).set('date', i + 1) as never;
           last.push(date);
         }
       }
