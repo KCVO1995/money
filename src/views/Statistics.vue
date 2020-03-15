@@ -43,16 +43,33 @@
   export default class Sta extends Vue {
     selectedMonth = 0;
 
-    selectedDate = dayjs().set('month', this.selectedMonth - 1).set('date', 1);
-
+    selectedDate = dayjs();
 
     mounted() {
-      this.selectedDate = dayjs().set('month', this.selectedMonth - 1).set('date', 1);
+      this.selectedDate = dayjs();
+      setTimeout(() => {
+        const selectedDate = this.$el.querySelector('.selectedDate');
+        if (selectedDate) {
+          let left = selectedDate.getBoundingClientRect().left;
+          const {width} = document.body.getBoundingClientRect();
+          const calendar = document.querySelector('.calendar');
+          let toLeft = 0;
+          for (let i = 0; i < 10; i++) {
+            if (left < width) {
+              toLeft = width * i;
+              break;
+            }
+            left -= width;
+          }
+          if (calendar) {
+            calendar.scrollLeft = toLeft;
+          }
+        }
+      }, 301);
     }
 
-    todayRecord(type: string) {
-      return ShowAmount(type, 'day', this.selectedDate, true);
-    }
+
+    todayRecord(type: string) {return ShowAmount(type, 'day', this.selectedDate, true);}
 
     remove(id: number) {store.commit('removeRecord', id);}
 

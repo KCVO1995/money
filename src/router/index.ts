@@ -3,7 +3,6 @@ import VueRouter from 'vue-router';
 import Money from '@/views/Money.vue';
 import Labels from '@/views/Labels.vue';
 import Statistics from '@/views/Statistics.vue';
-import Sta from '@/views/Statistics.vue';
 import CreateLabel from '@/views/CreateLabel.vue';
 import NotFound from '@/views/NotFound.vue';
 import EditRecord from '@/views/EditRecord.vue';

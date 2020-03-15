@@ -21,19 +21,16 @@
     @Watch('$route')
     onRouteChange(to: Route, from: Route) {
       if (to.meta.index === 666) {
-        console.log(1);
         this.transitionName = 'up';
         return;
       } else if (from.meta.index === 666) {
-        console.log(2);
         this.transitionName = 'down';
         return;
       } else if (to.meta.index > from.meta.index) {
-        console.log(3);
+        console.log(7);
         this.transitionName = 'left';
         return;
       } else if (to.meta.index < from.meta.index) {
-        console.log(4);
         this.transitionName = 'right';
         return;
       }

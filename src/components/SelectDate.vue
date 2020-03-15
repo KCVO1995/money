@@ -35,7 +35,7 @@
     @Prop() selectedDate: any;
     @Prop(Number) selectedMonth?: number;
 
-    liClass(date: any) {return {selected: dayjs(date).isSame(this.selectedDate, 'day')};}
+    liClass(date: any) {return {selectedDate: dayjs(date).isSame(this.selectedDate, 'day')};}
 
     selectDate(date: any) {this.$emit('update:selectedDate', date);}
 
@@ -132,7 +132,7 @@
             color: black;
           }
         }
-        &.selected {
+        &.selectedDate {
           position: relative;
           > .date {
             display: block;
