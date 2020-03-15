@@ -8,7 +8,7 @@
       <li class="line"/>
       <li class="item outlay">
         <span>本周支出</span>
-        <div class="amount">￥{{showWeek("+")}}</div>
+        <div class="amount">￥{{showWeek("-")}}</div>
       </li>
     </ul>
     <ul class="statistics">

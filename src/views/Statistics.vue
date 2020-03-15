@@ -45,27 +45,29 @@
 
     selectedDate = dayjs();
 
-    mounted() {this.selectedDate = dayjs();}
-
-    updated() {
-      const selectedDate = this.$el.querySelector('.selectedDate');
-      if (selectedDate) {
-        let left = selectedDate.getBoundingClientRect().left;
-        const {width} = document.body.getBoundingClientRect();
-        const calendar = document.querySelector('.calendar');
-        let toLeft = 0;
-        for (let i = 0; i < 10; i++) {
-          if (left < width) {
-            toLeft = width * i;
-            break;
+    mounted() {
+      this.selectedDate = dayjs();
+      setTimeout(() => {
+        const selectedDate = this.$el.querySelector('.selectedDate');
+        if (selectedDate) {
+          let left = selectedDate.getBoundingClientRect().left;
+          const {width} = document.body.getBoundingClientRect();
+          const calendar = document.querySelector('.calendar');
+          let toLeft = 0;
+          console.log(left);
+          for (let i = 0; i < 10; i++) {
+            if (left < width) {
+              toLeft = width * i;
+              break;
+            }
+            left -= width;
           }
-          left -= width;
+          if (calendar) {
+            console.log(toLeft);
+            calendar.scrollLeft = toLeft;
+          }
         }
-        if (calendar) {
-          console.log(toLeft);
-          calendar.scrollLeft = toLeft;
-        }
-      }
+      }, 350);
     }
 
 
