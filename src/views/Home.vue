@@ -14,12 +14,13 @@
   import DailyAmount from '@/components/Home/DailyAmount.vue';
   import Balls from '@/components/Home/Balls.vue';
   import SelectMonth from '@/components/SelectMonth.vue';
+  import dayjs from 'dayjs';
 
   @Component({
     components: {SelectMonth, Balls, DailyAmount}
   })
   export default class Home extends Vue {
-    selectedMonth = 0;
+    selectedMonth = dayjs().get('month') + 1;
   }
 </script>
 

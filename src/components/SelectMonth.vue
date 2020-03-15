@@ -22,6 +22,7 @@
     }
 
     mounted() {
+      console.log(this.$parent);
       setTimeout(() => {
         const {width} = document.body.getBoundingClientRect();
         const currentMonth = dayjs().get('month') + 1;
@@ -30,7 +31,7 @@
         if (currentMonth > 1) {
           monthGroup.scrollLeft = (currentMonth - 2) * width / 3;
         }
-      }, 301);
+      }, 350);
 
     }
 

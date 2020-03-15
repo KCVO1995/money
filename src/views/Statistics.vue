@@ -49,6 +49,7 @@
       this.selectedDate = dayjs();
       setTimeout(() => {
         const selectedDate = this.$el.querySelector('.selectedDate');
+        console.log(selectedDate);
         if (selectedDate) {
           let left = selectedDate.getBoundingClientRect().left;
           const {width} = document.body.getBoundingClientRect();
@@ -62,10 +63,11 @@
             left -= width;
           }
           if (calendar) {
+            console.log(toLeft);
             calendar.scrollLeft = toLeft;
           }
         }
-      }, 301);
+      }, 350);
     }
 
 
