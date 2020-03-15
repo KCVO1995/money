@@ -12,6 +12,7 @@
           <span class="record-amount income">￥{{record.amount}}</span>
           <span class="record-tag">{{record.selectedTags[0].name}}收入</span>
         </div>
+        <span class="detail-note">{{record.notes}}</span>
         <Icon name="trash" class="trash" @click="remove(record.id)"/>
       </li>
       <li v-for="record in todayRecord('-')" :key="record.id" class="record">
@@ -20,6 +21,7 @@
           <span class="record-amount outlay">￥{{record.amount}}</span>
           <span class="record-tag">{{record.selectedTags[0].name}}支出</span>
         </div>
+        <span class="detail-note">{{record.notes}}</span>
         <Icon name="trash" class="trash" @click="remove(record.id)"/>
       </li>
     </ul>
@@ -89,10 +91,11 @@
         }
         &:last-child {margin-bottom: 20px;}
         > .detail {
-          padding-left: 20px;
+          flex-grow: 1;
+          flex-shrink: 1;
+          padding-left: 15px;
           border-left: 1px solid $color;
           font-size: 14px;
-          flex-grow: 1;
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -101,6 +104,15 @@
             &.income {color: #1296DB}
             &.outlay {color: rgba(225, 90, 130)}
           }
+          > .record-tag {
+            display: block;
+            flex-shrink: 1;
+          }
+        }
+        > .detail-note {
+          width: 100px;
+          display: block;
+          font-size: 12px;
         }
       }
     }
