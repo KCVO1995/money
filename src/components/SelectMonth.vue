@@ -22,7 +22,6 @@
     }
 
     mounted() {
-      console.log(this.$parent);
       setTimeout(() => {
         const {width} = document.body.getBoundingClientRect();
         const currentMonth = dayjs().get('month') + 1;
