@@ -58,7 +58,7 @@
       const daysInMonth = this.getDaysInMonth(month);
       const hashTable: dateGroup = {};
       let weeks = 1;
-      for (let i = 1; i < daysInMonth; i++) {
+      for (let i = 1; i <= daysInMonth; i++) {
         const date = dayjs().set('month', month).set('date', i) as never;
         hashTable[weeks] = hashTable[weeks] || [];
         hashTable[weeks].push(date);
