@@ -12,11 +12,6 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Form from '@/components/User/Form.vue';
 
-type LoginForm = {
-  username: string;
-  password: string;
-}
-
 @Component({components: {Form}})
 export default class Login extends Vue {
   formData: LoginForm = {
@@ -29,7 +24,7 @@ export default class Login extends Vue {
   ];
 
   submit() {
-    alert('login');
+    this.$api.user.login(this.formData)
   }
 
   onChange({key, value}:  { [key: string]: string }) {

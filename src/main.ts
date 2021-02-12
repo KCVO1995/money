@@ -8,6 +8,7 @@ import Layout from '@/components/Layout.vue';
 import Icon from '@/components/Icon.vue';
 import Top from '@/components/Top.vue';
 import TagIcon from '@/components/TagIcon.vue';
+import api from '@/api';
 
 Vue.config.productionTip = false;
 
@@ -17,6 +18,9 @@ Vue.component('Layout', Layout);
 Vue.component('Icon', Icon);
 Vue.component('Top', Top);
 Vue.component('TagIcon', TagIcon);
+
+
+Vue.use(api)
 new Vue({
   router, // 引入路由
   store,  // 引入store到vue
