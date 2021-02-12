@@ -1,6 +1,6 @@
 <template>
   <div class="global">
-    <Top leftIcon="left" rightIcon="setting">账目明细</Top>
+    <Top leftIcon="left">账目明细</Top>
     <SelectMonth :selected-month.sync="selectedMonth">placeholder</SelectMonth>
     <SelectDate :selected-date.sync="selectedDate" :selected-month="selectedMonth">placeholder</SelectDate>
     <ShowWeekDaily :selected-date="selectedDate"/>

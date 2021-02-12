@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Top leftIcon="left" rightIcon="setting">标签管理</Top>
+    <Top leftIcon="left">标签管理</Top>
     <ul class="tagList">
       <li class="tag" @click="createLabel">
         <Icon name="add" class="iconTag"/>

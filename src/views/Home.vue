@@ -1,6 +1,6 @@
 <template>
   <div class="global">
-    <Top leftIcon="more" rightIcon="setting">米奇记账</Top>
+    <Top leftIcon="more">米奇记账</Top>
     <SelectMonth :selected-month.sync="selectedMonth">placeholder</SelectMonth>
     <balls :selected-month="selectedMonth">placeholder</balls>
     <router-link to="/statistics" class="detail">查看明细</router-link>

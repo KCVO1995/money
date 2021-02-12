@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Top leftIcon="left" rightIcon="setting">新增标签</Top>
+    <Top leftIcon="left">新增标签</Top>
     <ul>
       <li v-for="(newTag, index) in newTagList" :key="index" @click="createLabel(newTag)">
         <Icon :name="`${newTag}`" class="iconTag"/>

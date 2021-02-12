@@ -7,6 +7,7 @@ import CreateLabel from '@/views/CreateLabel.vue';
 import NotFound from '@/views/NotFound.vue';
 import EditRecord from '@/views/EditRecord.vue';
 import Home from '@/views/Home.vue';
+import Login from '@/views/Login.vue';
 
 Vue.use(VueRouter);
 
@@ -14,6 +15,12 @@ const routes = [
   {
     path: '/',
     redirect: '/home' // 重新定向
+  },
+  {
+    path: '/login',
+    name: 'login',
+    meta: {index: 4},
+    component: Login
   },
   {
     path: '/money/:id',

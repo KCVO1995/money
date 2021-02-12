@@ -2,7 +2,7 @@
   <div class="navBar">
     <Icon :name="leftIcon" class="leftIcon" @click="toggle"/>
     <span class="title"><slot/></span>
-    <Icon :name="rightIcon" class="rightIcon"/>
+    <span @click="$router.push('/login')">登录</span>
     <ul class="more" v-show="visible">
       <li>
         <router-link to="/labels">
@@ -67,7 +67,7 @@
 
     > .leftIcon {
       fill: #999999;
-      width: 24px;
+      width: 36px;
       height: 24px;
     }
 
