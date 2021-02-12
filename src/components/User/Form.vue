@@ -34,7 +34,6 @@ export default class Login extends Vue {
 .container {
   @extend %Shadow;
   width: 80vw;
-  height: 50vh;
   background: white;
   border-radius: 10px;
   transform: translateY(-40px);

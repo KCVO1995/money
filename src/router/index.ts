@@ -8,6 +8,7 @@ import NotFound from '@/views/NotFound.vue';
 import EditRecord from '@/views/EditRecord.vue';
 import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
+import Register from '@/views/Register.vue';
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,12 @@ const routes = [
     name: 'login',
     meta: {index: 4},
     component: Login
+  },
+  {
+    path: '/register',
+    name: 'register',
+    meta: {index: 5},
+    component: Register
   },
   {
     path: '/money/:id',
