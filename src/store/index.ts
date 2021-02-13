@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import clone from '@/lib/clone';
 import api from '@/api';
 import {AxiosError, AxiosResponse} from 'axios';
+import router from '@/router';
 
 Vue.use(Vuex); // 把store 绑到 Vue.prototype
 
@@ -21,6 +22,10 @@ const store = new Vuex.Store({
     // --------------- uer
     saveUser(state, user) {
       state.currentUser = user;
+    },
+    logout(state) {
+      document.cookie = "token=";
+      state.currentUser = {} as User;
     },
     // ----- record
     fetchRecords(state) {
@@ -119,8 +124,9 @@ const store = new Vuex.Store({
         const {data} = res;
         context.commit('saveUser', data);
       }, (err: AxiosError) => {
+        router.push('/login').then()
         const {message} = err.response?.data;
-        message && alert(message);
+        message && alert('请登录');
       });
     }
   }

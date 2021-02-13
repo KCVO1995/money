@@ -1,6 +1,6 @@
 <template>
   <div class="global">
-    <Top leftIcon="left">登录</Top>
+    <Top leftIcon="">登录</Top>
     <div class="page">
       <Form :form="form" button-text="立即登录" @submit="submit" @dataChange="onChange"/>
     </div>
@@ -33,6 +33,7 @@ export default class Login extends Vue {
     this.$api.user.login(this.formData).then((res: AxiosResponse) => {
       const {data: {token}} = res
       document.cookie = `token=${token}`
+      this.$store.dispatch('getUser')
       this.$router.push('/')
     }, (e: AxiosError) => {
       const {errors} = e.response?.data

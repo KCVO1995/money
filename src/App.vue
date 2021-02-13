@@ -10,6 +10,7 @@
   import Vue from 'vue';
   import {Component, Provide, Watch} from 'vue-property-decorator';
   import {Route} from 'vue-router';
+  import store from '@/store/index';
 
   @Component
   export default class App extends Vue {
@@ -20,10 +21,9 @@
 
     @Watch('$route')
 
+    // TODO 引发 router 跳转是错误
     created() {
-      this.$store.dispatch('getUser').then(() => {
-        console.log(this.$store.state.currentUser, 'user');
-      });
+      store.dispatch('getUser')
     }
 
     onRouteChange(to: Route, from: Route) {

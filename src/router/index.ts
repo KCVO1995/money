@@ -9,6 +9,7 @@ import EditRecord from '@/views/EditRecord.vue';
 import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
 import Register from '@/views/Register.vue';
+import User from '@/views/User.vue';
 
 Vue.use(VueRouter);
 
@@ -28,6 +29,12 @@ const routes = [
     name: 'register',
     meta: {index: 5},
     component: Register
+  },
+  {
+    path: '/user',
+    name: 'user',
+    meta: {index: 4},
+    component: User
   },
   {
     path: '/money/:id',

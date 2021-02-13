@@ -2,7 +2,7 @@
   <div class="navBar">
     <Icon :name="leftIcon" class="leftIcon" @click="toggle"/>
     <span class="title"><slot/></span>
-    <Icon v-if="$store.state.currentUser.id" name="user" class="rightIcon"/>
+    <Icon v-if="$store.state.currentUser.id" name="user" class="rightIcon" @click="toUserPage"/>
     <span v-else @click="$router.push('/login')">登录</span>
     <ul class="more" v-show="visible">
       <li>
@@ -32,6 +32,10 @@
   export default class Top extends Vue {
     @Prop(String) leftIcon: string | undefined;
     visible = false;
+
+    toUserPage() {
+      this.$router.push('/user')
+    }
 
     toggle() {
       if (this.leftIcon === 'left') {
