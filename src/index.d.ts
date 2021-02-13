@@ -22,3 +22,14 @@ type Tag = {
   created_at: Date;
   updated_at: Date;
 }
+
+type RecordItem = {
+  id: number;
+  amount: number;
+  notes: string | undefined;
+  is_expend: boolean;
+  tag_id: number | undefined;
+  user_id: number | undefined;
+  created_at: string | undefined;
+  updated_at: string | undefined;
+}

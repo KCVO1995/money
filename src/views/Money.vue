@@ -1,9 +1,11 @@
 <template>
   <div class="global">
     <Top leftIcon="left">记一笔</Top>
-    <Tags :selected-tags.sync="record.selectedTags"/>
+    <Tags :tag_id.sync="record.tag_id"/>
     <div class="main">
-      <Input placeholder="在这里输入备注" :value.sync="record.notes"/>
+      <label>
+        <Input placeholder="在这里输入备注" :value.sync="record.notes"/>
+      </label>
       <NumberPad @submit="saveRecord" :value.sync="record.amount"/>
     </div>
   </div>
@@ -27,15 +29,30 @@
   })
   export default class Money extends Vue {
     @Inject() eventBus: any;
-    reset: RecordItem = {id: 0, selectedTags: [], notes: '', type: '-', amount: 0, createAt: undefined};
+    reset: RecordItem = {
+      id: 0,
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      tag_id: undefined,
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      user_id: undefined,
+      notes: '',
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      is_expend: false,
+      amount: 0,
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      created_at: undefined,
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      updated_at: undefined
+    };
 
-    get recordList() {
-      return store.state.recordList;
-    }
+    // get recordList() {
+    //   return store.state.recordList;
+    // }
 
     created() {
-      this.eventBus.$on('update:type', (type: string) => {
-        this.reset.type = type;
+      this.eventBus.$on('update:type', (type: boolean) => {
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        this.reset.is_expend = type;
       });
     }
 
@@ -53,17 +70,18 @@
 
     saveRecord() {
       if (this.record) {
-        if (this.record.selectedTags.length === 0) {
+        if (!this.record.tag_id) {// TODO tag
           return alert('选择一个标签，分类记录有助于统计');
-        } else if (this.record.id > 0) {
+        } else if (this.record.id > 0) { // TODO 编辑
           store.commit('saveRecords', this.record);
           this.$router.back();
         } else {
-          store.commit('createRecord', this.record);
+          store.dispatch('createRecord', this.record);
           this.$router.back();
         }
         this.record.notes = '';
-        this.record.selectedTags = [];
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        this.record.tag_id = undefined;
       }
 
     }

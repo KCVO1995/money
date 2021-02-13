@@ -24,6 +24,7 @@ export default class App extends Vue {
   // TODO 引发 router 跳转是错误
   created() {
     store.dispatch('getUser');
+    store.dispatch('getTags');
   }
 
   onRouteChange(to: Route, from: Route) {

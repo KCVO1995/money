@@ -25,25 +25,17 @@
   export default class Tags extends Vue {
     get tagList() {return store.state.tagList;}
 
-    @Prop() selectedTags: Tag[] | undefined;
+    @Prop() tag_id: number | undefined;
 
     select(tag: Tag) {
-      const arr = this.selectedTags?.map(item => item.id);
-      if (arr) {return {selected: arr.indexOf(tag.id) >= 0};}
+      if (tag) {
+        return {selected: this.tag_id === tag.id};
+      }
     }
 
     toggle(tag: Tag) {
-      if (this.selectedTags) {
-        const arr = this.selectedTags?.map(item => item.id);
-        const index = arr.indexOf(tag.id);
-        if (index >= 0) {
-          this.selectedTags.splice(index, 1);
-        } else {
-          // 目前只能选中一个
-          this.selectedTags.shift();
-          this.selectedTags.push(tag);
-        }
-        this.$emit('update:value', this.selectedTags);
+      if (tag.id) {
+        this.$emit('update:tag_id', tag.id);
       }
     }
 

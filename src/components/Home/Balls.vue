@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <div class="type" @click="toRecord('+')">+</div>
+    <div class="type" @click="toRecord(false)">+</div>
     <div class="output">
       <div class="income">
         <span>{{selectedMonth}}月收入</span>
@@ -12,7 +12,7 @@
         <span>{{selectedMonth}}月支出</span>
       </div>
     </div>
-    <div class="type" @click="toRecord('-')">-</div>
+    <div class="type" @click="toRecord(true)">-</div>
   </div>
 </template>
 
@@ -27,7 +27,7 @@
     @Inject() eventBus: any;
     @Prop(Number) selectedMonth: number | undefined;
 
-    toRecord(type: string) {
+    toRecord(type: boolean) {
       this.$router.push('/money/0');
       this.$nextTick(() => {
         this.eventBus.$emit('update:type', type);

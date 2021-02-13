@@ -63,7 +63,6 @@ const store = new Vuex.Store({
     },
     // ----------------------- tag
     saveTags(state, tags) {
-      console.log(tags, 'tags');
       state.tagList = tags;
     }
   },
@@ -88,21 +87,29 @@ const store = new Vuex.Store({
       });
     },
     createTag(context, name) {
-      return api.tag.create({name}).then((res: AxiosResponse) => {
-        console.log(res.data, 'res');
+      return api.tag.create({name}).then(() => {
+        context.dispatch('getTags').then();
       }, (err: AxiosError) => {
         const {message} = err.response?.data;
         message && alert(message);
       });
     },
     deleteTag(context, id) {
-      return api.tag.delete(id).then((res: AxiosResponse) => {
-        console.log(res.data, 'res');
+      return api.tag.delete(id).then(() => {
+        context.dispatch('getTags').then();
       }, (err: AxiosError) => {
         const {message} = err.response?.data;
         message && alert(message);
       });
     },
+    createRecord(context, data) {
+      return api.record.create(data).then((res: AxiosResponse) => {
+        console.log(res.data, 'res');
+      }, (err: AxiosError) => {
+        const {message} = err.response?.data;
+        message && alert(message);
+      });
+    }
   }
 });
 
