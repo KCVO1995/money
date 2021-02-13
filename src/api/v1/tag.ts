@@ -9,5 +9,9 @@ export default class Tag {
   static get() {
     return r.get(`/tags`);
   }
+
+  static delete(id: number) {
+    return r.delete(`/tags/${id}`);
+  }
 }
 

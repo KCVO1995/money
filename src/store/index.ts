@@ -14,9 +14,6 @@ const store = new Vuex.Store({
     recordId: JSON.parse(localStorage.getItem('_recordIdMax') || '0'),
     foundRecord: undefined as RecordItem | undefined,
     tagList: [] as Tag[],
-    tagId: JSON.parse(localStorage.getItem('_tagIdMax') || '4'),
-    foundTag: undefined as Tag | undefined,
-    // reset: [{id: 1, name: '服装'}, {id: 2, name: '餐饮'}, {id: 3, name: '住房'}, {id: 4, name: '交通'}],
   },
   mutations: {
     // --------------- uer
@@ -24,7 +21,7 @@ const store = new Vuex.Store({
       state.currentUser = user;
     },
     logout(state) {
-      document.cookie = "token=";
+      document.cookie = 'token=';
       state.currentUser = {} as User;
     },
     // ----- record
@@ -64,58 +61,11 @@ const store = new Vuex.Store({
         store.commit('saveRecords');
       }
     },
-    // ---------------------------
-    // createTagId(state) {
-    //   state.tagId++;
-    //   localStorage.setItem('_tagIdMax', JSON.stringify(state.tagId));
-    // },
-    // fetchTags(state) {
-    //   state.tagList = JSON.parse(localStorage.getItem('tagList') || JSON.stringify(state.reset));
-    // },
-    // createTag(state, name: string) {
-    //   const names = state.tagList.map(item => item.name);
-    //   if (names.indexOf(name) >= 0) {
-    //     alert('便签名重复');
-    //   } else {
-    //     store.commit('createTagId');
-    //     state.tagList.push({id: state.tagId, name: name});
-    //     store.commit('saveTags');
-    //   }
-    // },
+    // ----------------------- tag
     saveTags(state, tags) {
       console.log(tags, 'tags');
-      state.tagList = tags
-    },
-    findTag(state, id: number) {
-      state.foundTag = state.tagList.filter(tag => tag.id === id)[0];
-    },
-    removeTag(state, id: number) {
-      let index = -1;
-      for (let i = 0; i < state.tagList.length; i++) {
-        if (state.tagList[i].id === id) {
-          index = i;
-          break;
-        }
-      }
-      if (index === -1) {
-        alert('删除失败');
-      } else {
-        state.tagList.splice(index, 1);
-        store.commit('saveTags');
-      }
-    },
-    updateTag(state, payload: { id: number; name: string }) {
-      const {id, name} = payload;
-      const idList = state.tagList.map(item => item.id);
-      if (idList.indexOf(id) >= 0) {
-        const names = state.tagList.map(item => item.name);
-        if (names.indexOf(name) === -1) {
-          const tag = state.tagList.filter(item => item.id === id)[0];
-          tag.name = name;
-          store.commit('saveTags');
-        }
-      }
-    },
+      state.tagList = tags;
+    }
   },
   actions: {
     getUser(context) {
@@ -123,7 +73,7 @@ const store = new Vuex.Store({
         const {data} = res;
         context.commit('saveUser', data);
       }, (err: AxiosError) => {
-        router.push('/login').then()
+        router.push('/login').then();
         const {message} = err.response?.data;
         message && alert('请登录');
       });
@@ -139,6 +89,14 @@ const store = new Vuex.Store({
     },
     createTag(context, name) {
       return api.tag.create({name}).then((res: AxiosResponse) => {
+        console.log(res.data, 'res');
+      }, (err: AxiosError) => {
+        const {message} = err.response?.data;
+        message && alert(message);
+      });
+    },
+    deleteTag(context, id) {
+      return api.tag.delete(id).then((res: AxiosResponse) => {
         console.log(res.data, 'res');
       }, (err: AxiosError) => {
         const {message} = err.response?.data;
