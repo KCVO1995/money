@@ -25,8 +25,9 @@
     newTagList = iconList;
 
     createLabel(newTag: string) {
-      this.$store.commit('createTag', newTag);
-      this.$router.back();
+      this.$store.dispatch('createTag', newTag).then(() => {
+        this.$router.back();
+      });
     }
   }
 

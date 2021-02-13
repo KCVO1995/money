@@ -16,7 +16,7 @@ const store = new Vuex.Store({
     tagList: [] as Tag[],
     tagId: JSON.parse(localStorage.getItem('_tagIdMax') || '4'),
     foundTag: undefined as Tag | undefined,
-    reset: [{id: 1, name: '服装'}, {id: 2, name: '餐饮'}, {id: 3, name: '住房'}, {id: 4, name: '交通'}],
+    // reset: [{id: 1, name: '服装'}, {id: 2, name: '餐饮'}, {id: 3, name: '住房'}, {id: 4, name: '交通'}],
   },
   mutations: {
     // --------------- uer
@@ -65,25 +65,26 @@ const store = new Vuex.Store({
       }
     },
     // ---------------------------
-    createTagId(state) {
-      state.tagId++;
-      localStorage.setItem('_tagIdMax', JSON.stringify(state.tagId));
-    },
-    fetchTags(state) {
-      state.tagList = JSON.parse(localStorage.getItem('tagList') || JSON.stringify(state.reset));
-    },
-    createTag(state, name: string) {
-      const names = state.tagList.map(item => item.name);
-      if (names.indexOf(name) >= 0) {
-        alert('便签名重复');
-      } else {
-        store.commit('createTagId');
-        state.tagList.push({id: state.tagId, name: name});
-        store.commit('saveTags');
-      }
-    },
-    saveTags(state) {
-      localStorage.setItem('tagList', JSON.stringify(state.tagList));
+    // createTagId(state) {
+    //   state.tagId++;
+    //   localStorage.setItem('_tagIdMax', JSON.stringify(state.tagId));
+    // },
+    // fetchTags(state) {
+    //   state.tagList = JSON.parse(localStorage.getItem('tagList') || JSON.stringify(state.reset));
+    // },
+    // createTag(state, name: string) {
+    //   const names = state.tagList.map(item => item.name);
+    //   if (names.indexOf(name) >= 0) {
+    //     alert('便签名重复');
+    //   } else {
+    //     store.commit('createTagId');
+    //     state.tagList.push({id: state.tagId, name: name});
+    //     store.commit('saveTags');
+    //   }
+    // },
+    saveTags(state, tags) {
+      console.log(tags, 'tags');
+      state.tagList = tags
     },
     findTag(state, id: number) {
       state.foundTag = state.tagList.filter(tag => tag.id === id)[0];
@@ -102,8 +103,6 @@ const store = new Vuex.Store({
         state.tagList.splice(index, 1);
         store.commit('saveTags');
       }
-
-
     },
     updateTag(state, payload: { id: number; name: string }) {
       const {id, name} = payload;
@@ -128,11 +127,27 @@ const store = new Vuex.Store({
         const {message} = err.response?.data;
         message && alert('请登录');
       });
-    }
+    },
+    getTags(context) {
+      return api.tag.get().then((res: AxiosResponse) => {
+        const {data} = res;
+        context.commit('saveTags', data);
+      }, (err: AxiosError) => {
+        const {message} = err.response?.data;
+        message && alert(message);
+      });
+    },
+    createTag(context, name) {
+      return api.tag.create({name}).then((res: AxiosResponse) => {
+        console.log(res.data, 'res');
+      }, (err: AxiosError) => {
+        const {message} = err.response?.data;
+        message && alert(message);
+      });
+    },
   }
 });
 
 store.commit('fetchRecords');
-store.commit('fetchTags');
 
 export default store;

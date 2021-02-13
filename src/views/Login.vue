@@ -24,27 +24,28 @@ export default class Login extends Vue {
     {name: '密码', type: 'password', key: 'password', error: []}
   ];
 
-  onChange({key, value}:  { [key: string]: string }) {
+  onChange({key, value}: { [key: string]: string }) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     this.formData[key] = value;
   }
+
   submit() {
     this.$api.user.login(this.formData).then((res: AxiosResponse) => {
-      const {data: {token}} = res
-      document.cookie = `token=${token}`
-      this.$store.dispatch('getUser')
-      this.$router.push('/')
+      const {data: {token}} = res;
+      document.cookie = `token=${token}`;
+      this.$store.dispatch('getUser');
+      this.$router.push('/');
     }, (e: AxiosError) => {
-      const {errors} = e.response?.data
-      for(let i = 0; i < this.form.length; i++ ) {
+      const {errors} = e.response?.data;
+      for (let i = 0; i < this.form.length; i++) {
         Object.keys(errors).forEach(key => {
-          if(this.form[i].key === key) {
-            this.form[i].error = errors[key]
+          if (this.form[i].key === key) {
+            this.form[i].error = errors[key];
           }
-        })
+        });
       }
-    })
+    });
   }
 
 }

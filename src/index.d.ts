@@ -13,3 +13,12 @@ type User = {
   created_at: Date;
   updated_at: Date;
 }
+
+type Tag = {
+  id: number;
+  name: string;
+  user_id: number | undefined;
+  record_id: number[] | null;
+  created_at: Date;
+  updated_at: Date;
+}

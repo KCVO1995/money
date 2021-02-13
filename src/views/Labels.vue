@@ -24,6 +24,10 @@
   export default class Labels extends Vue {
     get tagList() {return store.state.tagList;}
 
+    created() {
+      this.$store.dispatch('getTags')
+    }
+
     removeTag(id: number) {this.$store.commit('removeTag', id);}
 
     createLabel() {this.$router.push('/labels/create');}
