@@ -11,6 +11,7 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Form from '@/components/User/Form.vue';
+import {AxiosError, AxiosResponse} from 'axios';
 
 @Component({components: {Form}})
 export default class Login extends Vue {
@@ -19,19 +20,30 @@ export default class Login extends Vue {
     password: ''
   };
   form = [
-    {name: '用户名', type: 'text', key: 'username'},
-    {name: '密码', type: 'password', key: 'password'}
+    {name: '用户名', type: 'text', key: 'username', error: []},
+    {name: '密码', type: 'password', key: 'password', error: []}
   ];
-
-  submit() {
-    this.$api.user.login(this.formData)
-  }
 
   onChange({key, value}:  { [key: string]: string }) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     this.formData[key] = value;
-    console.log(this.formData,'data');
+  }
+  submit() {
+    this.$api.user.login(this.formData).then((res: AxiosResponse) => {
+      const {data: {token}} = res
+      document.cookie = `token=${token}`
+      this.$router.push('/')
+    }, (e: AxiosError) => {
+      const {errors} = e.response?.data
+      for(let i = 0; i < this.form.length; i++ ) {
+        Object.keys(errors).forEach(key => {
+          if(this.form[i].key === key) {
+            this.form[i].error = errors[key]
+          }
+        })
+      }
+    })
   }
 
 }

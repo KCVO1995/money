@@ -7,6 +7,7 @@
           <span>{{item.name}}</span>
         </span>
         <input @change="e => $emit('dataChange', {key: item.key, value: e.target.value})" :type="item.type">
+        <span class="errorTip">{{item.error.join(',')}}</span>
       </label>
       <button @click="$emit('submit')">{{buttonText}}</button>
     </form>
@@ -49,12 +50,22 @@ export default class Login extends Vue {
     text-align: left;
 
     > label {
-      margin-top: 5px;
+      margin-top: 10px;
       display: block;
+      position: relative;
 
       > span {
         display: block;
         margin-bottom: 5px;
+      }
+
+      > .errorTip {
+        color: red;
+        font-size: 12px;
+        text-align: right;
+        position: absolute;
+        bottom: -24px;
+        right: 0;
       }
 
       > input {
