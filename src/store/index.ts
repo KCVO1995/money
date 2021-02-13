@@ -1,11 +1,14 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import clone from '@/lib/clone';
+import api from '@/api';
+import {AxiosError, AxiosResponse} from 'axios';
 
 Vue.use(Vuex); // 把store 绑到 Vue.prototype
 
 const store = new Vuex.Store({
   state: {
+    currentUser: {} as User,
     recordList: [] as RecordItem[],
     recordId: JSON.parse(localStorage.getItem('_recordIdMax') || '0'),
     foundRecord: undefined as RecordItem | undefined,
@@ -15,6 +18,11 @@ const store = new Vuex.Store({
     reset: [{id: 1, name: '服装'}, {id: 2, name: '餐饮'}, {id: 3, name: '住房'}, {id: 4, name: '交通'}],
   },
   mutations: {
+    // --------------- uer
+    saveUser(state, user) {
+      state.currentUser = user;
+    },
+    // ----- record
     fetchRecords(state) {
       state.recordList = JSON.parse(localStorage.getItem('recordList') || '[]') as RecordItem[];
     },
@@ -104,6 +112,17 @@ const store = new Vuex.Store({
         }
       }
     },
+  },
+  actions: {
+    getUser(context) {
+      return api.user.get().then((res: AxiosResponse) => {
+        const {data} = res;
+        context.commit('saveUser', data);
+      }, (err: AxiosError) => {
+        const {message} = err.response?.data;
+        message && alert(message);
+      });
+    }
   }
 });
 

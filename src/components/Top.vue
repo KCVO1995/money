@@ -2,7 +2,8 @@
   <div class="navBar">
     <Icon :name="leftIcon" class="leftIcon" @click="toggle"/>
     <span class="title"><slot/></span>
-    <span @click="$router.push('/login')">登录</span>
+    <Icon v-if="$store.state.currentUser.id" name="user" class="rightIcon"/>
+    <span v-else @click="$router.push('/login')">登录</span>
     <ul class="more" v-show="visible">
       <li>
         <router-link to="/labels">
@@ -30,7 +31,6 @@
   @Component
   export default class Top extends Vue {
     @Prop(String) leftIcon: string | undefined;
-    @Prop(String) rightIcon: string | undefined;
     visible = false;
 
     toggle() {
@@ -73,7 +73,7 @@
 
     > .rightIcon {
       fill: #999999;
-      width: 24px;
+      width: 36px;
       height: 24px;
     }
 

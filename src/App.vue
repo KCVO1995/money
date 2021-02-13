@@ -19,6 +19,13 @@
     @Provide('eventBus') eventBus = new Vue();
 
     @Watch('$route')
+
+    created() {
+      this.$store.dispatch('getUser').then(() => {
+        console.log(this.$store.state.currentUser, 'user');
+      });
+    }
+
     onRouteChange(to: Route, from: Route) {
       if (to.meta.index === 666) {
         this.transitionName = 'up';
