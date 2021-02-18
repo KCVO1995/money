@@ -28,11 +28,17 @@
 
 <script lang='ts'>
   import Vue from 'vue';
-  import {Component, Prop} from 'vue-property-decorator';
+  import {Component, Prop, Watch} from 'vue-property-decorator';
 
   @Component
   export default class NumberPad extends Vue {
     @Prop(Number) value: number | undefined;
+
+    @Watch('value')
+    onChildChanged(val: string) {
+      this.output = val;
+    }
+
     output = this.value && this.value.toString() || '0';
 
     inputContent(event: MouseEvent) {

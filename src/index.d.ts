@@ -26,7 +26,7 @@ type Tag = {
 type RecordItem = {
   id: number;
   amount: number;
-  notes: string | undefined;
+  note: string | undefined;
   is_expend: boolean;
   tag_id: number | undefined;
   user_id: number | undefined;

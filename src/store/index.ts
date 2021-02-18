@@ -43,9 +43,9 @@ const store = new Vuex.Store({
       state.recordId++;
       localStorage.setItem('_recordIdMax', JSON.stringify(state.recordId));
     },
-    findRecord(state, id) {
-      state.foundRecord = state.recordList.filter(record => record.id === id)[0];
-    },
+    // findRecord(state, id) {
+    //   state.foundRecord = state.recordList.filter(record => record.id === id)[0];
+    // },
     removeRecord(state, id: number) {
       let index = -1;
       for (let i = 0; i < state.recordList.length; i++) {
@@ -88,7 +88,7 @@ const store = new Vuex.Store({
     },
     createTag(context, name) {
       return api.tag.create({name}).then(() => {
-        // context.dispatch('getTags').then();
+        context.dispatch('getTags').then();
       }, (err: AxiosError) => {
         const {message} = err.response?.data;
         message && alert(message);
@@ -104,6 +104,14 @@ const store = new Vuex.Store({
     },
     createRecord(context, data) {
       return api.record.create(data).then((res: AxiosResponse) => {
+        console.log(res.data, 'res');
+      }, (err: AxiosError) => {
+        const {message} = err.response?.data;
+        message && alert(message);
+      });
+    },
+    updateRecord(context, data) {
+      return api.record.update(data).then((res: AxiosResponse) => {
         console.log(res.data, 'res');
       }, (err: AxiosError) => {
         const {message} = err.response?.data;

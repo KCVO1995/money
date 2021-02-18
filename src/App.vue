@@ -21,6 +21,7 @@ export default class App extends Vue {
 
   @Watch('$route')
 
+  // TODO 错误提醒
   // TODO 引发 router 跳转是错误
   created() {
     store.dispatch('getUser');
