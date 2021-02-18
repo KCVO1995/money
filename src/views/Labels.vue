@@ -31,9 +31,7 @@ export default class Labels extends Vue {
   }
 
   removeTag(id: number) {
-    this.$store.dispatch('deleteTag', id).then(() => {
-      this.getTags()
-    });
+    this.$store.dispatch('deleteTag', id);
   }
 
   async getTags() {

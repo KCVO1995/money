@@ -88,7 +88,7 @@ const store = new Vuex.Store({
     },
     createTag(context, name) {
       return api.tag.create({name}).then(() => {
-        context.dispatch('getTags').then();
+        // context.dispatch('getTags').then();
       }, (err: AxiosError) => {
         const {message} = err.response?.data;
         message && alert(message);
