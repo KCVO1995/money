@@ -12,6 +12,7 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Form from '@/components/User/Form.vue';
 import {AxiosError, AxiosResponse} from 'axios';
+import api from '@/api';
 
 @Component({components: {Form}})
 export default class Login extends Vue {
@@ -31,7 +32,7 @@ export default class Login extends Vue {
   }
 
   submit() {
-    this.$api.user.login(this.formData).then((res: AxiosResponse) => {
+    api.user.login(this.formData).then((res: AxiosResponse) => {
       const {data: {token}} = res;
       document.cookie = `token=${token}`;
       this.$store.dispatch('getUser');

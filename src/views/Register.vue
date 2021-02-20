@@ -11,7 +11,8 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Form from '@/components/User/Form.vue';
-import { AxiosError } from 'axios';
+import {AxiosError} from 'axios';
+import api from '@/api';
 
 @Component({components: {Form}})
 export default class Login extends Vue {
@@ -27,16 +28,16 @@ export default class Login extends Vue {
   ];
 
   submit() {
-    this.$api.user.register(this.formData).then(() => {
-      this.$router.push('/login')
+    api.user.register(this.formData).then(() => {
+      this.$router.push('/login');
     }, (e: AxiosError) => {
-      const {errors} = e.response?.data
-      for(let i = 0; i < this.form.length; i++ ) {
+      const {errors} = e.response?.data;
+      for (let i = 0; i < this.form.length; i++) {
         Object.keys(errors).forEach(key => {
-          if(this.form[i].key === key) {
-            this.form[i].error = errors[key]
+          if (this.form[i].key === key) {
+            this.form[i].error = errors[key];
           }
-        })
+        });
       }
     })
   }
