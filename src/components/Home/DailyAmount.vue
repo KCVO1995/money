@@ -3,7 +3,7 @@
     <div class="daily outlay">
       <div class="amount-daily">
         <span>今日支出</span>
-        <span class="amount">￥{{show("-")}}</span>
+        <span class="amount">￥{{ amountExpend }}</span>
       </div>
       <Icon name="curve" class="icon-daily"/>
     </div>
@@ -11,7 +11,7 @@
     <div class="daily income">
       <div class="amount-daily">
         <span>今日收入</span>
-        <span class="amount">￥{{show("+")}}</span>
+        <span class="amount">￥{{ amountIncome }}</span>
       </div>
       <Icon name="curve" class="icon-daily"/>
     </div>
@@ -26,7 +26,15 @@
 
   @Component
   export default class DailyAmount extends Vue {
-    show(type: string) {return showAmount(type, 'day', dayjs(), false);}
+    amountExpend = 0;
+    amountIncome = 0;
+
+    async created() {
+      const startAt = dayjs().startOf('date').toISOString();
+      const endAt = dayjs().endOf('date').toISOString();
+      this.amountExpend = await showAmount(startAt, endAt, true);
+      this.amountIncome = await showAmount(startAt, endAt, false);
+    }
   }
 
 </script>

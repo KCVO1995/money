@@ -13,5 +13,9 @@ export default class Record {
   static getOne(id: number) {
     return r.get(`/records/${id}`);
   }
+
+  static list(query: { start_at?: string; end_at?: string; is_expend?: boolean }) {
+    return r.get(`/records/`, {params: query});
+  }
 }
 
