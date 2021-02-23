@@ -43,9 +43,6 @@ const store = new Vuex.Store({
       state.recordId++;
       localStorage.setItem('_recordIdMax', JSON.stringify(state.recordId));
     },
-    // findRecord(state, id) {
-    //   state.foundRecord = state.recordList.filter(record => record.id === id)[0];
-    // },
     removeRecord(state, id: number) {
       let index = -1;
       for (let i = 0; i < state.recordList.length; i++) {

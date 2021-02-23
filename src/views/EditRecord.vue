@@ -45,6 +45,7 @@
   @Component({
     components: {Money, Button},
   })
+  // TODO 编辑还可以用吗？
   export default class EditRecord extends Vue {
     get foundRecord() {
       return store.state.foundRecord;
