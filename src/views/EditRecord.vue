@@ -47,55 +47,55 @@
   })
   // TODO 编辑还可以用吗？
   export default class EditRecord extends Vue {
-    get foundRecord() {
-      return store.state.foundRecord;
-    }
-
-    created() {
-      store.commit('fetchRecords');
-      store.commit('findRecord', parseInt(this.$route.params.id));
-      if (!this.foundRecord) {
-        this.$router.replace('/404');
-      }
-    }
-
-    beautifyTags(tags: Tag[]) {
-      const tagsName = [];
-      if (tags) {
-        for (let i = 0; i < tags.length; i++) {
-          tagsName.push(tags[i].name);
-        }
-      }
-      return tagsName.join('，');
-    }
-
-    beautifyType(type: string) {
-      if (type === '-') {
-        return '支出';
-      } else if (type === '+') {
-        return '收入';
-      }
-    }
-
-    beautifyDate(date: string) {
-      return dayjs(date).format('YYYY年M月D日');
-    }
-
-    push() {
-      if (this.foundRecord) {
-        this.$router.push(`/money/${this.foundRecord.id}`);
-      }
-    }
-
-    goBack() {
-      this.$router.back();
-    }
-
-    remove() {
-      if (this.foundRecord) {
-        store.commit('removeRecord', this.foundRecord.id);
-      }
-    }
+    // // get foundRecord() {
+    // //   return store.state.foundRecord;
+    // // }
+    //
+    // created() {
+    //   // store.commit('fetchRecords');
+    //   // store.commit('findRecord', parseInt(this.$route.params.id));
+    //   // if (!this.foundRecord) {
+    //   //   this.$router.replace('/404');
+    //   // }
+    // }
+    //
+    // beautifyTags(tags: Tag[]) {
+    //   const tagsName = [];
+    //   if (tags) {
+    //     for (let i = 0; i < tags.length; i++) {
+    //       tagsName.push(tags[i].name);
+    //     }
+    //   }
+    //   return tagsName.join('，');
+    // }
+    //
+    // beautifyType(type: string) {
+    //   if (type === '-') {
+    //     return '支出';
+    //   } else if (type === '+') {
+    //     return '收入';
+    //   }
+    // }
+    //
+    // beautifyDate(date: string) {
+    //   return dayjs(date).format('YYYY年M月D日');
+    // }
+    //
+    // push() {
+    //   if (this.foundRecord) {
+    //     this.$router.push(`/money/${this.foundRecord.id}`);
+    //   }
+    // }
+    //
+    // goBack() {
+    //   this.$router.back();
+    // }
+    //
+    // remove() {
+    //   if (this.foundRecord) {
+    //     store.commit('removeRecord', this.foundRecord.id);
+    //   }
+    // }
   }
 
 
