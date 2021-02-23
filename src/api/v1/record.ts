@@ -14,6 +14,10 @@ export default class Record {
     return r.get(`/records/${id}`);
   }
 
+  static delete(id: number) {
+    return r.delete(`/records/${id}`);
+  }
+
   static list(query: { start_at?: string; end_at?: string; is_expend?: boolean }) {
     return r.get(`/records/`, {params: query});
   }

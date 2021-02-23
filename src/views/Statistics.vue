@@ -3,7 +3,12 @@
     <Top leftIcon="left">账目明细</Top>
     <SelectMonth :selected-month.sync="selectedMonth">placeholder</SelectMonth>
     <SelectDate :selected-date.sync="selectedDate" :selected-month="selectedMonth">placeholder</SelectDate>
-    <ShowWeekDaily :selected-date="selectedDate"/>
+    <ShowWeekDaily
+      :amount-expend-week="amountExpendWeek"
+      :amount-income-week="amountIncomeWeek"
+      :amount-expend-date="amountExpendDate"
+      :amount-income-date="amountIncomeDate"
+      :selected-date="selectedDate"/>
     <span class="note">今天明细</span>
     <ul class="record-list">
       <li v-for="record in recordsIncome" :key="record.id" class="record">
@@ -37,32 +42,24 @@ import SelectDate from '@/components/SelectDate.vue';
 import ShowWeekDaily from '@/components/ShowWeekDaily.vue';
 import store from '@/store';
 import api from '@/api';
+import showAmount from '@/lib/ShowAmount';
 
 
 @Component({components: {ShowWeekDaily, SelectDate, SelectMonth}})
-export default class Sta extends Vue {
+export default class Statistics extends Vue {
   selectedMonth = 0;
   selectedDate = dayjs();
   recordsExpend = [];
   recordsIncome = [];
+  amountExpendWeek = 0;
+  amountExpendDate = 0;
+  amountIncomeWeek = 0;
+  amountIncomeDate = 0;
 
-  @Watch('selectedDate', {immediate: true})
-  async onSelectedDateChanged(value: Dayjs) {
-    const query = {
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      start_at: value.startOf('date').toISOString(),
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      end_at: value.endOf('date').toISOString(),
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      is_expend: true
-    };
-    const {data: {rows: expend}} = await api.record.list(query);
-    // eslint-disable-next-line @typescript-eslint/camelcase
-    query.is_expend = false;
-    const {data: {rows: income}} = await api.record.list(query);
-    this.recordsExpend = expend;
-    this.recordsIncome = income;
-
+  @Watch('selectedDate')
+  onSelectedDateChanged(value: Dayjs) {
+    this.updateAmount(value);
+    this.updateRecord(value);
   }
 
   mounted() {
@@ -88,14 +85,41 @@ export default class Sta extends Vue {
     }, 350);
   }
 
-
-  todayRecord() {
-    // return ShowAmount(type, 'day', this.selectedDate, true);
-    return 100;
+  remove(id: number) {
+    store.dispatch('deleteRecord', id).then(() => {
+      this.updateAmount(this.selectedDate);
+      this.updateRecord(this.selectedDate);
+    });
   }
 
-  remove(id: number) {
-    store.commit('removeRecord', id);
+  async updateAmount(value: Dayjs) {
+    const startAtWeek = value.startOf('week').toISOString();
+    const endAtWeek = value.endOf('week').toISOString();
+
+    const startAtDate = value.startOf('date').toISOString();
+    const endAtDate = value.endOf('date').toISOString();
+
+    this.amountExpendWeek = await showAmount(startAtWeek, endAtWeek, true);
+    this.amountIncomeWeek = await showAmount(startAtWeek, endAtWeek, false);
+    this.amountExpendDate = await showAmount(startAtDate, endAtDate, true);
+    this.amountIncomeDate = await showAmount(startAtDate, endAtDate, false);
+  }
+
+  async updateRecord(value: Dayjs) {
+    const query = {
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      start_at: value.startOf('date').toISOString(),
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      end_at: value.endOf('date').toISOString(),
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      is_expend: true
+    };
+    const {data: {rows: expend}} = await api.record.list(query);
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    query.is_expend = false;
+    const {data: {rows: income}} = await api.record.list(query);
+    this.recordsExpend = expend;
+    this.recordsIncome = income;
   }
 
 }

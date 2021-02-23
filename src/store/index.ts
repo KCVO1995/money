@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import clone from '@/lib/clone';
 import api from '@/api';
 import {AxiosError, AxiosResponse} from 'axios';
 import router from '@/router';
@@ -10,13 +9,10 @@ Vue.use(Vuex); // 把store 绑到 Vue.prototype
 const store = new Vuex.Store({
   state: {
     currentUser: {} as User,
-    recordList: [] as RecordItem[],
-    recordId: JSON.parse(localStorage.getItem('_recordIdMax') || '0'),
-    foundRecord: undefined as RecordItem | undefined,
     tagList: [] as Tag[],
   },
   mutations: {
-    // --------------- uer
+    // -------- user --------
     saveUser(state, user) {
       state.currentUser = user;
     },
@@ -24,41 +20,7 @@ const store = new Vuex.Store({
       document.cookie = 'token=';
       state.currentUser = {} as User;
     },
-    // ----- record
-    fetchRecords(state) {
-      state.recordList = JSON.parse(localStorage.getItem('recordList') || '[]') as RecordItem[];
-    },
-    createRecord(state, record) {
-      store.commit('createRecordId');
-      record.id = state.recordId;
-      record.createAt = new Date().toISOString();
-      const newRecord = clone(record);
-      state.recordList.push(newRecord);
-      store.commit('saveRecords');
-    },
-    saveRecords(state) {
-      localStorage.setItem('recordList', JSON.stringify(state.recordList));
-    },
-    createRecordId(state) {
-      state.recordId++;
-      localStorage.setItem('_recordIdMax', JSON.stringify(state.recordId));
-    },
-    removeRecord(state, id: number) {
-      let index = -1;
-      for (let i = 0; i < state.recordList.length; i++) {
-        if (state.recordList[i].id === id) {
-          index = i;
-          break;
-        }
-      }
-      if (index === -1) {
-        alert('删除失败');
-      } else {
-        state.recordList.splice(index, 1);
-        store.commit('saveRecords');
-      }
-    },
-    // ----------------------- tag
+    // -------- tag --------
     saveTags(state, tags) {
       state.tagList = tags;
     }
@@ -100,24 +62,24 @@ const store = new Vuex.Store({
       });
     },
     createRecord(context, data) {
-      return api.record.create(data).then((res: AxiosResponse) => {
-        console.log(res.data, 'res');
-      }, (err: AxiosError) => {
+      return api.record.create(data).catch((err: AxiosError) => {
         const {message} = err.response?.data;
         message && alert(message);
       });
     },
     updateRecord(context, data) {
-      return api.record.update(data).then((res: AxiosResponse) => {
-        console.log(res.data, 'res');
-      }, (err: AxiosError) => {
+      return api.record.update(data).catch((err: AxiosError) => {
         const {message} = err.response?.data;
         message && alert(message);
       });
-    }
+    },
+    deleteRecord(context, id) {
+      return api.record.delete(id).catch((err: AxiosError) => {
+        const {message} = err.response?.data;
+        message && alert(message);
+      });
+    },
   }
 });
-
-store.commit('fetchRecords');
 
 export default store;

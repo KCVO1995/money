@@ -27,42 +27,16 @@
 
 <script lang='ts'>
 import Vue from 'vue';
-import {Component, Prop, Watch} from 'vue-property-decorator';
-import showAmount from '@/lib/ShowAmount';
+import {Component, Prop} from 'vue-property-decorator';
 import {Dayjs} from 'dayjs';
 
 @Component
 export default class ShowWeekDaily extends Vue {
   @Prop() selectedDate?: Dayjs;
-
-  amountExpendWeek = 0;
-  amountExpendDate = 0;
-  amountIncomeWeek = 0;
-  amountIncomeDate = 0;
-
-  @Watch('selectedDate', {immediate: true})
-  async onSelectedDateChanged(value: Dayjs) {
-    const startAtWeek = value.startOf('week').toISOString();
-    const endAtWeek = value.endOf('week').toISOString();
-
-    const startAtDate = value.startOf('date').toISOString();
-    const endAtDate = value.endOf('date').toISOString();
-
-    this.amountExpendWeek = await showAmount(startAtWeek, endAtWeek, true);
-    this.amountIncomeWeek = await showAmount(startAtWeek, endAtWeek, false);
-
-    this.amountExpendDate = await showAmount(startAtDate, endAtDate, true);
-    this.amountIncomeDate = await showAmount(startAtDate, endAtDate, false);
-
-  }
-
-  showDaily() {
-    return 100;
-  }
-
-  showWeek() {
-    return 100;
-  }
+  @Prop() amountExpendWeek?: number;
+  @Prop() amountIncomeWeek?: number;
+  @Prop() amountExpendDate?: number;
+  @Prop() amountIncomeDate?: number;
 }
 
 </script>
