@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "lint:script": "eslint --cache --max-warnings 0  \"**/*.{ts,tsx,js,jsx,vue}\" --fix"
+    "lint:script": "eslint --cache --max-warnings 0  \"**/*.{ts,tsx,js,jsx,vue}\""
   },
   "dependencies": {
     "axios": "^0.21.1",

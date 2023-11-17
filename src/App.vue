@@ -7,6 +7,7 @@
 </template>
 
 <script lang="ts">
+
 import Vue from 'vue';
 import {Component, Provide, Watch} from 'vue-property-decorator';
 import {Route} from 'vue-router';
